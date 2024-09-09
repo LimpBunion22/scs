@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-g",
+        "$(find ${workspaceFolder}/source -name '*.cpp')",
+        "-I", "${workspaceFolder}/include",
+        "-o", "${workspaceFolder}/build/output",
+        "-lsfml-graphics", "-lsfml-window", "-lsfml-system"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+#include <SFML/Graphics.hpp>
+#include <sstream>
+
+#include <planets.h>
+
+int main() {
+    // Dimensiones de las ventanas
+    const int windowWidth_tactical = 1920;
+    const int windowHeight_tactical = 1080;
+
+    const int windowWidth_control = 1920;
+    const int windowHeight_control = 1080;
+
+    const int windowWidth_log = 1680;
+    const int windowHeight_log = 1050;
+    
+    // Crear las ventanas
+    sf::RenderWindow window_tactical(sf::VideoMode(windowWidth_tactical, windowHeight_tactical), "TACTICAL MAP");
+    sf::RenderWindow window_control(sf::VideoMode(windowWidth_control, windowHeight_control), "CONTROL PANEL");
+    sf::RenderWindow window_log(sf::VideoMode(windowWidth_log, windowHeight_log), "MISSION LOG");
+
+    const float original_aspectRatio = windowWidth_tactical/windowHeight_tactical;
+    float aspectRatio = windowWidth_tactical/windowHeight_tactical;
+
+    // Crear la vista para mantener el aspecto
+    sf::View view(sf::FloatRect(0.f, 0.f, windowWidth_tactical, windowHeight_tactical));
+
+    // Velocidad de desplazamiento de la vista
+    const float viewSpeed = 300.0f; // píxeles por segundo
+
+    // Factor de zoom (fijo por cada paso de la rueda)
+    const float zoomIncrement = 0.9f;  // Para acercar o alejar (menos de 1 para zoom in, mayor que 1 para zoom out)
+    float currentZoom = 1.0f;
+
+    // Tamaño inicial de la línea de referencia
+    float referenceLineLength = 100.0f;  // Esto representa 100Km en un factor de zoom 1:1
+
+    // Fuente para mostrar el texto (escala)
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf")) {
+        return -1;  // Cargar una fuente para mostrar el texto
+    }
+
+    // Crear el texto de la posicion
+    sf::Text positionText;
+    positionText.setFont(font);
+    positionText.setCharacterSize(20); // Tamaño de la letra
+    positionText.setFillColor(sf::Color::White);
+
+    // Crear el texto de la escala
+    sf::Text scaleText;
+    scaleText.setFont(font);
+    scaleText.setCharacterSize(20); // Tamaño de la letra
+    scaleText.setFillColor(sf::Color::White);
+
+    // Crear la línea de referencia
+    sf::RectangleShape referenceLine(sf::Vector2f(referenceLineLength, 5.f));  // Línea horizontal
+    referenceLine.setFillColor(sf::Color::White);
+
+
+    // Velocidad del triángulo
+    float V = 20.0f; // Velocidad en píxeles por segundo
+
+    // Crear el triángulo
+    sf::ConvexShape triangle;
+    triangle.setPointCount(3); // El triángulo tiene 3 puntos
+    triangle.setPoint(0, sf::Vector2f(0.f, 50.f));  // Primer punto
+    triangle.setPoint(1, sf::Vector2f(50.f, 50.f)); // Segundo punto
+    triangle.setPoint(2, sf::Vector2f(25.f, 0.f));  // Tercer punto
+    triangle.setFillColor(sf::Color::White);         // Color blanco
+    triangle.setPosition(100.f, 100.f);              // Posición inicial
+
+    //Planetas
+    std::vector<float> pos(3);
+    std::vector<float> vel(3);
+    std::vector<float> dir(3);
+    basic_state sol_state(pos,vel,dir);
+    planet sol(1.98e30, 6.98e5, sol_state);
+
+    pos = {1.1e8,2.1e7,0.0};
+    vel = {0.0, 0.0, 0.0};
+    dir = {0.0, 0.0, 0.0};
+    basic_state terra_state(pos,vel,dir);
+    planet tierra(5.92e24, 6.98e3, terra_state);
+
+    // Reloj para calcular el tiempo transcurrido
+    sf::Clock clock;
+
+    while (window_tactical.isOpen() && window_control.isOpen() && window_log.isOpen()) {
+        sf::Event event;
+
+        // Calcular el tiempo transcurrido
+        float deltaTime = clock.restart().asSeconds();
+
+
+        // Manejo de eventos para window_tactical
+        while (window_tactical.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window_tactical.close();
+                window_control.close();
+                window_log.close();
+            }
+
+            // Detectar si se ha redimensionado la ventana
+            if (event.type == sf::Event::Resized) {
+                // Mantener la relación de aspecto al redimensionar
+                aspectRatio = static_cast<float>(event.size.width) / static_cast<float>(event.size.height);
+                view.setSize(windowHeight_tactical * aspectRatio, windowHeight_tactical);
+                window_tactical.setView(view);
+            }
+
+            // Detectar scroll del ratón para hacer zoom
+            if (event.type == sf::Event::MouseWheelScrolled) {
+                if (event.mouseWheelScroll.delta > 0) {
+                    // Acercar (zoom in)
+                    currentZoom *= zoomIncrement;
+                    view.zoom(zoomIncrement);  // Reduce la vista en un 10%
+                } else if (event.mouseWheelScroll.delta < 0) {
+                    // Alejar (zoom out)
+                    currentZoom *= (1.0f / zoomIncrement);
+                    view.zoom(1.0f / zoomIncrement);  // Aumenta la vista en un 10%
+                }
+                window_tactical.setView(view);  // Aplicar la vista actualizada
+            }
+        }
+
+        // Desplazamiento de la vista con teclas WASD
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            view.move(0.f, -viewSpeed * currentZoom * deltaTime); // Arriba
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            view.move(0.f, viewSpeed * currentZoom * deltaTime); // Abajo
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            view.move(-viewSpeed * currentZoom * deltaTime, 0.f); // Izquierda
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            view.move(viewSpeed * currentZoom * deltaTime, 0.f); // Derecha
+        }
+
+        // Manejo de eventos para window_control
+        while (window_control.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window_control.close();
+                window_tactical.close();
+                window_log.close();
+            }
+        }
+
+        // Manejo de eventos para window_log
+        while (window_log.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window_log.close();
+                window_tactical.close();
+                window_control.close();
+            }
+        }
+
+        // Mover el triángulo en línea recta (en este caso hacia la derecha)
+        triangle.move(V * deltaTime, 0.f); // Mueve el triángulo con velocidad V en el eje X
+
+        // Limpiar y dibujar en la ventana táctical
+        window_tactical.clear();
+        window_tactical.setView(view);
+        window_tactical.draw(triangle);
+
+        sol.draw(window_tactical);
+        tierra.draw(window_tactical);
+        // Volver a la vista default para dibujar la UI (elementos fijos)
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window_tactical);
+        sf::Vector2f mouseVis= window_tactical.mapPixelToCoords(mousePos, view);
+        window_tactical.setView(window_tactical.getDefaultView());
+
+        // Ajustar el tamaño de la línea de referencia según el zoom
+        // float scaledLineLength = referenceLineLength * currentZoom;
+        // referenceLine.setSize(sf::Vector2f(scaledLineLength, 5.f));
+        float scaledLineLength = referenceLineLength / (aspectRatio/original_aspectRatio);
+        referenceLine.setSize(sf::Vector2f(scaledLineLength, 5.f));        
+
+        // Colocar la línea en la parte inferior derecha de la ventana
+        // referenceLine.setPosition(window_tactical.getSize().x - scaledLineLength - 20, window_tactical.getSize().y - 40);
+        referenceLine.setPosition( 20,  40);
+        window_tactical.draw(referenceLine);
+
+        // Actualizar y mostrar el texto con la longitud de la escala
+        std::stringstream ss;
+        ss << static_cast<int>(100 * currentZoom) << " Km";  // Ajustar el texto según el zoom
+        scaleText.setString(ss.str());
+        // scaleText.setPosition(window_tactical.getSize().x - scaledLineLength - 20, window_tactical.getSize().y - 70);
+        scaleText.setPosition( 20,  70);
+        window_tactical.draw(scaleText);
+        
+        // Obtener la posición del ratón en relación con la ventana
+        std::stringstream sa;
+        sa << "Mouse: " << mouseVis.x << ", " << mouseVis.y;
+        positionText.setString(sa.str());
+        // Posicionar el texto en la esquina superior derecha
+        sf::FloatRect textBounds = positionText.getLocalBounds();
+        positionText.setPosition(
+            window_tactical.getSize().x - textBounds.width - 10,  // Colocar en la esquina superior derecha con un margen de 10 píxeles
+            10  // Un margen de 10 píxeles desde la parte superior
+        );
+        window_tactical.draw(positionText);
+        window_tactical.display();
+
+        window_control.clear();
+        window_control.display();
+
+        window_log.clear();
+        window_log.display();
+
+        // Puedes agregar cualquier lógica adicional de renderizado o visualización
+        // en las otras ventanas (control y log) si es necesario.
+    }
+
+    return 0;
+}

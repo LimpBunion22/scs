@@ -1,0 +1,3 @@
+/home/vitiate/Desktop/scs/build/CMakeFiles/MyProject.dir
+/home/vitiate/Desktop/scs/build/CMakeFiles/edit_cache.dir
+/home/vitiate/Desktop/scs/build/CMakeFiles/rebuild_cache.dir

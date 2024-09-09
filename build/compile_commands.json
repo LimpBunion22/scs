@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++  -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.o -c /home/vitiate/Desktop/scs/source/astral_bodies/planets.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/astral_bodies/planets.cpp",
+  "output": "CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++  -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o -c /home/vitiate/Desktop/scs/source/general/basic_entities.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/general/basic_entities.cpp",
+  "output": "CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++  -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/main.cpp.o -c /home/vitiate/Desktop/scs/source/main.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/main.cpp",
+  "output": "CMakeFiles/MyProject.dir/source/main.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++  -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
+  "output": "CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o"
+}
+]
