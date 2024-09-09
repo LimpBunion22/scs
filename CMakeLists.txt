@@ -8,7 +8,7 @@ project(MyProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_subdirectory(utils/imgui)
+# add_subdirectory(utils/imgui)
 add_subdirectory(utils/imgui-sfml)
 
 # Incluir todas las subcarpetas de 'include'
@@ -31,4 +31,5 @@ add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCES})
 
 # Enlazar las bibliotecas de SFML
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML sfml-graphics sfml-window sfml-system)
+

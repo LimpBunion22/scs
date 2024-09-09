@@ -140,9 +140,14 @@ MyProject: CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o
 MyProject: CMakeFiles/MyProject.dir/source/main.cpp.o
 MyProject: CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o
 MyProject: CMakeFiles/MyProject.dir/build.make
+MyProject: utils/imgui-sfml/libImGui-SFML_d.so
 MyProject: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
 MyProject: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
 MyProject: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
+MyProject: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
+MyProject: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
+MyProject: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
+MyProject: /usr/lib/x86_64-linux-gnu/libGL.so
 MyProject: CMakeFiles/MyProject.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MyProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyProject.dir/link.txt --verbose=$(VERBOSE)
