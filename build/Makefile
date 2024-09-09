@@ -259,6 +259,30 @@ source/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/window_handler/log_window.o: source/window_handler/log_window.cpp.o
+.PHONY : source/window_handler/log_window.o
+
+# target to build an object file
+source/window_handler/log_window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o
+.PHONY : source/window_handler/log_window.cpp.o
+
+source/window_handler/log_window.i: source/window_handler/log_window.cpp.i
+.PHONY : source/window_handler/log_window.i
+
+# target to preprocess a source file
+source/window_handler/log_window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.i
+.PHONY : source/window_handler/log_window.cpp.i
+
+source/window_handler/log_window.s: source/window_handler/log_window.cpp.s
+.PHONY : source/window_handler/log_window.s
+
+# target to generate assembly for a file
+source/window_handler/log_window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.s
+.PHONY : source/window_handler/log_window.cpp.s
+
 source/window_handler/tactical_window.o: source/window_handler/tactical_window.cpp.o
 .PHONY : source/window_handler/tactical_window.o
 
@@ -306,6 +330,9 @@ help:
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
+	@echo "... source/window_handler/log_window.o"
+	@echo "... source/window_handler/log_window.i"
+	@echo "... source/window_handler/log_window.s"
 	@echo "... source/window_handler/tactical_window.o"
 	@echo "... source/window_handler/tactical_window.i"
 	@echo "... source/window_handler/tactical_window.s"

@@ -111,10 +111,24 @@ CMakeFiles/MyProject.dir/source/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/source/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/source/main.cpp -o CMakeFiles/MyProject.dir/source/main.cpp.s
 
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o: CMakeFiles/MyProject.dir/flags.make
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o: /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o -MF CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o.d -o CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp
+
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp > CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.i
+
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp -o CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.s
+
 CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o: CMakeFiles/MyProject.dir/flags.make
 CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o: /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp
 CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o: CMakeFiles/MyProject.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o -MF CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o.d -o CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp
 
 CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.i: cmake_force
@@ -130,6 +144,7 @@ MyProject_OBJECTS = \
 "CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.o" \
 "CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o" \
 "CMakeFiles/MyProject.dir/source/main.cpp.o" \
+"CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o" \
 "CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o"
 
 # External object files for target MyProject
@@ -138,6 +153,7 @@ MyProject_EXTERNAL_OBJECTS =
 MyProject: CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.o
 MyProject: CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o
 MyProject: CMakeFiles/MyProject.dir/source/main.cpp.o
+MyProject: CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o
 MyProject: CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o
 MyProject: CMakeFiles/MyProject.dir/build.make
 MyProject: utils/imgui-sfml/libImGui-SFML_d.so
@@ -149,7 +165,7 @@ MyProject: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
 MyProject: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
 MyProject: /usr/lib/x86_64-linux-gnu/libGL.so
 MyProject: CMakeFiles/MyProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable MyProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable MyProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyProject.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

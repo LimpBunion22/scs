@@ -1,5 +1,7 @@
-CMakeFiles/MyProject.dir/source/main.cpp.o: \
- /home/vitiate/Desktop/scs/source/main.cpp /usr/include/stdc-predef.h \
+CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o: \
+ /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp \
+ /usr/include/stdc-predef.h \
+ /home/vitiate/Desktop/scs/include/window_handler/log_window.h \
  /usr/include/SFML/Graphics.hpp /usr/include/SFML/Window.hpp \
  /usr/include/SFML/System.hpp /usr/include/SFML/Config.hpp \
  /usr/include/SFML/System/Clock.hpp /usr/include/SFML/System/Export.hpp \
@@ -236,11 +238,6 @@ CMakeFiles/MyProject.dir/source/main.cpp.o: \
  /usr/include/SFML/Graphics/VertexBuffer.hpp /usr/include/c++/13/sstream \
  /usr/include/c++/13/istream /usr/include/c++/13/bits/istream.tcc \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/vitiate/Desktop/scs/include/astral_bodies/planets.h \
- /home/vitiate/Desktop/scs/include/general/basic_entities.h \
- /home/vitiate/Desktop/scs/include/general/common.h \
- /home/vitiate/Desktop/scs/include/window_handler/tactical_window.h \
- /home/vitiate/Desktop/scs/include/window_handler/log_window.h \
  /home/vitiate/Desktop/scs/utils/imgui/imgui.h \
  /home/vitiate/Desktop/scs/utils/imgui-sfml/imconfig-SFML.h \
  /usr/include/c++/13/cstdint \

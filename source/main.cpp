@@ -3,6 +3,7 @@
 
 #include <planets.h>
 #include <tactical_window.h>
+#include <log_window.h>
 
 int main() {
     
@@ -13,6 +14,7 @@ int main() {
     }
     
     tactical_window_handler tactical_window(font);
+    log_window_handler log_window = log_window_handler();
 
     // // Velocidad del triángulo
     // float V = 20.0f; // Velocidad en píxeles por segundo
@@ -50,9 +52,10 @@ int main() {
     while (true) {
 
         // Calcular el tiempo transcurrido
-        float deltaTime = clock.restart().asSeconds();
+        sf::Time elapTime = clock.restart();
+        float deltaTime = elapTime.asSeconds();
 
-        if (tactical_window.manage_events(deltaTime))
+        if (tactical_window.manage_events(deltaTime) || log_window.manage_events(elapTime))
             return 0;
 
         // Mover el triángulo en línea recta (en este caso hacia la derecha)

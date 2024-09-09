@@ -19,6 +19,12 @@
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/window_handler/log_window.cpp",
+  "output": "CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
   "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
   "file": "/home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
   "output": "CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o"
