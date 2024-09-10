@@ -195,7 +195,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MyProject
+CMAKE_PROJECT_NAME:STATIC=SPACE_COMBAT_SIMULATOR
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=2.6
@@ -304,15 +304,6 @@ IMGUI_SFML_IMGUI_DEMO:BOOL=ON
 //Use default imconfig-SFML.h
 IMGUI_SFML_USE_DEFAULT_CONFIG:BOOL=ON
 
-//Value Computed by CMake
-MyProject_BINARY_DIR:STATIC=/home/vitiate/Desktop/scs/build
-
-//Value Computed by CMake
-MyProject_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-MyProject_SOURCE_DIR:STATIC=/home/vitiate/Desktop/scs
-
 //Path to a file.
 OPENGL_EGL_INCLUDE_DIR:PATH=OPENGL_EGL_INCLUDE_DIR-NOTFOUND
 
@@ -354,6 +345,15 @@ OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for SFML.
 SFML_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/SFML
+
+//Value Computed by CMake
+SPACE_COMBAT_SIMULATOR_BINARY_DIR:STATIC=/home/vitiate/Desktop/scs/build
+
+//Value Computed by CMake
+SPACE_COMBAT_SIMULATOR_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+SPACE_COMBAT_SIMULATOR_SOURCE_DIR:STATIC=/home/vitiate/Desktop/scs
 
 //Value Computed by CMake
 imgui_sfml_BINARY_DIR:STATIC=/home/vitiate/Desktop/scs/build/utils/imgui-sfml

@@ -1,28 +1,41 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "name": "g++ - Debug",
-        "type": "cppdbg",
-        "request": "launch",
-        "program": "${fileDirname}/${fileBasenameNoExtension}",
-        "args": [],
-        "stopAtEntry": false,
-        "cwd": "${fileDirname}",
-        "environment": [],
-        "externalConsole": false,
-        "MIMode": "gdb",
-        "setupCommands": [
-          {
-            "description": "Enable pretty-printing for gdb",
-            "text": "-enable-pretty-printing",
-            "ignoreFailures": true
-          }
-        ],
-        "preLaunchTask": "build",
-        "miDebuggerPath": "/usr/bin/gdb",
-        "internalConsoleOptions": "openOnSessionStart"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(gdb) Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/SPACE_COMBAT_SIMULATOR",  // Ajusta el nombre del ejecutable
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "build",  // Asegúrate de compilar el proyecto antes de depurar
+      "miDebuggerPath": "/usr/bin/gdb",
+      "logging": {
+        "moduleLoad": false,
+        "programOutput": true,
+        "trace": false
+      },
+      "internalConsoleOptions": "openOnSessionStart",
+      "osx": {
+        "MIMode": "lldb"
+      },
+      "linux": {
+        "MIMode": "gdb"
+      },
+      "windows": {
+        "MIMode": "gdb"
       }
-    ]
-  }
-  
+    }
+  ]
+}

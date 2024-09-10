@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <planets.h>
+#include <log_window.h>
 
 
 class tactical_window_handler{
@@ -27,19 +28,25 @@ class tactical_window_handler{
         sf::RectangleShape referenceLine;
         std::vector<planet*> planets_ptr;
         // std::vector<ship> ships;
+        sf::Image gravity_map;
+        sf::Texture heatmapTexture;
+        sf::Sprite heatmapSprite;
 
         // Configuration variables
         float aspectRatio = C_ORIGINAL_ASPECT_RATIO;
         float currentZoom = 1.0f;
         float window_width = C_WINDOW_WIDTH;
         float window_heigh = C_WINDOW_HEIGH;
+        bool draw_gravity = false;
 
         // HUD elements
         float referenceLineLength = 100.0f;
+    private:
+        log_window_handler* logger;
 
     public:
         tactical_window_handler() = delete;
-        tactical_window_handler(const sf::Font in_font);
+        tactical_window_handler(const sf::Font in_font, log_window_handler* in_logger);
 
         void emplace_planet(planet * new_planet_ptr);
 
@@ -49,6 +56,9 @@ class tactical_window_handler{
         void draw_hud();
 
         ~tactical_window_handler();
+    private:
+        float _gravityFunction(float x, float y);
+        void generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea);
 
 };
 

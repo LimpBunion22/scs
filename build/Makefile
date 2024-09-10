@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MyProject
+# Target rules for targets named SPACE_COMBAT_SIMULATOR
 
 # Build rule for target.
-MyProject: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MyProject
-.PHONY : MyProject
+SPACE_COMBAT_SIMULATOR: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SPACE_COMBAT_SIMULATOR
+.PHONY : SPACE_COMBAT_SIMULATOR
 
 # fast build rule for target.
-MyProject/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/build
-.PHONY : MyProject/fast
+SPACE_COMBAT_SIMULATOR/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build
+.PHONY : SPACE_COMBAT_SIMULATOR/fast
 
 #=============================================================================
 # Target rules for targets named ImGui-SFML
@@ -192,7 +192,7 @@ source/astral_bodies/planets.o: source/astral_bodies/planets.cpp.o
 
 # target to build an object file
 source/astral_bodies/planets.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.o
 .PHONY : source/astral_bodies/planets.cpp.o
 
 source/astral_bodies/planets.i: source/astral_bodies/planets.cpp.i
@@ -200,7 +200,7 @@ source/astral_bodies/planets.i: source/astral_bodies/planets.cpp.i
 
 # target to preprocess a source file
 source/astral_bodies/planets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.i
 .PHONY : source/astral_bodies/planets.cpp.i
 
 source/astral_bodies/planets.s: source/astral_bodies/planets.cpp.s
@@ -208,7 +208,7 @@ source/astral_bodies/planets.s: source/astral_bodies/planets.cpp.s
 
 # target to generate assembly for a file
 source/astral_bodies/planets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/astral_bodies/planets.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.s
 .PHONY : source/astral_bodies/planets.cpp.s
 
 source/general/basic_entities.o: source/general/basic_entities.cpp.o
@@ -216,7 +216,7 @@ source/general/basic_entities.o: source/general/basic_entities.cpp.o
 
 # target to build an object file
 source/general/basic_entities.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.o
 .PHONY : source/general/basic_entities.cpp.o
 
 source/general/basic_entities.i: source/general/basic_entities.cpp.i
@@ -224,7 +224,7 @@ source/general/basic_entities.i: source/general/basic_entities.cpp.i
 
 # target to preprocess a source file
 source/general/basic_entities.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.i
 .PHONY : source/general/basic_entities.cpp.i
 
 source/general/basic_entities.s: source/general/basic_entities.cpp.s
@@ -232,7 +232,7 @@ source/general/basic_entities.s: source/general/basic_entities.cpp.s
 
 # target to generate assembly for a file
 source/general/basic_entities.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/general/basic_entities.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.s
 .PHONY : source/general/basic_entities.cpp.s
 
 source/main.o: source/main.cpp.o
@@ -240,7 +240,7 @@ source/main.o: source/main.cpp.o
 
 # target to build an object file
 source/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.o
 .PHONY : source/main.cpp.o
 
 source/main.i: source/main.cpp.i
@@ -248,7 +248,7 @@ source/main.i: source/main.cpp.i
 
 # target to preprocess a source file
 source/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.i
 .PHONY : source/main.cpp.i
 
 source/main.s: source/main.cpp.s
@@ -256,7 +256,7 @@ source/main.s: source/main.cpp.s
 
 # target to generate assembly for a file
 source/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
 source/window_handler/log_window.o: source/window_handler/log_window.cpp.o
@@ -264,7 +264,7 @@ source/window_handler/log_window.o: source/window_handler/log_window.cpp.o
 
 # target to build an object file
 source/window_handler/log_window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.o
 .PHONY : source/window_handler/log_window.cpp.o
 
 source/window_handler/log_window.i: source/window_handler/log_window.cpp.i
@@ -272,7 +272,7 @@ source/window_handler/log_window.i: source/window_handler/log_window.cpp.i
 
 # target to preprocess a source file
 source/window_handler/log_window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.i
 .PHONY : source/window_handler/log_window.cpp.i
 
 source/window_handler/log_window.s: source/window_handler/log_window.cpp.s
@@ -280,7 +280,7 @@ source/window_handler/log_window.s: source/window_handler/log_window.cpp.s
 
 # target to generate assembly for a file
 source/window_handler/log_window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/log_window.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.s
 .PHONY : source/window_handler/log_window.cpp.s
 
 source/window_handler/tactical_window.o: source/window_handler/tactical_window.cpp.o
@@ -288,7 +288,7 @@ source/window_handler/tactical_window.o: source/window_handler/tactical_window.c
 
 # target to build an object file
 source/window_handler/tactical_window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.o
 .PHONY : source/window_handler/tactical_window.cpp.o
 
 source/window_handler/tactical_window.i: source/window_handler/tactical_window.cpp.i
@@ -296,7 +296,7 @@ source/window_handler/tactical_window.i: source/window_handler/tactical_window.c
 
 # target to preprocess a source file
 source/window_handler/tactical_window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.i
 .PHONY : source/window_handler/tactical_window.cpp.i
 
 source/window_handler/tactical_window.s: source/window_handler/tactical_window.cpp.s
@@ -304,7 +304,7 @@ source/window_handler/tactical_window.s: source/window_handler/tactical_window.c
 
 # target to generate assembly for a file
 source/window_handler/tactical_window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyProject.dir/build.make CMakeFiles/MyProject.dir/source/window_handler/tactical_window.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.s
 .PHONY : source/window_handler/tactical_window.cpp.s
 
 # Help Target
@@ -320,7 +320,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... ImGui-SFML"
-	@echo "... MyProject"
+	@echo "... SPACE_COMBAT_SIMULATOR"
 	@echo "... source/astral_bodies/planets.o"
 	@echo "... source/astral_bodies/planets.i"
 	@echo "... source/astral_bodies/planets.s"

@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Nombre del proyecto
-project(MyProject)
+project(SPACE_COMBAT_SIMULATOR)
 
 # Establecer el estándar de C++
 set(CMAKE_CXX_STANDARD 17)

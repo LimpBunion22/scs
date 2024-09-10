@@ -4,13 +4,9 @@
     {
       "label": "build",
       "type": "shell",
-      "command": "/usr/bin/g++",
+      "command": "cmake",
       "args": [
-        "-g",
-        "$(find ${workspaceFolder}/source -name '*.cpp')",
-        "-I", "${workspaceFolder}/include",
-        "-o", "${workspaceFolder}/build/output",
-        "-lsfml-graphics", "-lsfml-window", "-lsfml-system"
+        "--build", "${workspaceFolder}/build"
       ],
       "group": {
         "kind": "build",

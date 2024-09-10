@@ -138,6 +138,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/MyProject.dir/DependInfo.cmake"
+  "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/DependInfo.cmake"
   "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/DependInfo.cmake"
   )
