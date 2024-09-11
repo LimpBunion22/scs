@@ -101,7 +101,7 @@ bool tactical_window_handler::manage_events(float deltaTime){
         // Recalcular el mapa de gravedad
         sf::Vector2u windowSize = window_tactical.getSize();
         gravity_map.create(windowSize.x, windowSize.y);
-        generateHeatmap(gravity_map, visibleArea);  // Pasa el área visible en el mundo
+        generateHeatmap(gravity_map, visibleArea, currentZoom);  // Pasa el área visible en el mundo
 
         if (!heatmapTexture.loadFromImage(gravity_map)) {
             logger->logMessage("Error: No se pudo cargar la textura del mapa de calor", RED);
@@ -181,19 +181,25 @@ float tactical_window_handler::_gravityFunction(float x, float y){
             continue;
         }
         float new_g = 6.6743e-11*ptr->mass/r;
-        float g_x = new_g*std::cos(new_dir) + g_x;
-        float g_y = new_g*std::sin(new_dir) + g_y;
+        g_x += new_g*std::cos(new_dir);
+        g_y += new_g*std::sin(new_dir);
     }
     // g = g > 1e14 ? 1e14 : g;
     return std::sqrt(g_x*g_x + g_y*g_y);
 }
 
-const float P1 = 0.000000001;
-const float P2 = 0.0004;
-const float P3 = 0.1;
-const float P4 = 300.0;
+const float bright = 50;
+const float P1 = 1e-10;
+const float P2 = 1e-5;
+const float P3 = 1e-2;
+const float P4 = 1e-1;
+const float P5 = 1;
+const float P6 = 10;
+const float P7 = 50.0;
+const float P8 = 300.0;
 
-void tactical_window_handler::generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea) {
+
+void tactical_window_handler::generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea, float currentZoom) {
     unsigned int width = heatmap.getSize().x;
     unsigned int height = heatmap.getSize().y;
     float step_w = visibleArea.width/width;
@@ -208,29 +214,57 @@ void tactical_window_handler::generateHeatmap(sf::Image& heatmap, const sf::Floa
             // g = g > 1e14 ? 1e14 : g;
             // value = 1/(1+std::exp(-value/1e5+0.5));
 
-            sf::Uint8 colorValue = static_cast<sf::Uint8>(value*255/P1); // De [-1,1] a [0,255]
-            heatmap.setPixel(i, j, sf::Color(0, 0, colorValue,50)); // Colores de azul a rojo
+            // sf::Uint8 colorValue = static_cast<sf::Uint8>(value*255/P1); // De [-1,1] a [0,255]
+            // float log_value = std::log(std::log(std::log(value+1)+1)+1);
+            // if(std::fmod(log_value,1e-2+1e-8*currentZoom)<1e-3+1e-15*currentZoom*value)
+            //     heatmap.setPixel(i, j, sf::Color(0, 255, 255)); // Colores de azul a rojo
+            // else
+            //     heatmap.setPixel(i, j, sf::Color(0, 0, 0)); // Colores de azul a rojo
 
-            // if(value < P1){
-            //     sf::Uint8 colorValue = static_cast<sf::Uint8>(value*255/P1); // De [-1,1] a [0,255]
-            //     heatmap.setPixel(i, j, sf::Color(0, 0, colorValue,50)); // Colores de azul a rojo
-            //     continue;
-            // }
-            // if(value < P2){
-            //     // value = std::log(value - P1 + 1)/std::log(P2 + 1);
-            //     sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P1)*255/(P2-P1)); // De [-1,1] a [0,255]
-            //     heatmap.setPixel(i, j, sf::Color(0, colorValue, 255 - colorValue,20)); // Colores de azul a rojo
-            //     continue;
-            // }
-            // if(value < P3){
-            //     // value = std::log(value - P1 + 1)/std::log(P2 + 1);
-            //     sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P2)*255/(P3-P2)); // De [-1,1] a [0,255]
-            //     heatmap.setPixel(i, j, sf::Color(colorValue, 255 - colorValue, 0,20)); // Colores de azul a rojo
-            //     continue;
-            // }
-            // // value = std::log(value - P2 + 1)/std::log(P3 + 1);
-            //     sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P3)*255/(P4-P3)); // De [-1,1] a [0,255]
-            // heatmap.setPixel(i, j, sf::Color(255 - colorValue, 0, 0,20)); // Colores de azul a rojo
+            if(value < P1){
+                sf::Uint8 colorValue = static_cast<sf::Uint8>(value*255/P1); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(0, 0, colorValue,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P2){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P1)*255/(P2-P1)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(0, colorValue, 255,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P3){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P2)*255/(P3-P2)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(0, 255, 255 - colorValue,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P4){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P3)*255/(P4-P3)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(colorValue, 255, 0,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P5){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P4)*255/(P5-P4)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(255, 255 - colorValue, 0,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P6){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P5)*255/(P6-P5)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(255, 0, colorValue,bright)); // Colores de azul a rojo
+                continue;
+            }
+            if(value < P7){
+                // value = std::log(value - P1 + 1)/std::log(P2 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P6)*255/(P7-P6)); // De [-1,1] a [0,255]
+                heatmap.setPixel(i, j, sf::Color(255-colorValue, 0, 255,bright)); // Colores de azul a rojo
+                continue;
+            }
+            // value = std::log(value - P2 + 1)/std::log(P3 + 1);
+                sf::Uint8 colorValue = static_cast<sf::Uint8>((value-P7)*255/(P8-P7)); // De [-1,1] a [0,255]
+            heatmap.setPixel(i, j, sf::Color(0, 0, 255 - colorValue,bright)); // Colores de azul a rojo
         }
     }
 }

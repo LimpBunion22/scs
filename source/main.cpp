@@ -33,6 +33,7 @@ int main() {
     basic_state state(pos);
     planet sol(1.98e30, 6.98e5, state, font);
     sol.name = "SOL";
+    sol.star();
 
     pos = {5.79e7,0.0,0.0};
     state = basic_state(pos);
@@ -83,7 +84,7 @@ int main() {
     tactical_window.emplace_planet(&saturno);
     tactical_window.emplace_planet(&urano);
     tactical_window.emplace_planet(&neptuno);
-    tactical_window.draw_gravity = true;
+    // tactical_window.draw_gravity = true;
 
     // Reloj para calcular el tiempo transcurrido
     sf::Clock clock;

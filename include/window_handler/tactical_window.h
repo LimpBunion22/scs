@@ -58,7 +58,7 @@ class tactical_window_handler{
         ~tactical_window_handler();
     private:
         float _gravityFunction(float x, float y);
-        void generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea);
+        void generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea, float currentZoom);
 
 };
 
