@@ -8,6 +8,10 @@
 #define YELLOW 2
 #define GREEN 3
 
+#define ON_LEFT_CLICK_SHIP 0b00010001
+
+const double G = 6.6743e-11;
+
 class basic_state{
 
     public:
@@ -24,5 +28,7 @@ class basic_state{
         basic_state(std::vector<float>& v1, std::vector<float>& v2, std::vector<float>& v3)
             : position(v1), velocity(v2), direction(v3) {};
 };
+
+
 
 #endif

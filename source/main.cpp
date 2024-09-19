@@ -1,20 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <iostream>
 
 #include <planets.h>
 #include <tactical_window.h>
 #include <log_window.h>
+#include <physic_engine.h>
+#include <basic_entities.h>
+#include <basic_ship.h>
 
 int main() {
     
     // Fuente para mostrar el texto (escala)
     sf::Font font;
     if (!font.loadFromFile("../utils/arial.ttf")) {
+        std::cout << "Fail to load font" << std::endl;
         return -1;  // Cargar una fuente para mostrar el texto
     }
+    e_base::init_font(font);
     
-    log_window_handler log_window = log_window_handler();
+    log_window_handler log_window;
     tactical_window_handler tactical_window(font, &log_window);
+    physic_engine engine;
+    engine.step = 3600;
 
     // // Velocidad del triángulo
     // float V = 20.0f; // Velocidad en píxeles por segundo
@@ -30,49 +38,58 @@ int main() {
 
     //Planetas
     std::vector<float> pos = {0.0, 0.0, 0.0};
+    std::vector<float> vel = {0.0, 0.0, 0.0};
     basic_state state(pos);
-    planet sol(1.98e30, 6.98e5, state, font);
+    planet sol(1.98e30, 6.98e5, state);
     sol.name = "SOL";
     sol.star();
 
     pos = {5.79e7,0.0,0.0};
-    state = basic_state(pos);
-    planet mercurio(3.30e23, 2.44e3, state, font);
+    vel = {0.0,47.87,0.0};
+    state = basic_state(pos,vel);
+    planet mercurio(3.30e23, 2.44e3, state);
     mercurio.name = "MERCURIO";
 
     pos = {1.08e8,0.0,0.0};
-    state = basic_state(pos);
-    planet venus(4.87e24, 6.05e3, state, font);
+    vel = {0.0,35.02,0.0};
+    state = basic_state(pos,vel);
+    planet venus(4.87e24, 6.05e3, state);
     venus.name = "VENUS";
 
     pos = {1.5e8,0.0,0.0};
-    state = basic_state(pos);
-    planet tierra(5.97e24, 6.05e3, state, font);
+    vel = {0.0,29.78,0.0};
+    state = basic_state(pos,vel);
+    planet tierra(5.97e24, 6.05e3, state);
     tierra.name = "TIERRA";
 
     pos = {2.28e8,0.0,0.0};
-    state = basic_state(pos);
-    planet marte(6.42e23, 3.39e3, state, font);
+    vel = {0.0,24.07,0.0};
+    state = basic_state(pos,vel);
+    planet marte(6.42e23, 3.39e3, state);
     marte.name = "MARTE";
 
     pos = {7.78e8,0.0,0.0};
-    state = basic_state(pos);
-    planet jupiter(1.90e27, 7.15e4, state, font);
+    vel = {0.0,13.07,0.0};
+    state = basic_state(pos,vel);
+    planet jupiter(1.90e27, 7.15e4, state);
     jupiter.name = "JUPITER";
 
     pos = {1.43e9,0.0,0.0};
-    state = basic_state(pos);
-    planet saturno(5.68e26, 6.03e4, state, font);
+    vel = {0.0,9.68,0.0};
+    state = basic_state(pos,vel);
+    planet saturno(5.68e26, 6.03e4, state);
     saturno.name = "SATURNO";
 
     pos = {2.87e9,0.0,0.0};
-    state = basic_state(pos);
-    planet urano(8.86e25, 2.54e4, state, font);
+    vel = {0.0,6.80,0.0};
+    state = basic_state(pos,vel);
+    planet urano(8.86e25, 2.54e4, state);
     urano.name = "URANO";
 
     pos = {4.50e9,0.0,0.0};
-    state = basic_state(pos);
-    planet neptuno(1.02e26, 2.47e4, state, font);
+    vel = {0.0,5.43,0.0};
+    state = basic_state(pos,vel);
+    planet neptuno(1.02e26, 2.47e4, state);
     neptuno.name = "NEPTUNO";
 
     tactical_window.emplace_planet(&sol);
@@ -84,6 +101,38 @@ int main() {
     tactical_window.emplace_planet(&saturno);
     tactical_window.emplace_planet(&urano);
     tactical_window.emplace_planet(&neptuno);
+
+    engine.emplace_planet(&sol);
+    engine.emplace_planet(&mercurio);
+    engine.emplace_planet(&venus);
+    engine.emplace_planet(&tierra);
+    engine.emplace_planet(&marte);
+    engine.emplace_planet(&jupiter);
+    engine.emplace_planet(&saturno);
+    engine.emplace_planet(&urano);
+    engine.emplace_planet(&neptuno);
+
+    // Naves
+    pos = {1.9e8,0.0,0.0};
+    vel = {0.0,29.78,0.0};
+    std::vector<float> dir = {0.0, 0.0, 0.0};
+    state = basic_state(pos,vel,dir);
+    basic_ship ship1(1e5, 0.5, state);
+    ship1.name = "Santa Maria";
+
+    pos = {0.9e8,0.0,0.0};
+    vel = {0.0,36.78,0.0};
+    dir = {0.0, 0.0, 0.0};
+    state = basic_state(pos,vel,dir);
+    basic_ship ship2(1e5, 0.5, state);
+    ship2.name = "Enterprise";
+
+    tactical_window.emplace_ship(&ship1);
+    tactical_window.emplace_ship(&ship2);
+
+    engine.emplace_small_entity(&ship1);
+    engine.emplace_small_entity(&ship2);
+
     // tactical_window.draw_gravity = true;
 
     // Reloj para calcular el tiempo transcurrido
@@ -107,6 +156,8 @@ int main() {
 
         tactical_window.draw_map();
         tactical_window.draw_hud();
+        for(int i = 0; i < 2; i++)
+            engine.run_step();
     }
 
     return 0;

@@ -4,6 +4,7 @@
 
 
 void planet::draw(sf::RenderWindow & window, float currentZoom){
+    shape.setPosition(entity_state.position[0], entity_state.position[1]);
     window.draw(shape);
     float new_size = rec_size * currentZoom;
     if(new_size > 1.5*size_r){

@@ -7,6 +7,7 @@
 
 #include <planets.h>
 #include <log_window.h>
+#include <basic_ship.h>
 
 
 class tactical_window_handler{
@@ -27,7 +28,7 @@ class tactical_window_handler{
         sf::Text scaleText;
         sf::RectangleShape referenceLine;
         std::vector<planet*> planets_ptr;
-        // std::vector<ship> ships;
+        std::vector<basic_ship*> ships_ptr;
         sf::Image gravity_map;
         sf::Texture heatmapTexture;
         sf::Sprite heatmapSprite;
@@ -49,6 +50,7 @@ class tactical_window_handler{
         tactical_window_handler(const sf::Font in_font, log_window_handler* in_logger);
 
         void emplace_planet(planet * new_planet_ptr);
+        void emplace_ship(basic_ship * new_ship_ptr);
 
         bool manage_events(float deltaTime);
 

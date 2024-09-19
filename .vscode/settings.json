@@ -50,5 +50,7 @@
         "typeinfo": "cpp",
         "cstring": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "CodeGPT.apiKey": "OpenAI",
+    "CodeGPT.Autocomplete.enabled": true
 }

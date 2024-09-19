@@ -2,6 +2,7 @@
 #include <ctime>
 #include <sstream>
 #include <log_window.h>
+#include <basic_ship.h>
 
 log_window_handler::log_window_handler():window_log(sf::VideoMode(C_WINDOW_WIDTH, C_WINDOW_HEIGH), "MISSION LOG"){
 
@@ -44,6 +45,42 @@ bool log_window_handler::manage_events(sf::Time elapTime){
     ImGui::Checkbox("Mostrar ventana de demostración", &show_demo_window);
 
     ImGui::End();
+
+    // CUSTOM EVENTS
+    std::vector<std::pair<std::string, void*>> new_ship_windows;
+    while (!custom_events.empty()) {
+        std::pair<int,void*> custom_event = custom_events.front(); // Obtiene el primer elemento
+        switch (custom_event.first){
+            case ON_LEFT_CLICK_SHIP:{
+                logMessage("Event received", YELLOW);
+                basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(custom_event.second);
+                new_ship_windows.emplace_back(std::pair(ship_ptr->name,custom_event.second));
+                break;
+            }
+            default:{
+                logMessage("Unknown Event", YELLOW);
+            }
+        }
+        custom_events.pop(); // Elimina el primer elemento
+    }
+
+    for(auto new_window:new_ship_windows){
+        if (child_windows.find(new_window.first) == child_windows.end()){
+            logMessage("Window emplaced", YELLOW);
+            basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(new_window.second);
+            child_windows.emplace(new_window.first,ship_window(new_window.first, ship_ptr->ship_class));
+        }
+    }
+
+    for (auto it = child_windows.begin(); it != child_windows.end(); ) {
+        if (it->second.programed_erase) {
+            it = child_windows.erase(it);
+        } else {
+            it->second.draw();
+            ++it;
+        }
+    }
+
 
     // Mostrar la ventana de demostración de ImGui (si está activada)
     if (show_demo_window) {
@@ -94,3 +131,4 @@ log_window_handler::~log_window_handler(){
     window_log.close();
     ImGui::SFML::Shutdown();
 }
+

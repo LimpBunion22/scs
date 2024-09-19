@@ -11,6 +11,9 @@ class e_base{
 
         float mass;
         float size_r;
+        float selectable_size = 25;
+    protected:
+        static sf::Font font;
     
     public:
         e_base(): mass(0), size_r(0){};
@@ -19,7 +22,7 @@ class e_base{
         e_base(e_base &&rh): mass(rh.mass), size_r(rh.size_r), entity_state(std::move(rh.entity_state)){};
 
         virtual void draw(sf::RenderWindow & window, float currentZoom) = 0;
-
+        static void init_font(sf::Font in_font){e_base::font = in_font;};
         // ~e_base();
 
 };

@@ -16,12 +16,16 @@ include_directories(include)
 include_directories(include/astral_bodies)
 include_directories(include/general)
 include_directories(include/window_handler)
+include_directories(include/physics)
+include_directories(include/ships)
 
 #files to include
 file (GLOB_RECURSE HEADER_FILES "include/*.h"
     "include/astral_bodies/*.h"
     "include/general/*.h"
-    "include/window_handler/*.h")
+    "include/window_handler/*.h"
+    "include/physics/*.h"
+    "include/ships/*.h")
 
 # Añadir todos los archivos fuente (recursivamente)
 file(GLOB_RECURSE SOURCES "source/*.cpp")

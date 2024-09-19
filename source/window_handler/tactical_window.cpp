@@ -1,5 +1,6 @@
 #include <tactical_window.h>
 #include <cmath>  // Para std::sqrt
+#include <utility>
 
 
 tactical_window_handler::tactical_window_handler(const sf::Font in_font, log_window_handler* in_logger):
@@ -23,6 +24,7 @@ tactical_window_handler::tactical_window_handler(const sf::Font in_font, log_win
     referenceLine.setSize(sf::Vector2f(100.0f, 5.f));
     
     planets_ptr.reserve(32);
+    ships_ptr.reserve(128);
 
     gravity_map.create(C_WINDOW_WIDTH,C_WINDOW_HEIGH);
 }
@@ -31,6 +33,12 @@ void tactical_window_handler::emplace_planet(planet * new_planet_ptr){
     if(planets_ptr.size()+1>planets_ptr.capacity())
         planets_ptr.reserve(planets_ptr.capacity()+32);
     planets_ptr.emplace_back(new_planet_ptr);
+}
+
+void tactical_window_handler::emplace_ship(basic_ship * new_ship_ptr){
+    if(ships_ptr.size()+1>ships_ptr.capacity())
+        ships_ptr.reserve(ships_ptr.capacity()+128);
+    ships_ptr.emplace_back(new_ship_ptr);
 }
 
 bool tactical_window_handler::manage_events(float deltaTime){
@@ -66,6 +74,23 @@ bool tactical_window_handler::manage_events(float deltaTime){
                     currentZoom = nextZoom;
                     map_view.zoom(1.0f / C_ZOOM_INCREMENT);  // Reduce la vista en un 10%
                 }
+            }
+        }
+
+        // Detectar clic del ratón
+        if (event.type == sf::Event::MouseButtonPressed) {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window_tactical);
+            sf::Vector2f mouseVis= window_tactical.mapPixelToCoords(mousePos, map_view);
+            if (event.mouseButton.button == sf::Mouse::Left) {
+
+                for (auto ptr : ships_ptr) {
+                    float scaled_size = ptr->selectable_size*currentZoom;
+                    if (in_bounds(mouseVis.x, ptr->entity_state.position[0] - scaled_size, ptr->entity_state.position[0] + scaled_size) &&
+                        in_bounds(mouseVis.y, ptr->entity_state.position[1] - scaled_size, ptr->entity_state.position[1] + scaled_size)) {
+                        logger->custom_events.push(std::pair(ON_LEFT_CLICK_SHIP,reinterpret_cast<void*>(ptr)));
+                    }
+                }   
+                // Define la zona específica
             }
         }
     }
@@ -126,6 +151,9 @@ void tactical_window_handler::draw_map(){
     for (auto ptr : planets_ptr) {
         ptr->draw(window_tactical, currentZoom);
     }
+    for (auto ptr : ships_ptr) {
+        ptr->draw(window_tactical, currentZoom);
+    }    
 }
 
 void tactical_window_handler::draw_hud(){
@@ -180,7 +208,7 @@ float tactical_window_handler::_gravityFunction(float x, float y){
         if(r==0){
             continue;
         }
-        float new_g = 6.6743e-11*ptr->mass/r;
+        float new_g = G*ptr->mass/r;
         g_x += new_g*std::cos(new_dir);
         g_y += new_g*std::sin(new_dir);
     }

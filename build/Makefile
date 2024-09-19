@@ -259,6 +259,78 @@ source/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.s
 .PHONY : source/main.cpp.s
 
+source/physics/physics_engine.o: source/physics/physics_engine.cpp.o
+.PHONY : source/physics/physics_engine.o
+
+# target to build an object file
+source/physics/physics_engine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.o
+.PHONY : source/physics/physics_engine.cpp.o
+
+source/physics/physics_engine.i: source/physics/physics_engine.cpp.i
+.PHONY : source/physics/physics_engine.i
+
+# target to preprocess a source file
+source/physics/physics_engine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.i
+.PHONY : source/physics/physics_engine.cpp.i
+
+source/physics/physics_engine.s: source/physics/physics_engine.cpp.s
+.PHONY : source/physics/physics_engine.s
+
+# target to generate assembly for a file
+source/physics/physics_engine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.s
+.PHONY : source/physics/physics_engine.cpp.s
+
+source/ships/basic_ships.o: source/ships/basic_ships.cpp.o
+.PHONY : source/ships/basic_ships.o
+
+# target to build an object file
+source/ships/basic_ships.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.o
+.PHONY : source/ships/basic_ships.cpp.o
+
+source/ships/basic_ships.i: source/ships/basic_ships.cpp.i
+.PHONY : source/ships/basic_ships.i
+
+# target to preprocess a source file
+source/ships/basic_ships.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.i
+.PHONY : source/ships/basic_ships.cpp.i
+
+source/ships/basic_ships.s: source/ships/basic_ships.cpp.s
+.PHONY : source/ships/basic_ships.s
+
+# target to generate assembly for a file
+source/ships/basic_ships.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.s
+.PHONY : source/ships/basic_ships.cpp.s
+
+source/window_handler/child_windows.o: source/window_handler/child_windows.cpp.o
+.PHONY : source/window_handler/child_windows.o
+
+# target to build an object file
+source/window_handler/child_windows.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/child_windows.cpp.o
+.PHONY : source/window_handler/child_windows.cpp.o
+
+source/window_handler/child_windows.i: source/window_handler/child_windows.cpp.i
+.PHONY : source/window_handler/child_windows.i
+
+# target to preprocess a source file
+source/window_handler/child_windows.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/child_windows.cpp.i
+.PHONY : source/window_handler/child_windows.cpp.i
+
+source/window_handler/child_windows.s: source/window_handler/child_windows.cpp.s
+.PHONY : source/window_handler/child_windows.s
+
+# target to generate assembly for a file
+source/window_handler/child_windows.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/child_windows.cpp.s
+.PHONY : source/window_handler/child_windows.cpp.s
+
 source/window_handler/log_window.o: source/window_handler/log_window.cpp.o
 .PHONY : source/window_handler/log_window.o
 
@@ -330,6 +402,15 @@ help:
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"
+	@echo "... source/physics/physics_engine.o"
+	@echo "... source/physics/physics_engine.i"
+	@echo "... source/physics/physics_engine.s"
+	@echo "... source/ships/basic_ships.o"
+	@echo "... source/ships/basic_ships.i"
+	@echo "... source/ships/basic_ships.s"
+	@echo "... source/window_handler/child_windows.o"
+	@echo "... source/window_handler/child_windows.i"
+	@echo "... source/window_handler/child_windows.s"
 	@echo "... source/window_handler/log_window.o"
 	@echo "... source/window_handler/log_window.i"
 	@echo "... source/window_handler/log_window.s"

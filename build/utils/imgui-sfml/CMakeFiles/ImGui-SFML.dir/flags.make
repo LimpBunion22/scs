@@ -6,5 +6,5 @@ CXX_DEFINES = -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\
 
 CXX_INCLUDES = -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml
 
-CXX_FLAGS = -g -std=gnu++17 -fPIC
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -fPIC
 

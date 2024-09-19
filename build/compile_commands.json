@@ -1,73 +1,91 @@
 [
 {
   "directory": "/home/vitiate/Desktop/scs/build",
-  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.o -c /home/vitiate/Desktop/scs/source/astral_bodies/planets.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.o -c /home/vitiate/Desktop/scs/source/astral_bodies/planets.cpp",
   "file": "/home/vitiate/Desktop/scs/source/astral_bodies/planets.cpp",
   "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/astral_bodies/planets.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build",
-  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.o -c /home/vitiate/Desktop/scs/source/general/basic_entities.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.o -c /home/vitiate/Desktop/scs/source/general/basic_entities.cpp",
   "file": "/home/vitiate/Desktop/scs/source/general/basic_entities.cpp",
   "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build",
-  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.o -c /home/vitiate/Desktop/scs/source/main.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.o -c /home/vitiate/Desktop/scs/source/main.cpp",
   "file": "/home/vitiate/Desktop/scs/source/main.cpp",
   "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/main.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build",
-  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.o -c /home/vitiate/Desktop/scs/source/physics/physics_engine.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/physics/physics_engine.cpp",
+  "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.o -c /home/vitiate/Desktop/scs/source/ships/basic_ships.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/ships/basic_ships.cpp",
+  "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/child_windows.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/child_windows.cpp",
+  "file": "/home/vitiate/Desktop/scs/source/window_handler/child_windows.cpp",
+  "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/child_windows.cpp.o"
+},
+{
+  "directory": "/home/vitiate/Desktop/scs/build",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/log_window.cpp",
   "file": "/home/vitiate/Desktop/scs/source/window_handler/log_window.cpp",
   "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/log_window.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build",
-  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/include -I/home/vitiate/Desktop/scs/include/astral_bodies -I/home/vitiate/Desktop/scs/include/general -I/home/vitiate/Desktop/scs/include/window_handler -I/home/vitiate/Desktop/scs/include/physics -I/home/vitiate/Desktop/scs/include/ships -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.o -c /home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
   "file": "/home/vitiate/Desktop/scs/source/window_handler/tactical_window.cpp",
   "output": "CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/window_handler/tactical_window.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/imgui.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o"
 },
 {
   "directory": "/home/vitiate/Desktop/scs/build/utils/imgui-sfml",
-  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -g -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp",
+  "command": "/usr/bin/g++ -DIMGUI_SFML_EXPORTS -DIMGUI_SFML_SHARED_LIB -DIMGUI_USER_CONFIG=\\\"imconfig-SFML.h\\\" -I/home/vitiate/Desktop/scs/utils/imgui -I/home/vitiate/Desktop/scs/utils/imgui-sfml -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp",
   "file": "/home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp",
   "output": "utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o"
 }

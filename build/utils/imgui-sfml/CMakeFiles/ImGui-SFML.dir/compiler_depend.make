@@ -98,7 +98,9 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: /home/vitiate/D
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/sigaction.h \
   /usr/include/x86_64-linux-gnu/bits/sigcontext.h \
   /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h \
@@ -115,8 +117,15 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: /home/vitiate/D
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -151,6 +160,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: /home/vitiate/D
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
   /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -358,12 +369,21 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o: /home/viti
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -501,12 +521,21 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o: /home/viti
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -736,12 +765,21 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o: /home/vi
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -972,12 +1010,21 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o: /home/v
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -1224,12 +1271,21 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o:
   /usr/include/x86_64-linux-gnu/bits/long-double.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -1261,6 +1317,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o:
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -1517,13 +1575,22 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
+  /usr/include/x86_64-linux-gnu/bits/select-decl.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
+  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
@@ -1561,6 +1628,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
@@ -1748,6 +1817,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
 
+/usr/include/x86_64-linux-gnu/bits/wchar2-decl.h:
+
 /usr/include/c++/13/bits/unique_ptr.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
@@ -1860,13 +1931,23 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/wbnoinvdintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+/usr/include/SFML/Window/Vulkan.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/vaesintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/timex.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/tsxldtrkintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/tmmintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/tbmintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
+/usr/include/string.h:
 
 /usr/include/c++/13/cwchar:
 
@@ -1880,6 +1961,12 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/raointintrin.h:
 
+/usr/include/x86_64-linux-gnu/bits/timex.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/SFML/System/Vector3.inl:
@@ -1887,6 +1974,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/x86_64-linux-gnu/bits/sigstksz.h:
 
 /usr/include/SFML/System/Vector2.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx2intrin.h:
 
@@ -1897,6 +1986,10 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/c++/13/bits/char_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/signal_ext.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo-consts.h:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
 
@@ -1936,13 +2029,9 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
-/usr/include/c++/13/bits/locale_classes.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/amxtileintrin.h:
-
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
@@ -1986,19 +2075,17 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
-/usr/include/string.h:
-
 /usr/include/stdlib.h:
 
 /usr/include/linux/limits.h:
 
-/usr/include/SFML/Graphics/Transform.hpp:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/include/math.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd-decl.h:
 
 /usr/include/c++/13/bits/string_view.tcc:
 
@@ -2010,9 +2097,17 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/13/include/uintrintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avxvnniint8intrin.h:
+
 /usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 
 /usr/include/SFML/Graphics/Export.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/select-decl.h:
+
+/usr/include/c++/13/debug/assertions.h:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
@@ -2020,13 +2115,13 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
-/usr/include/c++/13/bits/ptr_traits.h:
-
 /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
 /usr/include/linux/close_range.h:
 
 /usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd.h:
 
 /usr/include/c++/13/bits/functexcept.h:
 
@@ -2037,8 +2132,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/lzcntintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/clzerointrin.h:
 
@@ -2076,12 +2169,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/c++/13/tr1/special_function_util.h:
 
-/usr/include/c++/13/bits/streambuf.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512erintrin.h:
-
-/usr/include/c++/13/bits/specfun.h:
-
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /usr/include/time.h:
@@ -2091,10 +2178,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512cdintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vnnivlintrin.h:
-
-/usr/include/SFML/Config.hpp:
 
 /usr/include/alloca.h:
 
@@ -2109,8 +2192,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
 /usr/include/c++/13/limits:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/tmmintrin.h:
 
 /usr/include/SFML/Window/Export.hpp:
 
@@ -2134,10 +2215,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/SFML/Graphics/Color.hpp:
 
-/usr/include/SFML/Window/Vulkan.hpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/vaesintrin.h:
-
 /home/vitiate/Desktop/scs/utils/imgui/imgui.h:
 
 /usr/include/c++/13/bits/range_access.h:
@@ -2152,11 +2229,15 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /home/vitiate/Desktop/scs/utils/imgui/imgui_internal.h:
 
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/clwbintrin.h:
 
 /usr/include/SFML/Window/VideoMode.hpp:
 
 /usr/include/assert.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /usr/include/c++/13/math.h:
 
@@ -2170,11 +2251,17 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
-/usr/include/c++/13/debug/assertions.h:
-
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
 
 /usr/include/c++/13/tr1/gamma.tcc:
+
+/usr/include/c++/13/stdexcept:
+
+/usr/include/SFML/System/NonCopyable.hpp:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/waitpkgintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bf16vlintrin.h:
 
 /usr/include/ctype.h:
 
@@ -2191,6 +2278,16 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/linux/errno.h:
 
 /usr/include/c++/13/debug/debug.h:
+
+/usr/include/c++/13/bits/ptr_traits.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
+
+/usr/include/c++/13/bits/stl_iterator.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/c++/13/ext/numeric_traits.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fp16intrin.h:
 
@@ -2250,11 +2347,41 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/13/include/vpclmulqdqintrin.h:
+
+/usr/include/features.h:
+
 /usr/include/c++/13/iosfwd:
 
 /usr/include/x86_64-linux-gnu/bits/signum-generic.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/prfchwintrin.h:
+
+/usr/include/c++/13/bits/streambuf.tcc:
+
+/usr/include/c++/13/bits/specfun.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512erintrin.h:
+
+/usr/include/c++/13/bits/locale_classes.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/amxtileintrin.h:
+
+/usr/include/SFML/Graphics/Transform.hpp:
+
+/usr/include/math.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/include/SFML/Config.hpp:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vnnivlintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
@@ -2264,7 +2391,13 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
@@ -2273,10 +2406,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/lib/gcc/x86_64-linux-gnu/13/include/cldemoteintrin.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/features.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/vpclmulqdqintrin.h:
 
 /usr/include/x86_64-linux-gnu/bits/ss_flags.h:
 
@@ -2289,10 +2418,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/pconfigintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
 
@@ -2313,12 +2438,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vp2intersectintrin.h:
-
-/usr/include/c++/13/bits/stl_iterator.h:
-
-/usr/include/c++/13/ext/numeric_traits.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
@@ -2402,6 +2521,8 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vlbwintrin.h:
 
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h:
 
 /usr/include/c++/13/cmath:
@@ -2416,9 +2537,9 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
-/usr/include/x86_64-linux-gnu/sys/wait.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/serializeintrin.h:
+
+/usr/include/x86_64-linux-gnu/sys/wait.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vp2intersectvlintrin.h:
 
@@ -2433,8 +2554,6 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avxvnniintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/clflushoptintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/tsxldtrkintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/cmpccxaddintrin.h:
 
@@ -2479,27 +2598,3 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Deskt
 /usr/lib/gcc/x86_64-linux-gnu/13/include/popcntintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/smmintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/siginfo-consts.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/tbmintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avxvnniint8intrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/uintrintrin.h:
-
-/usr/include/c++/13/stdexcept:
-
-/usr/include/SFML/System/NonCopyable.hpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bf16vlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/waitpkgintrin.h:
