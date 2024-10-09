@@ -1,30 +1,35 @@
 #ifndef PHYSIC_ENGINE_H
 #define PHYSIC_ENGINE_H
 
+#include <SFML/Graphics.hpp>
+#include <queue>
+
 #include <common.h>
-#include <basic_entities.h>
+#include <basic_ship.h>
 #include <planets.h>
 
 class physic_engine{
     public:
         float step = 1.0;
+
+        std::queue<std::pair<std::string,int>> log_queue;
     
     private:
         std::vector<planet*> planets_ptr;
-        std::vector<e_base*> small_entities_ptr;
+        std::vector<basic_ship*> ships_ptr;
 
     public:
-        physic_engine(){planets_ptr.reserve(32);small_entities_ptr.reserve(128);};
+        physic_engine(){planets_ptr.reserve(32);ships_ptr.reserve(128);};
 
         void emplace_planet(planet * new_planet_ptr);
-        void emplace_small_entity(e_base * new_entity_ptr);
+        void emplace_ship(basic_ship * new_entity_ptr);
         void run_step();
+
+        sf::VertexArray evaluate_current_trajectory(std::string ship_name);
 
     private:
         void run_planets();
-        void run_small_entities();
-
-
+        void run_ships();
 };
 
 #endif

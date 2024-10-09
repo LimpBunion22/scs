@@ -153,7 +153,10 @@ void tactical_window_handler::draw_map(){
     }
     for (auto ptr : ships_ptr) {
         ptr->draw(window_tactical, currentZoom);
-    }    
+    }  
+    for (auto &pair: logger->paths){
+        window_tactical.draw(pair.second);
+    }  
 }
 
 void tactical_window_handler::draw_hud(){

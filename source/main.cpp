@@ -19,9 +19,9 @@ int main() {
     }
     e_base::init_font(font);
     
-    log_window_handler log_window;
-    tactical_window_handler tactical_window(font, &log_window);
     physic_engine engine;
+    log_window_handler log_window(&engine);
+    tactical_window_handler tactical_window(font, &log_window);
     engine.step = 3600;
 
     // // Velocidad del triángulo
@@ -114,7 +114,7 @@ int main() {
 
     // Naves
     pos = {1.9e8,0.0,0.0};
-    vel = {0.0,29.78,0.0};
+    vel = {0.0,29.78,10.0};
     std::vector<float> dir = {0.0, 0.0, 0.0};
     state = basic_state(pos,vel,dir);
     basic_ship ship1(1e5, 0.5, state);
@@ -130,8 +130,8 @@ int main() {
     tactical_window.emplace_ship(&ship1);
     tactical_window.emplace_ship(&ship2);
 
-    engine.emplace_small_entity(&ship1);
-    engine.emplace_small_entity(&ship2);
+    engine.emplace_ship(&ship1);
+    engine.emplace_ship(&ship2);
 
     // tactical_window.draw_gravity = true;
 

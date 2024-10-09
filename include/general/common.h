@@ -2,6 +2,8 @@
 #define COMMON_H
 
 #include <vector>
+#include <string>
+#include <sstream>
 
 #define in_bounds(value, lower, upper) ((value) >= (lower) && (value) <= (upper))
 #define RED 1
@@ -28,6 +30,8 @@ class basic_state{
         basic_state(std::vector<float>& v1, std::vector<float>& v2, std::vector<float>& v3)
             : position(v1), velocity(v2), direction(v3) {};
 };
+
+
 
 
 

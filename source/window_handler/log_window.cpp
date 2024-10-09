@@ -4,7 +4,7 @@
 #include <log_window.h>
 #include <basic_ship.h>
 
-log_window_handler::log_window_handler():window_log(sf::VideoMode(C_WINDOW_WIDTH, C_WINDOW_HEIGH), "MISSION LOG"){
+log_window_handler::log_window_handler(physic_engine * in_engine):engine(in_engine),window_log(sf::VideoMode(C_WINDOW_WIDTH, C_WINDOW_HEIGH), "MISSION LOG"){
 
     window_log.setFramerateLimit(60);
     ImGui::SFML::Init(window_log);
@@ -21,6 +21,12 @@ bool log_window_handler::manage_events(sf::Time elapTime){
         ImGui::SFML::ProcessEvent(event);
         if (event.type == sf::Event::Closed)
             return true;    
+    }
+
+    while (!engine->log_queue.empty()){
+        auto pair = engine->log_queue.front();
+        logMessage(pair.first,pair.second);
+        engine->log_queue.pop();
     }
 
     ImGui::SFML::Update(window_log,elapTime);
@@ -52,7 +58,7 @@ bool log_window_handler::manage_events(sf::Time elapTime){
         std::pair<int,void*> custom_event = custom_events.front(); // Obtiene el primer elemento
         switch (custom_event.first){
             case ON_LEFT_CLICK_SHIP:{
-                logMessage("Event received", YELLOW);
+                // logMessage("Event received", YELLOW);
                 basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(custom_event.second);
                 new_ship_windows.emplace_back(std::pair(ship_ptr->name,custom_event.second));
                 break;
@@ -66,18 +72,17 @@ bool log_window_handler::manage_events(sf::Time elapTime){
 
     for(auto new_window:new_ship_windows){
         if (child_windows.find(new_window.first) == child_windows.end()){
-            logMessage("Window emplaced", YELLOW);
+            // logMessage("Window emplaced", YELLOW);
             basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(new_window.second);
-            child_windows.emplace(new_window.first,ship_window(new_window.first, ship_ptr->ship_class));
+            child_windows.emplace(new_window.first,ship_window(new_window.first, ship_ptr->ship_class, ship_ptr));
         }
     }
 
-    for (auto it = child_windows.begin(); it != child_windows.end(); ) {
+    for (auto it = child_windows.begin(); it != child_windows.end(); it++) {
         if (it->second.programed_erase) {
             it = child_windows.erase(it);
         } else {
             it->second.draw();
-            ++it;
         }
     }
 

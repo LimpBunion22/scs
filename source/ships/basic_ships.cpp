@@ -53,3 +53,4 @@ void basic_ship::update_shape(float currentZoom){
     shape[2].position = sf::Vector2f(left_x, left_y);  // Vértice abajo derecha
     shape[2].color = fig_color;  
 }
+

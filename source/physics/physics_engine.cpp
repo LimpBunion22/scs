@@ -9,15 +9,15 @@ void physic_engine::emplace_planet(planet * new_planet_ptr){
     planets_ptr.emplace_back(new_planet_ptr);
 }
 
-void physic_engine::emplace_small_entity(e_base * new_entity_ptr){
-    if(small_entities_ptr.size()+1>small_entities_ptr.capacity())
-        small_entities_ptr.reserve(small_entities_ptr.capacity()+128);
-    small_entities_ptr.emplace_back(new_entity_ptr);
+void physic_engine::emplace_ship(basic_ship * new_entity_ptr){
+    if(ships_ptr.size()+1>ships_ptr.capacity())
+        ships_ptr.reserve(ships_ptr.capacity()+128);
+    ships_ptr.emplace_back(new_entity_ptr);
 }
 
 void physic_engine::run_step(){
     run_planets();
-    run_small_entities();
+    run_ships();
 }
 
 void physic_engine::run_planets(){
@@ -45,9 +45,9 @@ void physic_engine::run_planets(){
     }
 }
 
-void physic_engine::run_small_entities(){
+void physic_engine::run_ships(){
 
-    for (auto small_ptr : small_entities_ptr) {
+    for (auto small_ptr : ships_ptr) {
         float Fx = 0;
         float Fy = 0;
         float x = small_ptr->entity_state.position[0];
@@ -66,4 +66,23 @@ void physic_engine::run_small_entities(){
         small_ptr->entity_state.position[0] += small_ptr->entity_state.velocity[0]*step;
         small_ptr->entity_state.position[1] += small_ptr->entity_state.velocity[1]*step;
     }    
+}
+
+sf::VertexArray physic_engine::evaluate_current_trajectory(std::string ship_name){
+
+    sf::VertexArray line(sf::LinesStrip);
+    basic_ship * ship = nullptr;
+    for (auto ship_ptr:ships_ptr){
+        if(ship_ptr->name == ship_name){
+            ship = ship_ptr;
+            break;
+        }
+    }
+
+    if(ship == nullptr){
+        log_queue.push(std::pair<std::string,int>("Unknown ship",YELLOW));
+        return line;
+    }
+
+    
 }
