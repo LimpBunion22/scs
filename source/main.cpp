@@ -113,18 +113,24 @@ int main() {
     engine.emplace_planet(&neptuno);
 
     // Naves
+    float mass = 1e5;
     pos = {1.9e8,0.0,0.0};
     vel = {0.0,29.78,10.0};
     std::vector<float> dir = {0.0, 0.0, 0.0};
+    std::vector<float> main_dim = {100, 50, 50};
+    std::vector<float> inertia_tensor = {mass*(main_dim[1]*main_dim[1] + main_dim[2]*main_dim[2])/12, 0, 0,  0, mass*(main_dim[0]*main_dim[0] + main_dim[2]*main_dim[2])/12,  0, 0, mass*(main_dim[1]*main_dim[1] + main_dim[0]*main_dim[0])/12};
     state = basic_state(pos,vel,dir);
-    basic_ship ship1(1e5, 0.5, state);
+    basic_ship ship1(mass, 0.5, state, main_dim, inertia_tensor);
     ship1.name = "Santa Maria";
-
+    
+    mass = 1e6;
     pos = {0.9e8,0.0,0.0};
     vel = {0.0,36.78,0.0};
     dir = {0.0, 0.0, 0.0};
+    main_dim = {500, 80, 80};
+    inertia_tensor = {mass*(main_dim[1]*main_dim[1] + main_dim[2]*main_dim[2])/12, 0, 0,  0, mass*(main_dim[0]*main_dim[0] + main_dim[2]*main_dim[2])/12,  0, 0, mass*(main_dim[1]*main_dim[1] + main_dim[0]*main_dim[0])/12};
     state = basic_state(pos,vel,dir);
-    basic_ship ship2(1e5, 0.5, state);
+    basic_ship ship2(mass, 0.5, state, main_dim, inertia_tensor);
     ship2.name = "Enterprise";
 
     tactical_window.emplace_ship(&ship1);

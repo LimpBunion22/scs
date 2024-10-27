@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <functional>
 
 #define in_bounds(value, lower, upper) ((value) >= (lower) && (value) <= (upper))
 #define RED 1
@@ -13,22 +14,26 @@
 #define ON_LEFT_CLICK_SHIP 0b00010001
 
 const double G = 6.6743e-11;
+using f_vector = std::vector<float>;
+using lamda_func = std::function<f_vector(float)>;
 
 class basic_state{
 
     public:
-        std::vector<float> position;
-        std::vector<float> velocity;
-        std::vector<float> direction;
+        f_vector position = {0.0, 0.0, 0.0};
+        f_vector velocity = {0.0, 0.0, 0.0};
+
+        f_vector direction = {0.0, 0.0, 0.0};
+        f_vector ang_velocity = {0.0, 0.0, 0.0};
 
     public:
-        basic_state(): position(3), velocity(3), direction(3){};
-        basic_state(std::vector<float>& v1)
-            : position(v1), velocity(3), direction(3) {};
-        basic_state(std::vector<float>& v1, std::vector<float>& v2)
-            : position(v1), velocity(v2), direction(0) {};
-        basic_state(std::vector<float>& v1, std::vector<float>& v2, std::vector<float>& v3)
-            : position(v1), velocity(v2), direction(v3) {};
+        basic_state(){};
+        basic_state(f_vector& v1)
+            : position(v1){};
+        basic_state(f_vector& v1, f_vector& v2)
+            : position(v1), velocity(v2){};
+        basic_state(f_vector& v1, f_vector& v2, f_vector& v3, f_vector& v4)
+            : position(v1), velocity(v2), direction(v3), ang_velocity(v4) {};
 };
 
 
