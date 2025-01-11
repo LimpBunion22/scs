@@ -51,6 +51,9 @@
         "cstring": "cpp",
         "cinttypes": "cpp"
     },
+    "cmake.configureArgs": [
+        "-DIMGUI_DIR=${workspaceFolder}/utils/imgui"
+    ],
     "CodeGPT.apiKey": "OpenAI",
     "CodeGPT.Autocomplete.enabled": true
 }

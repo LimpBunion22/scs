@@ -73,99 +73,99 @@ utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: utils/imgui-sfml/CM
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -MF CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -MF CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp > CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp > CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui-sfml/imgui-SFML.cpp -o CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_draw.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_tables.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_widgets.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/misc/cpp/imgui_stdlib.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.s
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/flags.make
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o: /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -MF CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o.d -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o -c /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.i"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.i
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp > CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.i
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.s"
-	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.s
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vitiate/Desktop/scs/utils/imgui/imgui_demo.cpp -o CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.s
 
 # Object files for target ImGui-SFML
 ImGui__SFML_OBJECTS = \
@@ -180,24 +180,21 @@ ImGui__SFML_OBJECTS = \
 # External object files for target ImGui-SFML
 ImGui__SFML_EXTERNAL_OBJECTS =
 
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/build.make
-utils/imgui-sfml/libImGui-SFML_d.so: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
-utils/imgui-sfml/libImGui-SFML_d.so: /usr/lib/x86_64-linux-gnu/libGL.so
-utils/imgui-sfml/libImGui-SFML_d.so: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
-utils/imgui-sfml/libImGui-SFML_d.so: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
-utils/imgui-sfml/libImGui-SFML_d.so: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX shared library libImGui-SFML_d.so"
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/imgui-SFML.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_draw.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_tables.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_widgets.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/misc/cpp/imgui_stdlib.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/__/imgui/imgui_demo.cpp.o
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/build.make
+utils/imgui-sfml/libImGui-SFML.a: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libImGui-SFML.a"
+	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && $(CMAKE_COMMAND) -P CMakeFiles/ImGui-SFML.dir/cmake_clean_target.cmake
 	cd /home/vitiate/Desktop/scs/build/utils/imgui-sfml && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ImGui-SFML.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/build: utils/imgui-sfml/libImGui-SFML_d.so
+utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/build: utils/imgui-sfml/libImGui-SFML.a
 .PHONY : utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/build
 
 utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/clean:

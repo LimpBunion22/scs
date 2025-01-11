@@ -32,6 +32,8 @@ class basic_state{
             : position(v1){};
         basic_state(f_vector& v1, f_vector& v2)
             : position(v1), velocity(v2){};
+        basic_state(f_vector& v1, f_vector& v2, f_vector& v3)
+            : position(v1), velocity(v2), direction(v3) {};
         basic_state(f_vector& v1, f_vector& v2, f_vector& v3, f_vector& v4)
             : position(v1), velocity(v2), direction(v3), ang_velocity(v4) {};
 };

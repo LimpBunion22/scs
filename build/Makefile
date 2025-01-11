@@ -283,29 +283,29 @@ source/physics/physics_engine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/physics/physics_engine.cpp.s
 .PHONY : source/physics/physics_engine.cpp.s
 
-source/ships/basic_ships.o: source/ships/basic_ships.cpp.o
-.PHONY : source/ships/basic_ships.o
+source/ships/basic_ship.o: source/ships/basic_ship.cpp.o
+.PHONY : source/ships/basic_ship.o
 
 # target to build an object file
-source/ships/basic_ships.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.o
-.PHONY : source/ships/basic_ships.cpp.o
+source/ships/basic_ship.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ship.cpp.o
+.PHONY : source/ships/basic_ship.cpp.o
 
-source/ships/basic_ships.i: source/ships/basic_ships.cpp.i
-.PHONY : source/ships/basic_ships.i
+source/ships/basic_ship.i: source/ships/basic_ship.cpp.i
+.PHONY : source/ships/basic_ship.i
 
 # target to preprocess a source file
-source/ships/basic_ships.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.i
-.PHONY : source/ships/basic_ships.cpp.i
+source/ships/basic_ship.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ship.cpp.i
+.PHONY : source/ships/basic_ship.cpp.i
 
-source/ships/basic_ships.s: source/ships/basic_ships.cpp.s
-.PHONY : source/ships/basic_ships.s
+source/ships/basic_ship.s: source/ships/basic_ship.cpp.s
+.PHONY : source/ships/basic_ship.s
 
 # target to generate assembly for a file
-source/ships/basic_ships.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ships.cpp.s
-.PHONY : source/ships/basic_ships.cpp.s
+source/ships/basic_ship.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/ships/basic_ship.cpp.s
+.PHONY : source/ships/basic_ship.cpp.s
 
 source/window_handler/child_windows.o: source/window_handler/child_windows.cpp.o
 .PHONY : source/window_handler/child_windows.o
@@ -405,9 +405,9 @@ help:
 	@echo "... source/physics/physics_engine.o"
 	@echo "... source/physics/physics_engine.i"
 	@echo "... source/physics/physics_engine.s"
-	@echo "... source/ships/basic_ships.o"
-	@echo "... source/ships/basic_ships.i"
-	@echo "... source/ships/basic_ships.s"
+	@echo "... source/ships/basic_ship.o"
+	@echo "... source/ships/basic_ship.i"
+	@echo "... source/ships/basic_ship.s"
 	@echo "... source/window_handler/child_windows.o"
 	@echo "... source/window_handler/child_windows.i"
 	@echo "... source/window_handler/child_windows.s"

@@ -114,5 +114,5 @@ void flight_plan::emplace_rotation_segment(float start_time, float end_time, f_v
     segments[last].start_time = start_time;
     segments[last].end_time = end_time;
 
-    segments[last].engine_thrust = engine_thrust;
+    // segments[last].engine_thrust = engine_thrust;
 }

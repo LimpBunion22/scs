@@ -8,8 +8,11 @@ project(SPACE_COMBAT_SIMULATOR)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 # add_subdirectory(utils/imgui)
 add_subdirectory(utils/imgui-sfml)
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/utils/imgui)
+set(IMGUI_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/utils/imgui)
 
 # Incluir todas las subcarpetas de 'include'
 include_directories(include)
@@ -34,6 +37,5 @@ file(GLOB_RECURSE SOURCES "source/*.cpp")
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCES})
 
 # Enlazar las bibliotecas de SFML
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML sfml-graphics sfml-window sfml-system)
 
