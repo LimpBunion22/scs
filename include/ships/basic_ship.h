@@ -65,7 +65,7 @@ private:
     sf::Text positionText;
 
 public:
-    basic_ship() = delete;
+    // basic_ship() = delete;
     // basic_ship(double mass, double size_r, basic_state entity_state):e_base(mass, size_r, entity_state){init_shape();};
     basic_ship(double mass, double size_r, basic_state entity_state, f_vector main_dimensions, f_vector inertia_tensor) : e_base(mass, size_r, entity_state, main_dimensions, inertia_tensor) { init_shape(); };
     basic_ship(const basic_ship &rh) : e_base(rh) { init_shape(); };

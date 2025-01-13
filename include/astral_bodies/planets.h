@@ -18,7 +18,7 @@ class planet : public e_base
         float rec_size = 25;
 
     public:
-        planet() = delete;
+        // planet() = delete;
         planet(float mass, float size_r, basic_state entity_state): e_base(mass, size_r, entity_state), shape(size_r){init_shape();};
         planet(const planet &rh):e_base(rh), shape(rh.size_r){init_shape();};
         planet(planet &&rh):e_base(std::move(rh)), shape(std::move(rh.shape)){};

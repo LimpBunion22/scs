@@ -8,6 +8,8 @@ project(SPACE_COMBAT_SIMULATOR)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+
+find_package(nlohmann_json REQUIRED)
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 # add_subdirectory(utils/imgui)
 add_subdirectory(utils/imgui-sfml)
@@ -37,5 +39,5 @@ file(GLOB_RECURSE SOURCES "source/*.cpp")
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCES})
 
 # Enlazar las bibliotecas de SFML
-target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML sfml-graphics sfml-window sfml-system nlohmann_json::nlohmann_json)
 

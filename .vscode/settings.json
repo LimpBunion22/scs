@@ -49,7 +49,27 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "cstring": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "bitset": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "condition_variable": "cpp",
+        "ratio": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "variant": "cpp",
+        "format": "cpp",
+        "__nullptr": "cpp",
+        "__functional_base": "cpp",
+        "locale": "cpp",
+        "__node_handle": "cpp",
+        "__split_buffer": "cpp"
     },
     "cmake.configureArgs": [
         "-DIMGUI_DIR=${workspaceFolder}/utils/imgui"

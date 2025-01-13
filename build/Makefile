@@ -235,6 +235,30 @@ source/general/basic_entities.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/basic_entities.cpp.s
 .PHONY : source/general/basic_entities.cpp.s
 
+source/general/scenario_manager.o: source/general/scenario_manager.cpp.o
+.PHONY : source/general/scenario_manager.o
+
+# target to build an object file
+source/general/scenario_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/scenario_manager.cpp.o
+.PHONY : source/general/scenario_manager.cpp.o
+
+source/general/scenario_manager.i: source/general/scenario_manager.cpp.i
+.PHONY : source/general/scenario_manager.i
+
+# target to preprocess a source file
+source/general/scenario_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/scenario_manager.cpp.i
+.PHONY : source/general/scenario_manager.cpp.i
+
+source/general/scenario_manager.s: source/general/scenario_manager.cpp.s
+.PHONY : source/general/scenario_manager.s
+
+# target to generate assembly for a file
+source/general/scenario_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/source/general/scenario_manager.cpp.s
+.PHONY : source/general/scenario_manager.cpp.s
+
 source/main.o: source/main.cpp.o
 .PHONY : source/main.o
 
@@ -399,6 +423,9 @@ help:
 	@echo "... source/general/basic_entities.o"
 	@echo "... source/general/basic_entities.i"
 	@echo "... source/general/basic_entities.s"
+	@echo "... source/general/scenario_manager.o"
+	@echo "... source/general/scenario_manager.i"
+	@echo "... source/general/scenario_manager.s"
 	@echo "... source/main.o"
 	@echo "... source/main.i"
 	@echo "... source/main.s"

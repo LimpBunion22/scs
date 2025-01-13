@@ -98,12 +98,12 @@ utils/imgui-sfml/clean: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/clean
 CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/all: utils/imgui-sfml/CMakeFiles/ImGui-SFML.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build.make CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17 "Built target SPACE_COMBAT_SIMULATOR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/vitiate/Desktop/scs/build/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18 "Built target SPACE_COMBAT_SIMULATOR"
 .PHONY : CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vitiate/Desktop/scs/build/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vitiate/Desktop/scs/build/CMakeFiles 18
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vitiate/Desktop/scs/build/CMakeFiles 0
 .PHONY : CMakeFiles/SPACE_COMBAT_SIMULATOR.dir/rule
