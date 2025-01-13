@@ -23,17 +23,17 @@ void physic_engine::run_step(){
 void physic_engine::run_planets(){
 
     for (auto ptr : planets_ptr) {
-        float Fx = 0;
-        float Fy = 0;
-        float x = ptr->entity_state.position[0];
-        float y = ptr->entity_state.position[1];
+        double Fx = 0;
+        double Fy = 0;
+        double x = ptr->entity_state.position[0];
+        double y = ptr->entity_state.position[1];
         for(auto ptr2 : planets_ptr){
             if(ptr != ptr2){
-                float r_x = 1000*(ptr2->entity_state.position[0] - x);
-                float r_y = 1000*(ptr2->entity_state.position[1] - y);
-                float r2 = r_x*r_x + r_y*r_y;
-                float dir = std::atan2(r_y,r_x);
-                float F = G*ptr2->mass/r2;
+                double r_x = 1000*(ptr2->entity_state.position[0] - x);
+                double r_y = 1000*(ptr2->entity_state.position[1] - y);
+                double r2 = r_x*r_x + r_y*r_y;
+                double dir = std::atan2(r_y,r_x);
+                double F = G*ptr2->mass/r2;
                 Fx += F*std::cos(dir);
                 Fy += F*std::sin(dir);
             }            
@@ -48,16 +48,16 @@ void physic_engine::run_planets(){
 void physic_engine::run_ships(){
 
     for (auto small_ptr : ships_ptr) {
-        float Fx = 0;
-        float Fy = 0;
-        float x = small_ptr->entity_state.position[0];
-        float y = small_ptr->entity_state.position[1];
+        double Fx = 0;
+        double Fy = 0;
+        double x = small_ptr->entity_state.position[0];
+        double y = small_ptr->entity_state.position[1];
         for(auto planet_ptr : planets_ptr){
-            float r_x = 1000*(planet_ptr->entity_state.position[0] - x);
-            float r_y = 1000*(planet_ptr->entity_state.position[1] - y);
-            float r2 = r_x*r_x + r_y*r_y;
-            float dir = std::atan2(r_y,r_x);
-            float F = G*planet_ptr->mass/r2;
+            double r_x = 1000*(planet_ptr->entity_state.position[0] - x);
+            double r_y = 1000*(planet_ptr->entity_state.position[1] - y);
+            double r2 = r_x*r_x + r_y*r_y;
+            double dir = std::atan2(r_y,r_x);
+            double F = G*planet_ptr->mass/r2;
             Fx += F*std::cos(dir);
             Fy += F*std::sin(dir);
         }
@@ -68,7 +68,7 @@ void physic_engine::run_ships(){
     }    
 }
 
-sf::VertexArray physic_engine::evaluate_current_trajectory(std::string ship_name){
+sf::VertexArray physic_engine::evaluate_current_trajectory(std::string ship_name, int max_iterations){
 
     sf::VertexArray line(sf::LinesStrip);
     basic_ship * ship = nullptr;
@@ -83,6 +83,14 @@ sf::VertexArray physic_engine::evaluate_current_trajectory(std::string ship_name
         log_queue.push(std::pair<std::string,int>("Unknown ship",YELLOW));
         return line;
     }
+    return line;
 
+    // if(ship->flight_plan_status == INVALID || ship->flight_plan_status == DONE){
+    //     for(int i = 0; i<max_iterations; i++){
+
+    //     }
+    // }
+
+    // for(auto & segment: )
     
 }

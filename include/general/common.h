@@ -13,7 +13,7 @@
 
 #define ON_LEFT_CLICK_SHIP 0b00010001
 
-const double G = 6.6743e-11;
+const float G = 6.6743e-11;
 using f_vector = std::vector<float>;
 using lamda_func = std::function<f_vector(float)>;
 

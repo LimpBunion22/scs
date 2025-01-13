@@ -14,9 +14,15 @@
 #define FRIGATE 0b01100000
 #define FIGHTER 0b01110000
 
-#define STEADY 0
-#define THRUST 1
-#define ROTATION 2
+#define STEADY 1
+#define THRUST 2
+#define ROTATION 3
+
+#define INVALID -1
+#define DORMANT 0
+// #define STEADY 1
+#define EXECUTING 2
+#define DONE 3
 
 #define MAX_POWER 1
 #define MIN_CONSUMPTION 0
@@ -28,24 +34,28 @@ class basic_ship : public e_base
 public:
     friend class flight_plan;
 
+    //Definition
     int ship_class = DESTROYER;
+    double fuel_consumption = 10;
+    double max_thrust_force = 100;
+    f_vector max_rotation_force = {10, 100, 100};
 
-    float fuel = 100;
+    //Status
+    double fuel = 100;
     int comms_status = 1;
     int sensors_status = 1;
     int reactor_status = 1;
     int engines_status = 1;
     int weapons_status = 1;
+    int flight_plan_status = INVALID;
 
-    float fuel_consumption = 10;
-    float max_thrust_force = 100;
-    f_vector max_rotation_force = {10, 100, 100};
-
+    //Configurations
     int rotation_consumption_mode = MAX_POWER;
+    flight_plan * selected_fight_plan = nullptr;
 
     // Graphics
-    float fig_heigh = 20.0;
-    float fig_width = 8.0;
+    double fig_heigh = 20.0;
+    double fig_width = 8.0;
     sf::Color fig_color = sf::Color(0, 50, 255);
     std::string name = "UNAMED SHIP";
 
@@ -56,8 +66,8 @@ private:
 
 public:
     basic_ship() = delete;
-    // basic_ship(float mass, float size_r, basic_state entity_state):e_base(mass, size_r, entity_state){init_shape();};
-    basic_ship(float mass, float size_r, basic_state entity_state, f_vector main_dimensions, f_vector inertia_tensor) : e_base(mass, size_r, entity_state, main_dimensions, inertia_tensor) { init_shape(); };
+    // basic_ship(double mass, double size_r, basic_state entity_state):e_base(mass, size_r, entity_state){init_shape();};
+    basic_ship(double mass, double size_r, basic_state entity_state, f_vector main_dimensions, f_vector inertia_tensor) : e_base(mass, size_r, entity_state, main_dimensions, inertia_tensor) { init_shape(); };
     basic_ship(const basic_ship &rh) : e_base(rh) { init_shape(); };
     basic_ship(basic_ship &&rh) : e_base(std::move(rh)), shape(std::move(rh.shape)) {};
 
@@ -67,7 +77,7 @@ public:
 private:
     // Graphics
     void init_shape();
-    void update_shape(float currentZoom = 1.0);
+    void update_shape(double currentZoom = 1.0);
 };
 
 class flight_plan
@@ -75,8 +85,11 @@ class flight_plan
 public:
     std::string designation;
     std::string status = "EMPTY";
-    float fuel_consumed = 0;
-    float fuel_estimation = 0;
+    double fuel_consumed = 0;
+    double fuel_estimation = 0;
+
+    f_vector position_margin;
+    f_vector velocity_margin;
 
 private:
     class flight_segment;
@@ -84,15 +97,12 @@ private:
     std::vector<flight_segment> segments;
 
 public:
-    flight_plan(basic_ship *owner, std::string name);
+    flight_plan(basic_ship *owner, std::string name) : _owner(owner), designation(name) {};
     flight_plan(const flight_plan &rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(rh.segments) {};
     flight_plan(flight_plan &&rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(std::move(rh.segments)) {};
 
-    void emplace_thrust_segment(float start_time, float end_time, float engine_thrust);
-    void emplace_thrust_segment(float end_time, float engine_thrust);
-
-    void emplace_rotation_segment(float start_time, float end_time, f_vector new_orientation);
-    void emplace_rotation_segment(float end_time, f_vector new_orientation);
+    void emplace_thrust_segment(double start_time, double end_time, double engine_thrust, basic_state expected_entry_state, basic_state expected_output_state);
+    void emplace_rotation_segment(double start_time, double end_time, basic_state expected_entry_state, basic_state expected_output_state);
 
     void configure_segment(int segment_index, lamda_func pos_lamb, lamda_func vel_lamb, f_vector e_pos, f_vector e_vel, f_vector o_pos, f_vector o_vel);
     void configure_segment(int segment_index, lamda_func pos_lamb, lamda_func vel_lamb, f_vector e_pos, f_vector e_vel, f_vector o_pos, f_vector o_vel, f_vector pos_marg, f_vector vel_marg);
@@ -111,23 +121,22 @@ private:
     class flight_segment
     {
     public:
-        f_vector expected_entry_point;
-        f_vector expected_entry_velocity;
 
-        f_vector expected_output_point;
-        f_vector expected_velocity_point;
+        basic_state expected_entry_state;
+        basic_state expected_output_state;
 
         f_vector position_margin;
         f_vector velocity_margin;
 
-        float start_time;
-        float end_time;
+        double start_time;
+        double end_time;
 
-        float elap_time = 0;
+        double elap_time = 0;
 
         int segment_type = STEADY;
-        float engine_thrust;
+        double engine_thrust;
         f_vector rotation_thrust;
+        
 
     private:
         flight_plan *_owner = nullptr;
@@ -136,9 +145,9 @@ private:
         lamda_func _expected_velocity_lambda;
 
     public:
-        flight_segment(flight_plan *owner);
-        flight_segment(const flight_segment &rh);
-        flight_segment(flight_segment &&rh);
+        flight_segment(flight_plan *owner):_owner(owner){};
+        // flight_segment(const flight_segment &rh);
+        // flight_segment(flight_segment &&rh);
 
         void set_course_lambdas(lamda_func pos_lambda, lamda_func vel_lambda);
 

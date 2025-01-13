@@ -13,19 +13,21 @@ class physic_engine{
         float step = 1.0;
 
         std::queue<std::pair<std::string,int>> log_queue;
+        
+        sf::Clock* master_clock;
     
     private:
         std::vector<planet*> planets_ptr;
         std::vector<basic_ship*> ships_ptr;
 
     public:
-        physic_engine(){planets_ptr.reserve(32);ships_ptr.reserve(128);};
+        physic_engine(sf::Clock* clock):master_clock(clock){planets_ptr.reserve(32);ships_ptr.reserve(128);};
 
         void emplace_planet(planet * new_planet_ptr);
         void emplace_ship(basic_ship * new_entity_ptr);
         void run_step();
 
-        sf::VertexArray evaluate_current_trajectory(std::string ship_name);
+        sf::VertexArray evaluate_current_trajectory(std::string ship_name, int max_iterations);
 
     private:
         void run_planets();

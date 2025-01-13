@@ -19,7 +19,9 @@ int main() {
     }
     e_base::init_font(font);
     
-    physic_engine engine;
+    sf::Clock master_clock;
+    master_clock.restart();
+    physic_engine engine(&master_clock);
     log_window_handler log_window(&engine);
     tactical_window_handler tactical_window(font, &log_window);
     engine.step = 3600;
