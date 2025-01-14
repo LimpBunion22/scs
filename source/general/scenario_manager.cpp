@@ -3,6 +3,9 @@
 // Usamos un alias para simplificar
 using json = nlohmann::json;
 
+static std::vector<planet> planets;
+static std::vector<basic_ship> ships;
+
 void load_scenario(std::string file_name, tactical_window_handler & tactical_window, physic_engine & engine){
 
     // 1. Abrir el archivo JSON
@@ -60,8 +63,8 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
 
             // Añadir a la lista
             planets.push_back(star);
-            tactical_window.emplace_planet(&star);
-            engine.emplace_planet(&star);
+            tactical_window.emplace_planet(&planets.back());
+            engine.emplace_planet(&planets.back());
         }
     }
 
@@ -103,8 +106,8 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
 
             // Añadir a la lista
             planets.push_back(planet);
-            tactical_window.emplace_planet(&planet);
-            engine.emplace_planet(&planet);
+            tactical_window.emplace_planet(&planets.back());
+            engine.emplace_planet(&planets.back());
         }
     }
 
@@ -164,8 +167,8 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
 
             // Añadir a la lista
             ships.push_back(ship);
-            tactical_window.emplace_ship(&ship);
-            engine.emplace_ship(&ship);
+            tactical_window.emplace_ship(&ships.back());
+            engine.emplace_ship(&ships.back());
         }
     }
 

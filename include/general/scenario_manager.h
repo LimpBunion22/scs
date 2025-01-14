@@ -11,7 +11,4 @@
 #include <basic_entities.h>
 #include <basic_ship.h>
 
-std::vector<planet> planets;
-std::vector<basic_ship> ships;
-
 void load_scenario(std::string file_name, tactical_window_handler & tactical_window, physic_engine & engine);
