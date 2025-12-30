@@ -12,22 +12,38 @@
 
 int main() {
     
+    std::cout << "      ---WELCOME TO SPACE COMBAT SIMULATOR---" << std::endl;
+    std::cout << std::endl << "Starting boot process..." << std::endl;
     // Fuente para mostrar el texto (escala)
+
+    std::cout << "  [INFO]   Loading font..." << std::endl;
     sf::Font font;
     if (!font.loadFromFile("../utils/arial.ttf")) {
-        std::cout << "Fail to load font" << std::endl;
+        std::cout << "[ERROR]   Fail to load font" << std::endl;
         return -1;  // Cargar una fuente para mostrar el texto
     }
     e_base::init_font(font);
+    std::cout << "  [INFO]   Font loaded" << std::endl;
     
     sf::Clock master_clock;
     master_clock.restart();
+
+    std::cout << "  [INFO]   Starting engine..." << std::endl;
     physic_engine engine(&master_clock);
+    std::cout << "  [INFO]   Engine started" << std::endl;
+
+    std::cout << "  [INFO]   Starting log window..." << std::endl;
     log_window_handler log_window(&engine);
+    std::cout << "  [INFO]   Log window started" << std::endl;
+
+    std::cout << "  [INFO]   Starting tactical window..." << std::endl;
     tactical_window_handler tactical_window(font, &log_window);
+    std::cout << "  [INFO]   Tactical window started" << std::endl;
     engine.step = 3600;
 
+    std::cout << "  [INFO]   Loading test scenario..." << std::endl;
     load_scenario("../scenarios/sol.json", tactical_window, engine);
+    std::cout << "  [INFO]   Test scenario loaded" << std::endl;
 
     // // Velocidad del triángulo
     // float V = 20.0f; // Velocidad en píxeles por segundo

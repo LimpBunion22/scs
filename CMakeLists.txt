@@ -7,6 +7,8 @@ project(SPACE_COMBAT_SIMULATOR)
 # Establecer el estándar de C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs" FORCE)
+
 
 
 find_package(nlohmann_json REQUIRED)
