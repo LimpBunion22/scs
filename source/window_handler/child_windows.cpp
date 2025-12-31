@@ -6,7 +6,7 @@
 
 // ship_window
 
-ship_window::ship_window(std::string in_name, int in_ship_class, basic_ship* in_ship):name(in_name), ship_class(in_ship_class), ship(in_ship){
+ship_window::ship_window(std::vector<basic_ship> *in_shipV_ptr, std::string in_name, int in_ship_class, int shipCnt):shipV_ptr(in_shipV_ptr), name(in_name), ship_class(in_ship_class), shipInd(shipCnt){
     
     texture.loadFromFile("../utils/ship1.png");
     log_vector.reserve(128);
@@ -25,6 +25,7 @@ ship_window::ship_window(std::string in_name, int in_ship_class, basic_ship* in_
 }
 
 void ship_window::draw(){
+    basic_ship ship = (*shipV_ptr)[shipInd];
     ImGui::SetNextWindowSize(ImVec2(window_width, window_heigh), ImGuiCond_Always);
     ImGui::Begin(name.c_str(), nullptr, ImGuiWindowFlags_NoResize);
 
@@ -75,7 +76,7 @@ void ship_window::draw(){
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Fuel:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::to_string(ship->fuel).c_str());
+            ImGui::Text(std::to_string(ship.fuel).c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
@@ -130,25 +131,25 @@ void ship_window::draw(){
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Position:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("X"+std::to_string(ship->entity_state.position[0])+" "+"Y"+std::to_string(ship->entity_state.position[1])+" "+"Z"+std::to_string(ship->entity_state.position[2])).c_str());
+            ImGui::Text(std::string("X"+std::to_string(ship.entity_state.position[0])+" "+"Y"+std::to_string(ship.entity_state.position[1])+" "+"Z"+std::to_string(ship.entity_state.position[2])).c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Velocity:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("Vx"+std::to_string(ship->entity_state.velocity[0])+" "+"Vy"+std::to_string(ship->entity_state.velocity[1])+" "+"Vz"+std::to_string(ship->entity_state.velocity[2])).c_str());
+            ImGui::Text(std::string("Vx"+std::to_string(ship.entity_state.velocity[0])+" "+"Vy"+std::to_string(ship.entity_state.velocity[1])+" "+"Vz"+std::to_string(ship.entity_state.velocity[2])).c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Orientation:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("Ox"+std::to_string(ship->entity_state.direction[0])+" "+"Oy"+std::to_string(ship->entity_state.direction[1])+" "+"Oz"+std::to_string(ship->entity_state.direction[2])).c_str());
+            ImGui::Text(std::string("Ox"+std::to_string(ship.entity_state.direction[0])+" "+"Oy"+std::to_string(ship.entity_state.direction[1])+" "+"Oz"+std::to_string(ship.entity_state.direction[2])).c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Fuel:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::to_string(ship->fuel).c_str());
+            ImGui::Text(std::to_string(ship.fuel).c_str());
 
             ImGui::EndTable();
 

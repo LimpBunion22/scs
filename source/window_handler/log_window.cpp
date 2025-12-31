@@ -53,14 +53,14 @@ bool log_window_handler::manage_events(sf::Time elapTime){
     ImGui::End();
 
     // CUSTOM EVENTS
-    std::vector<std::pair<std::string, void*>> new_ship_windows;
+    std::vector<std::pair<std::string, int>> new_ship_windows;
     while (!custom_events.empty()) {
-        std::pair<int,void*> custom_event = custom_events.front(); // Obtiene el primer elemento
+        std::pair<int,int> custom_event = custom_events.front(); // Obtiene el primer elemento
         switch (custom_event.first){
             case ON_LEFT_CLICK_SHIP:{
                 // logMessage("Event received", YELLOW);
-                basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(custom_event.second);
-                new_ship_windows.emplace_back(std::pair(ship_ptr->name,custom_event.second));
+                int shipCnt = custom_event.second;
+                new_ship_windows.emplace_back(std::pair(engine->shipsV[shipCnt].name,custom_event.second));
                 break;
             }
             default:{
@@ -70,19 +70,20 @@ bool log_window_handler::manage_events(sf::Time elapTime){
         custom_events.pop(); // Elimina el primer elemento
     }
 
-    for(auto new_window:new_ship_windows){
+    for(auto &new_window:new_ship_windows){
         if (child_windows.find(new_window.first) == child_windows.end()){
             // logMessage("Window emplaced", YELLOW);
-            basic_ship* ship_ptr = reinterpret_cast<basic_ship*>(new_window.second);
-            child_windows.emplace(new_window.first,ship_window(new_window.first, ship_ptr->ship_class, ship_ptr));
+            int shipCnt = new_window.second;
+            child_windows.emplace(new_window.first,ship_window(&(engine->shipsV), new_window.first, engine->shipsV[shipCnt].ship_class, shipCnt));
         }
     }
 
-    for (auto it = child_windows.begin(); it != child_windows.end(); it++) {
+    for (auto it = child_windows.begin(); it != child_windows.end();) {
         if (it->second.programed_erase) {
             it = child_windows.erase(it);
         } else {
             it->second.draw();
+            it++;
         }
     }
 

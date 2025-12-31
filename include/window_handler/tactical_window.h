@@ -19,6 +19,8 @@ class tactical_window_handler{
         const float C_ZOOM_INCREMENT = 0.9f;  // Para acercar o alejar (menos de 1 para zoom in, mayor que 1 para zoom out)
         const float C_VIEW_SPEED = 300.0f; // píxeles por segundo
 
+        sf::Clock* master_clock;
+
         // Grafical elements 
         sf::RenderWindow window_tactical;
         sf::View map_view;
@@ -26,16 +28,17 @@ class tactical_window_handler{
         sf::Font font;
         sf::Text positionText;
         sf::Text scaleText;
+        sf::Text timeText;
         sf::RectangleShape referenceLine;
-        std::vector<planet*> planets_ptr;
-        std::vector<basic_ship*> ships_ptr;
+        std::vector<planet>* planetsV_ptr = nullptr;
+        std::vector<basic_ship>* shipsV_ptr = nullptr;
         sf::Image gravity_map;
         sf::Texture heatmapTexture;
         sf::Sprite heatmapSprite;
 
         // Configuration variables
         float aspectRatio = C_ORIGINAL_ASPECT_RATIO;
-        float currentZoom = 1.0f;
+        double currentZoom = 1.0f;
         float window_width = C_WINDOW_WIDTH;
         float window_heigh = C_WINDOW_HEIGH;
         bool draw_gravity = false;
@@ -44,13 +47,14 @@ class tactical_window_handler{
         float referenceLineLength = 100.0f;
     private:
         log_window_handler* logger;
+        physic_engine* engine;
+
+        bool spacePressed = false;
+        float lastSpace = 0.0;
 
     public:
         tactical_window_handler() = delete;
-        tactical_window_handler(const sf::Font in_font, log_window_handler* in_logger);
-
-        void emplace_planet(planet * new_planet_ptr);
-        void emplace_ship(basic_ship * new_ship_ptr);
+        tactical_window_handler(const sf::Font in_font, log_window_handler* in_logger, sf::Clock* masterClock);
 
         bool manage_events(float deltaTime);
 
@@ -60,7 +64,7 @@ class tactical_window_handler{
         ~tactical_window_handler();
     private:
         float _gravityFunction(float x, float y);
-        void generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea, float currentZoom);
+        void generateHeatmap(sf::Image& heatmap, const sf::FloatRect& visibleArea, double currentZoom);
 
 };
 

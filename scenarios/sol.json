@@ -2,13 +2,13 @@
     "stars":[
         {"name": "star_1",
         "position" : [2.3, 4.1, 2.1],
-        "velocity" : [-1.2, 4.0, -9.0],
+        "velocity" : [-1.2, -40.0, -9.0],
         "mass" : 1.98e30,
         "radius" : 6.98e5
         },
         {"name": "star_2",
-        "position" : [-1.2e5, 4.0, -9.0],
-        "velocity" : [2.3, 4.1e9, 2.1],
+        "position" : [-1.2e8, 4.0, -9.0],
+        "velocity" : [2.3, 20, 2.1],
         "mass" : 2.98e30,
         "radius" : 4.98e5
         }
@@ -16,14 +16,14 @@
 
     "planets":[
         {"name": "mercury",
-        "position" : [5.79e7,0.0,0.0],
-        "velocity" : [0.0,47.87,0.0],
+        "position" : [5.79e9,0.0,0.0],
+        "velocity" : [0.0,-5.79,0.0],
         "mass" : 1.98e30,
         "radius" : 6.98e5
         },
         {"name": "venus",
-        "position" : [-1.2, 4.0, -9.0],
-        "velocity" : [2.3, 4.1, 2.1],
+        "position" : [-1.2, 5.79e9, -9.0],
+        "velocity" : [5.79, 4.1, 2.1],
         "mass" : 2.98e30,
         "radius" : 4.98e5
         }
@@ -39,7 +39,7 @@
         "mass" : 1.98e30
         },
         {"name": "Santa Maria",
-        "position" : [5.79e7,0.0,0.0],
+        "position" : [-5.79e9,-5.79e9,0.0],
         "velocity" : [0.0,47.87,0.0],
         "direction" : [0.0,47.87,0.0],
         "size" : [100.0, 50.0, 50.0],

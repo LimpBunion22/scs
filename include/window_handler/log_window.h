@@ -14,12 +14,15 @@
 #include <physic_engine.h>
 
 class log_window_handler{
+    friend class tactical_window_handler;
+    friend class ship_window;
+    
     public:
         const int C_WINDOW_WIDTH = 1680;
         const int C_WINDOW_HEIGH = 1050;
 
         sf::RenderWindow window_log;
-        std::queue<std::pair<int,void*>> custom_events;
+        std::queue<std::pair<int,int>> custom_events;
         std::map<std::string,sf::VertexArray> paths;
     private:
         std::vector<std::pair<std::string, int>> logs;

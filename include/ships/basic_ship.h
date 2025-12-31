@@ -6,6 +6,7 @@
 
 // Ship classes identificators
 #define CLASS_MASK 0b11110000
+#define BASIC 0b00000000
 #define STATION 0b00010000
 #define CARRIER 0b00100000
 #define BATTLESHIP 0b00110000
@@ -35,7 +36,7 @@ public:
     friend class flight_plan;
 
     //Definition
-    int ship_class = DESTROYER;
+    int ship_class = BASIC;
     double fuel_consumption = 10;
     double max_thrust_force = 100;
     f_vector max_rotation_force = {10, 100, 100};
@@ -68,8 +69,8 @@ public:
     // basic_ship() = delete;
     // basic_ship(double mass, double size_r, basic_state entity_state):e_base(mass, size_r, entity_state){init_shape();};
     basic_ship(double mass, double size_r, basic_state entity_state, f_vector main_dimensions, f_vector inertia_tensor) : e_base(mass, size_r, entity_state, main_dimensions, inertia_tensor) { init_shape(); };
-    basic_ship(const basic_ship &rh) : e_base(rh) {init_shape(); };
-    basic_ship(basic_ship &&rh) : e_base(std::move(rh)), shape(std::move(rh.shape)) {};
+    basic_ship(const basic_ship &rh);
+    basic_ship(basic_ship &&rh);
 
     // Graphics
     void draw(sf::RenderWindow &window, float currentZoom) override;

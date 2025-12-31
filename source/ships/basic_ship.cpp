@@ -3,6 +3,68 @@
 #include <basic_ship.h>
 #include <cmath>
 
+basic_ship::basic_ship(const basic_ship &rh) : e_base(rh) {
+    init_shape();
+
+    //Definition
+    ship_class = rh.ship_class;
+    fuel_consumption = rh.fuel_consumption;
+    max_thrust_force = rh.max_thrust_force;
+    max_rotation_force = rh.max_rotation_force;
+
+    //Status
+    fuel = rh.fuel;
+    comms_status = rh.comms_status;
+    sensors_status = rh.sensors_status;
+    reactor_status = rh.reactor_status;
+    engines_status = rh.engines_status;
+    weapons_status = rh.weapons_status;
+    flight_plan_status = rh.flight_plan_status;
+
+    //Configurations
+    rotation_consumption_mode = rh.rotation_consumption_mode;
+    selected_fight_plan = rh.selected_fight_plan;
+
+    // Graphics
+    fig_heigh = rh.fig_heigh;
+    fig_width = rh.fig_width;
+    fig_color = rh.fig_color;
+    name = rh.name;
+
+    // Graphics
+    shape = rh.shape;
+    positionText = rh.positionText;
+}
+
+basic_ship::basic_ship(basic_ship &&rh) : e_base(std::move(rh)), 
+    ship_class(std::move(rh.ship_class)),
+    fuel_consumption(std::move(rh.fuel_consumption)),
+    max_thrust_force(std::move(rh.max_thrust_force)),
+    max_rotation_force(std::move(rh.max_rotation_force)),
+
+    //Status
+    fuel(std::move(rh.fuel)),
+    comms_status(std::move(rh.comms_status)),
+    sensors_status(std::move(rh.sensors_status)),
+    reactor_status(std::move(rh.reactor_status)),
+    engines_status(std::move(rh.engines_status)),
+    weapons_status(std::move(rh.weapons_status)),
+    flight_plan_status(std::move(rh.flight_plan_status)),
+
+    //Configurations
+    rotation_consumption_mode(std::move(rh.rotation_consumption_mode)),
+    selected_fight_plan(std::move(rh.selected_fight_plan)),
+
+    // Graphics
+    fig_heigh(std::move(rh.fig_heigh)),
+    fig_width(std::move(rh.fig_width)),
+    fig_color(std::move(rh.fig_color)),
+    name(std::move(rh.name)),
+
+    // Graphics
+    shape(std::move(rh.shape)),
+    positionText(std::move(rh.positionText)) {}
+
 void basic_ship::draw(sf::RenderWindow &window, float currentZoom)
 {
 

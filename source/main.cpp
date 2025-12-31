@@ -25,11 +25,11 @@ int main() {
     e_base::init_font(font);
     std::cout << "  [INFO]   Font loaded" << std::endl;
     
-    sf::Clock master_clock;
-    master_clock.restart();
+    sf::Clock masterClock;
+    masterClock.restart();
 
     std::cout << "  [INFO]   Starting engine..." << std::endl;
-    physic_engine engine(&master_clock);
+    physic_engine engine(&masterClock);
     std::cout << "  [INFO]   Engine started" << std::endl;
 
     std::cout << "  [INFO]   Starting log window..." << std::endl;
@@ -37,7 +37,7 @@ int main() {
     std::cout << "  [INFO]   Log window started" << std::endl;
 
     std::cout << "  [INFO]   Starting tactical window..." << std::endl;
-    tactical_window_handler tactical_window(font, &log_window);
+    tactical_window_handler tactical_window(font, &log_window, &masterClock);
     std::cout << "  [INFO]   Tactical window started" << std::endl;
     engine.step = 3600;
 
@@ -163,29 +163,41 @@ int main() {
     // tactical_window.draw_gravity = true;
 
     // Reloj para calcular el tiempo transcurrido
-    sf::Clock clock;
+    sf::Clock cycleClock;
 
     log_window.logMessage("Probando rojo", RED);
     log_window.logMessage("Probando amarillo", YELLOW);
     log_window.logMessage("Probando verde", GREEN);
 
+    std::cout << "Boot process completed" << std::endl;
+    std::cout << std::endl << "Starting main loop..." << std::endl;
+    long int loopCnt = 0;
+    sf::Time elapTime = cycleClock.restart();
+    float deltaTime = elapTime.asSeconds();
     while (true) {
 
         // Calcular el tiempo transcurrido
-        sf::Time elapTime = clock.restart();
-        float deltaTime = elapTime.asSeconds();
 
-        if (tactical_window.manage_events(deltaTime) || log_window.manage_events(elapTime))
+        if (tactical_window.manage_events(deltaTime)){
+            std::cout << std::endl << "Tactical window stoped the loop" << std::endl;
             return 0;
+        }
+
+        if (log_window.manage_events(elapTime)){
+            std::cout << std::endl << "Log window stoped the loop" << std::endl;
+            return 0;
+        } 
+        elapTime = cycleClock.restart();
+        deltaTime = elapTime.asSeconds();
 
         // Mover el triángulo en línea recta (en este caso hacia la derecha)
         // triangle.move(V * deltaTime, 0.f); // Mueve el triángulo con velocidad V en el eje X
 
         tactical_window.draw_map();
         tactical_window.draw_hud();
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 200; i++)
             engine.run_step();
+        loopCnt++;
     }
-
     return 0;
 }

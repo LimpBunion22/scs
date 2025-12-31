@@ -3,15 +3,12 @@
 // Usamos un alias para simplificar
 using json = nlohmann::json;
 
-static std::vector<planet> planets;
-static std::vector<basic_ship> ships;
-
 void load_scenario(std::string file_name, tactical_window_handler & tactical_window, physic_engine & engine){
 
     // 1. Abrir el archivo JSON
     std::ifstream file(file_name); // Ajusta el nombre/path según corresponda
     if (!file.is_open()) {
-        std::cerr << "No se pudo abrir el archivo JSON.\n";
+        std::cerr << "[ERROR]   [SM]    No se pudo abrir el archivo JSON.\n";
         return ;
     }
 
@@ -20,7 +17,7 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
     try {
         file >> j;
     } catch (std::exception& e) {
-        std::cerr << "Error al parsear JSON: " << e.what() << "\n";
+        std::cerr << "[ERROR]   [SM]    Error al parsear JSON: " << e.what() << "\n";
         return ;
     }
 
@@ -62,9 +59,7 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
             star.star();
 
             // Añadir a la lista
-            planets.push_back(star);
-            tactical_window.emplace_planet(&planets.back());
-            engine.emplace_planet(&planets.back());
+            engine.emplace_planet(star);
         }
     }
 
@@ -105,9 +100,7 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
             planet.name = name;
 
             // Añadir a la lista
-            planets.push_back(planet);
-            tactical_window.emplace_planet(&planets.back());
-            engine.emplace_planet(&planets.back());
+            engine.emplace_planet(planet);
         }
     }
 
@@ -162,13 +155,11 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
             }
 
             basic_state state(pos,vel,dir);
-            basic_ship ship(mass, dimensions[0], state, dimensions, inertia_tensor);
+            basic_ship ship(mass, dimensions[0], state, pos, inertia_tensor);
             ship.name = name;
 
             // Añadir a la lista
-            ships.push_back(ship);
-            tactical_window.emplace_ship(&ships.back());
-            engine.emplace_ship(&ships.back());
+            engine.emplace_ship(ship);
         }
     }
 

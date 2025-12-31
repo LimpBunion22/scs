@@ -12,7 +12,7 @@ class ship_window{
         std::string name;
         int ship_class;
         bool programed_erase = false;
-        basic_ship* ship = nullptr;
+        int shipInd;
 
         int window_width = 1000;
         int window_heigh = 800;
@@ -20,12 +20,13 @@ class ship_window{
         std::vector<std::string> log_vector;
 
     private:
+        std::vector<basic_ship> *shipV_ptr;
         sf::Texture texture;
         
     public:
         ship_window() = delete;
-        ship_window(std::string in_name, int in_ship_class, basic_ship* in_ship);
-        ship_window(const ship_window &rh):name(rh.name),ship_class(rh.ship_class),texture(rh.texture), ship(rh.ship){
+        ship_window(std::vector<basic_ship>  *in_shipV_ptr, std::string in_name, int in_ship_class, int shipCnt);
+        ship_window(const ship_window &rh):shipV_ptr(rh.shipV_ptr),name(rh.name),ship_class(rh.ship_class),texture(rh.texture), shipInd(rh.shipInd){
             log_vector.reserve(128);
             log_vector.emplace_back("CAPTAIN: Ship ONLINE");};
         // ship_window(ship_window && rh):name(rh.name),ship_class(rh.ship_class), texture(std::move(rh.texture)){};
