@@ -1,19 +1,88 @@
 #ifndef BASIC_SHIP_H
 #define BASIC_SHIP_H
 
+#include <variant>
 #include <common.h>
 #include <basic_entities.h>
 
+
+// Ship status
+enum class UnitClassification {
+    UNKNOWN,
+    NEUTRAL,
+    UNFRIENDLY,
+    HOSTILE,
+    FRIENDLY,
+    CONTROLLED
+};
+inline const char* to_string(UnitClassification t) {
+    switch (t) {
+        case UnitClassification::UNKNOWN:        return "UNKNOWN";
+        case UnitClassification::NEUTRAL:        return "NEUTRAL";
+        case UnitClassification::UNFRIENDLY:     return "UNFRIENDLY";
+        case UnitClassification::HOSTILE:        return "HOSTILE";
+        case UnitClassification::FRIENDLY:       return "FRIENDLY";
+        case UnitClassification::CONTROLLED:     return "CONTROLLED";
+        default:                                return "UNKNOWN";
+    }
+}
+
+// Ship/platform
+enum class UnitType {SHIP,PLATFORM};
+inline const char* to_string(UnitType t) {
+    switch (t) {
+        case UnitType::SHIP:            return "SHIP";
+        case UnitType::PLATFORM:        return "PLATFORM";
+        default:                        return "SHIP";
+    }
+}
+
 // Ship classes identificators
-#define CLASS_MASK 0b11110000
-#define BASIC 0b00000000
-#define STATION 0b00010000
-#define CARRIER 0b00100000
-#define BATTLESHIP 0b00110000
-#define CRUISER 0b01000000
-#define DESTROYER 0b01010000
-#define FRIGATE 0b01100000
-#define FIGHTER 0b01110000
+enum class ShipClass {
+    CIVIL,
+    AUXILIAR,
+    PROBE,
+    FIGHTER,
+    CORVETTE,
+    FRIGATE,
+    CRUISER,
+    CAPITAL,
+    CARRIER
+};
+inline const char* to_string(ShipClass t) {
+    switch (t) {
+        case ShipClass::CIVIL:              return "CIVIL";
+        case ShipClass::AUXILIAR:           return "AUXILIAR";
+        case ShipClass::PROBE:              return "PROBE";
+        case ShipClass::FIGHTER:            return "FIGHTER";
+        case ShipClass::CORVETTE:           return "CORVETTE";
+        case ShipClass::FRIGATE:            return "FRIGATE";
+        case ShipClass::CRUISER:            return "CRUISER";
+        case ShipClass::CAPITAL:            return "CAPITAL";
+        case ShipClass::CARRIER:            return "CARRIER";
+        default:                            return "CIVIL";
+    }
+}
+
+// Platform classes identificators
+enum class PlatformClass {
+    CIVIL,
+    OUTPOST,
+    PLATFORM,
+    SHIPYARD
+};
+inline const char* to_string(PlatformClass t) {
+    switch (t) {
+        case PlatformClass::CIVIL:              return "CIVIL";
+        case PlatformClass::OUTPOST:            return "OUTPOST";
+        case PlatformClass::PLATFORM:           return "PLATFORM";
+        case PlatformClass::SHIPYARD:           return "SHIPYARD";
+        default:                                return "CIVIL";
+    }
+}
+
+using EntityClass = std::variant<ShipClass, PlatformClass>;
+
 
 #define STEADY 1
 #define THRUST 2
@@ -36,6 +105,10 @@ public:
     friend class flight_plan;
 
     //Definition
+    UnitClassification classification = UnitClassification::UNKNOWN;
+    UnitType type;
+    EntityClass entityClass;
+    
     int ship_class = BASIC;
     double fuel_consumption = 10;
     double max_thrust_force = 100;
