@@ -113,6 +113,8 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
             std::vector<float> dimensions;
             std::vector<float> inertia_tensor;
             std::string name;
+            UnitDesignation designation;
+            EntityClass entityClass;
             float mass;
 
             // name
@@ -153,10 +155,25 @@ void load_scenario(std::string file_name, tactical_window_handler & tactical_win
             if (shipJson.contains("mass")) {
                 mass = shipJson["mass"].get<float>();
             }
+            // designation
+            if (shipJson.contains("designation")) {
+                std::string aux = shipJson["designation"].get<std::string>();
+                from_string(aux, designation);
+            }
+            // entityClass
+            if (shipJson.contains("entityClass")) {
+                std::string aux = shipJson["entityClass"].get<std::string>();
+                ShipClass shipClass;
+                from_string(aux, shipClass);
+                entityClass = shipClass;
+            }
 
             basic_state state(pos,vel,dir);
             basic_ship ship(mass, dimensions[0], state, pos, inertia_tensor);
             ship.name = name;
+            ship.designation = designation;
+            ship.type = UnitType::SHIP;
+            ship.entityClass = entityClass;
 
             // Añadir a la lista
             engine.emplace_ship(ship);

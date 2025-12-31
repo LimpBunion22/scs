@@ -70,7 +70,16 @@
         "locale": "cpp",
         "__node_handle": "cpp",
         "__split_buffer": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "any": "cpp",
+        "forward_list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "regex": "cpp",
+        "ranges": "cpp",
+        "shared_mutex": "cpp",
+        "cfenv": "cpp",
+        "valarray": "cpp"
     },
     "cmake.configureArgs": [
         "-DIMGUI_DIR=${workspaceFolder}/utils/imgui"

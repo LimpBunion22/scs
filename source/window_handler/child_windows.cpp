@@ -5,23 +5,13 @@
 #include <imgui-SFML.h>
 
 // ship_window
-
-ship_window::ship_window(std::vector<basic_ship> *in_shipV_ptr, std::string in_name, int in_ship_class, int shipCnt):shipV_ptr(in_shipV_ptr), name(in_name), ship_class(in_ship_class), shipInd(shipCnt){
+ship_window::ship_window(std::vector<basic_ship> *in_shipV_ptr, std::string in_name, int shipCnt):shipV_ptr(in_shipV_ptr), name(in_name), shipInd(shipCnt){
     
     texture.loadFromFile("../utils/ship1.png");
     log_vector.reserve(128);
     log_vector.emplace_back("CAPTAIN: Ship ONLINE");
     
-    switch (ship_class & CLASS_MASK)
-    {
-    case CARRIER:
-            texture.loadFromFile("../utils/ship1.png");
-        break;
-    
-    default:
-            texture.loadFromFile("../utils/ship1.png");
-        break;
-    }
+    texture.loadFromFile("../utils/ship1.png");
 }
 
 void ship_window::draw(){
@@ -44,9 +34,26 @@ void ship_window::draw(){
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Designation:");
+            ImGui::TableSetColumnIndex(1);
+            std::string designation = to_string((*shipV_ptr)[shipInd].designation);
+            ImGui::Text(designation.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Type:");
+            ImGui::TableSetColumnIndex(1);
+            std::string type = to_string((*shipV_ptr)[shipInd].type);
+            ImGui::Text(type.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
             ImGui::Text("Class:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text("DESTROYER");
+            std::string entityClass  = std::visit([](auto x) {
+                return to_string(x);
+            }, (*shipV_ptr)[shipInd].entityClass);
+            ImGui::Text(entityClass.c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);

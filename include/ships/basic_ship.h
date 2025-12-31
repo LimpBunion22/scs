@@ -7,7 +7,7 @@
 
 
 // Ship status
-enum class UnitClassification {
+enum class UnitDesignation {
     UNKNOWN,
     NEUTRAL,
     UNFRIENDLY,
@@ -15,30 +15,43 @@ enum class UnitClassification {
     FRIENDLY,
     CONTROLLED
 };
-inline const char* to_string(UnitClassification t) {
+inline const char* to_string(UnitDesignation t) {
     switch (t) {
-        case UnitClassification::UNKNOWN:        return "UNKNOWN";
-        case UnitClassification::NEUTRAL:        return "NEUTRAL";
-        case UnitClassification::UNFRIENDLY:     return "UNFRIENDLY";
-        case UnitClassification::HOSTILE:        return "HOSTILE";
-        case UnitClassification::FRIENDLY:       return "FRIENDLY";
-        case UnitClassification::CONTROLLED:     return "CONTROLLED";
+        case UnitDesignation::NEUTRAL:        return "NEUTRAL";
+        case UnitDesignation::UNFRIENDLY:     return "UNFRIENDLY";
+        case UnitDesignation::HOSTILE:        return "HOSTILE";
+        case UnitDesignation::FRIENDLY:       return "FRIENDLY";
+        case UnitDesignation::CONTROLLED:     return "CONTROLLED";
         default:                                return "UNKNOWN";
     }
 }
+inline const void from_string(std::string t, UnitDesignation &r) {    
+    if(t.find("NEUTRAL")!= std::string::npos)        {r = UnitDesignation::NEUTRAL; return;}
+    if(t.find("UNFRIENDLY")!= std::string::npos)     {r = UnitDesignation::UNFRIENDLY; return;}
+    if(t.find("HOSTILE")!= std::string::npos)        {r = UnitDesignation::HOSTILE; return;}
+    if(t.find("FRIENDLY")!= std::string::npos)       {r = UnitDesignation::FRIENDLY; return;}
+    if(t.find("CONTROLLED")!= std::string::npos)     {r = UnitDesignation::CONTROLLED; return;}
+    r = UnitDesignation::UNKNOWN;
+}
 
 // Ship/platform
-enum class UnitType {SHIP,PLATFORM};
+enum class UnitType {UNKNOWN,SHIP,PLATFORM};
 inline const char* to_string(UnitType t) {
     switch (t) {
         case UnitType::SHIP:            return "SHIP";
         case UnitType::PLATFORM:        return "PLATFORM";
-        default:                        return "SHIP";
+        default:                        return "UNKNOWN";
     }
+}
+inline const void from_string(std::string t, UnitType &r) {    
+    if(t.find("SHIP")!= std::string::npos)        {r = UnitType::SHIP; return;}
+    if(t.find("PLATFORM")!= std::string::npos)    {r = UnitType::PLATFORM; return;}
+    r = UnitType::UNKNOWN;
 }
 
 // Ship classes identificators
 enum class ShipClass {
+    UNKNOWN,
     CIVIL,
     AUXILIAR,
     PROBE,
@@ -60,12 +73,25 @@ inline const char* to_string(ShipClass t) {
         case ShipClass::CRUISER:            return "CRUISER";
         case ShipClass::CAPITAL:            return "CAPITAL";
         case ShipClass::CARRIER:            return "CARRIER";
-        default:                            return "CIVIL";
+        default:                            return "UNKNOWN";
     }
+}
+inline const void from_string(std::string t, ShipClass &r) {    
+    if(t.find("CIVIL")!= std::string::npos)        {r = ShipClass::CIVIL; return;}
+    if(t.find("AUXILIAR")!= std::string::npos)     {r = ShipClass::AUXILIAR; return;}
+    if(t.find("PROBE")!= std::string::npos)        {r = ShipClass::PROBE; return;}
+    if(t.find("FIGHTER")!= std::string::npos)      {r = ShipClass::FIGHTER; return;}
+    if(t.find("CORVETTE")!= std::string::npos)     {r = ShipClass::CORVETTE; return;}
+    if(t.find("FRIGATE")!= std::string::npos)      {r = ShipClass::FRIGATE; return;}
+    if(t.find("CRUISER")!= std::string::npos)      {r = ShipClass::CRUISER; return;}
+    if(t.find("CAPITAL")!= std::string::npos)      {r = ShipClass::CAPITAL; return;}
+    if(t.find("CARRIER")!= std::string::npos)      {r = ShipClass::CARRIER; return;}
+    r = ShipClass::UNKNOWN;
 }
 
 // Platform classes identificators
 enum class PlatformClass {
+    UNKNOWN,
     CIVIL,
     OUTPOST,
     PLATFORM,
@@ -77,8 +103,15 @@ inline const char* to_string(PlatformClass t) {
         case PlatformClass::OUTPOST:            return "OUTPOST";
         case PlatformClass::PLATFORM:           return "PLATFORM";
         case PlatformClass::SHIPYARD:           return "SHIPYARD";
-        default:                                return "CIVIL";
+        default:                                return "UNKNOWN";
     }
+}
+inline const void from_string(std::string t, PlatformClass &r) {    
+    if(t.find("CIVIL")!= std::string::npos)        {r = PlatformClass::CIVIL; return;}
+    if(t.find("OUTPOST")!= std::string::npos)      {r = PlatformClass::OUTPOST; return;}
+    if(t.find("PLATFORM")!= std::string::npos)     {r = PlatformClass::PLATFORM; return;}
+    if(t.find("SHIPYARD")!= std::string::npos)     {r = PlatformClass::SHIPYARD; return;}
+    r = PlatformClass::UNKNOWN;
 }
 
 using EntityClass = std::variant<ShipClass, PlatformClass>;
@@ -105,11 +138,10 @@ public:
     friend class flight_plan;
 
     //Definition
-    UnitClassification classification = UnitClassification::UNKNOWN;
-    UnitType type;
-    EntityClass entityClass;
+    UnitDesignation designation = UnitDesignation::UNKNOWN;
+    UnitType type = UnitType::UNKNOWN;
+    EntityClass entityClass = ShipClass::UNKNOWN;
     
-    int ship_class = BASIC;
     double fuel_consumption = 10;
     double max_thrust_force = 100;
     f_vector max_rotation_force = {10, 100, 100};

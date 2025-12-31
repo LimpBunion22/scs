@@ -74,7 +74,7 @@ bool log_window_handler::manage_events(sf::Time elapTime){
         if (child_windows.find(new_window.first) == child_windows.end()){
             // logMessage("Window emplaced", YELLOW);
             int shipCnt = new_window.second;
-            child_windows.emplace(new_window.first,ship_window(&(engine->shipsV), new_window.first, engine->shipsV[shipCnt].ship_class, shipCnt));
+            child_windows.emplace(new_window.first,ship_window(&(engine->shipsV), new_window.first, shipCnt));
         }
     }
 

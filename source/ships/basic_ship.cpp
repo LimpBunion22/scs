@@ -7,7 +7,10 @@ basic_ship::basic_ship(const basic_ship &rh) : e_base(rh) {
     init_shape();
 
     //Definition
-    ship_class = rh.ship_class;
+    designation = rh.designation;
+    type = rh.type;
+    entityClass = rh.entityClass;
+
     fuel_consumption = rh.fuel_consumption;
     max_thrust_force = rh.max_thrust_force;
     max_rotation_force = rh.max_rotation_force;
@@ -37,7 +40,9 @@ basic_ship::basic_ship(const basic_ship &rh) : e_base(rh) {
 }
 
 basic_ship::basic_ship(basic_ship &&rh) : e_base(std::move(rh)), 
-    ship_class(std::move(rh.ship_class)),
+    designation(std::move(rh.designation)),
+    type(std::move(rh.type)),
+    entityClass(std::move(rh.entityClass)),
     fuel_consumption(std::move(rh.fuel_consumption)),
     max_thrust_force(std::move(rh.max_thrust_force)),
     max_rotation_force(std::move(rh.max_rotation_force)),
