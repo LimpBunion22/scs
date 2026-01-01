@@ -1,8 +1,291 @@
 {
     "Platforms":{
-        
+        "CIVIL":[
+
+        ],
+        "OUTPOST":[
+
+        ],
+        "PLATFORM":[
+
+        ],
+        "SHIPYARD":[
+            {
+                "Family_name":  "CARTAGENA",
+                "Manufacturer": "DEUTSCHE DYNAMIKEN",
+                "Generation":   "SECOND GENERATION",
+                "Information":  "Designed in 2281 on TERRA for the SECOND EXPANSION with mixed civil-military purposes.\n\nThe CARTAGENA family is the most common among the planets of the INNER SEGMENT. After contact, the MARE NOSTRUM decree enforced the adaptation of some military docks to frigate-class ships.",
+                "Variants":[
+                    {
+                        "Variant_name": "CTG-90v3",
+                        "Structure":{
+                            "Size": [200, 50, 50],
+                            "Wheigth": 250000000
+                        },
+                        "Generators":[
+                            {
+                                "Name": "MAIN GENERATOR",
+                                "Type": "NUCLEAR FUSION",
+                                "Generator_capacity":10
+                            }
+                        ],
+                        "Sensors":[
+                            {
+                                "Name": "FRESNEL MULTISPECTRUM MRK-12",
+                                "Type": "MULTISPECTRUM",
+                                "Sensitivity": 10,
+                                "Amplitude": 360
+                            }
+                        ],
+                        "Armament_bays":[
+                            {
+                                "Name": "TOP BAY",
+                                "Type": "TORPEDO BAY",
+                                "Spaces": 5
+                            },
+                            {
+                                "Name": "BOTTOM BAY",
+                                "Type": "TORPEDO BAY",
+                                "Spaces": 5
+                            },
+                            {
+                                "Name": "AUXILIAR TOP BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 10
+                            },
+                            {
+                                "Name": "AUXILIAR BOTTOM BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 10
+                            }
+                        ],
+                        "Dock_bays":[
+                            {
+                                "Name": "CIVIL BAY",
+                                "Type": "CIVIL DOCK BAY",
+                                "Spaces": 70
+                            },
+                            {
+                                "Name": "CORVETTE BAY",
+                                "Type": "CORVETTE BAY",
+                                "Spaces": 16
+                            },
+                            {
+                                "Name": "FRIGATE BAY",
+                                "Type": "FRIGATE BAY",
+                                "Spaces": 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]        
     },
     "Ships":{
+        "CIVIL":[
 
+        ],
+        "AUXILIAR":[
+
+        ],
+        "PROBE":[
+
+        ],
+        "FIGHTER":[
+
+        ],
+        "CORVETTE":[
+            {
+                "Family_name":  "TYC VIGIA-3",
+                "Manufacturer": "TYCHO CORPORATION",
+                "Generation":   "THIRD GENERATION",
+                "Information":  "Designed in the mid-24th century at Aldebaran C headquarters, the third iteration of the VIGIA family adapts the IEEE17117-2342 local commercial transport chassis with the MUSK-7-M engine.\n\nFollowing the events of Delta Eridani (2351), all POSTA systems were ordered to upgrade their fleets for assault capabilities in their provincial subsystems.\n\nThe capacity of the Alberan shipyards, built for the then-imminent expansion into the Hyades Cluster, made the TYCHO VIGIA-3 the de facto standard model for third-generation corvettes.",
+                "Variants":[
+                    {
+                        "Variant_name": "VIGIA-3A",
+                        "Chassis":{
+                            "Name": "LORICAS",
+                            "Size": [200, 50, 50],
+                            "Wheigth": 250000000,
+                            "MainInertia": [25000000000, 625000000000, 625000000000]
+                        },
+                        "Engines":[
+                            {
+                                "Name": "MAIN TRHUSTERS",
+                                "Purpose": "MAIN THRUSTER",
+                                "Type": "CHEMICAL",
+                                "Fuel_capacity": 100,
+                                "Thrust_eficiency": 100,
+                                "Thrust": 100,
+                                "Rotationa_thrust": 10,
+                                "Generator_eficiency": 10,
+                                "Generator_capacity":10
+                            },
+                            {
+                                "Name": "DEEP SPACE ENGINES",
+                                "Purpose": "DEEP SPACE ENGINE",
+                                "Type": "ION ENGINE",
+                                "Fuel_capacity": 100,
+                                "Thrust_eficiency": 100,
+                                "Thrust": 100,
+                                "Rotationa_thrust": 10,
+                                "Generator_eficiency": 10,
+                                "Generator_capacity":10
+                            },
+                            {
+                                "Name": "MAIN GENERATOR",
+                                "Purpose": "GENERATOR",
+                                "Type": "NUCLEAR FISION",
+                                "Fuel_capacity": 100,
+                                "Thrust_eficiency": 100,
+                                "Thrust": 100,
+                                "Rotationa_thrust": 10,
+                                "Generator_eficiency": 10,
+                                "Generator_capacity":10
+                            }
+                        ],
+                        "Sensors":[
+                            {
+                                "Name": "FRESNEL MULTISPECTRUM MRK-12",
+                                "Type": "MULTISPECTRUM",
+                                "Sensitivity": 10,
+                                "Amplitude": 360
+                            },
+                            {
+                                "Name": "DEEP SEAKER V5",
+                                "Type": "INFRARED",
+                                "Sensitivity": 100,
+                                "Amplitude": 1
+                            }
+                        ],
+                        "Armament_bays":[
+                            {
+                                "Name": "MAIN BAY",
+                                "Type": "ENERGY BAY",
+                                "Spaces": 1
+                            },
+                            {
+                                "Name": "BOTTOM BAY",
+                                "Type": "TORPEDO BAY",
+                                "Spaces": 2
+                            },
+                            {
+                                "Name": "AUXILIAR CENTRAL BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 10
+                            },
+                            {
+                                "Name": "AUXILIAR BACK BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 5
+                            },
+                            {
+                                "Name": "LAUNCH RIGHT BAY",
+                                "Type": "PROBE BAY",
+                                "Spaces": 2
+                            },
+                            {
+                                "Name": "LAUNCH LEFT BAY",
+                                "Type": "PROBE BAY",
+                                "Spaces": 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "FRIGATE":[
+            {
+                "Family_name":  "VELITE",
+                "Manufacturer": "DEPARMENT OF COMMERCIAL SECURITY",
+                "Generation":   "THIRD GENERATION",
+                "Information":  "Designed sometime in the 2350s at the former Deimos Official Confidential Processing Centre (OCPC).\n\nThe VELITE family was the first of the frigate class. Developed as a precautionary measure, the first two iterations never entered production.\n\nAfter the CONTACT in 2371, the original design was updated and put into production at the MARS orbital shipyards in 2373.",
+                "Variants":[
+                    {
+                        "Variant_name": "VELITE-3A",
+                        "Chassis":{
+                            "Name": "VINICAR",
+                            "Size": [600, 100, 50],
+                            "Wheigth": 250000000,
+                            "MainInertia": [25000000000, 625000000000, 625000000000]
+                        },
+                        "Engines":[
+                            {
+                                "Name": "MAIN ENGINE",
+                                "Purpose": "MULTIROLE",
+                                "Type": "NUCLEAR FUSION",
+                                "Fuel_capacity": 100,
+                                "Thrust_eficiency": 100,
+                                "Thrust": 100,
+                                "Rotationa_thrust": 10,
+                                "Generator_eficiency": 10,
+                                "Generator_capacity":10
+                            }
+                        ],
+                        "Sensors":[
+                            {
+                                "Name": "FRESNEL MULTISPECTRUM MRK-12",
+                                "Type": "MULTISPECTRUM",
+                                "Sensitivity": 10,
+                                "Amplitude": 360
+                            },
+                            {
+                                "Name": "DEEP SEAKER V6",
+                                "Type": "INFRARED",
+                                "Sensitivity": 100,
+                                "Amplitude": 1
+                            },
+                            {
+                                "Name": "HORUS BR-2",
+                                "Type": "BACKGROUND RADIATION",
+                                "Sensitivity": 100,
+                                "Amplitude": 1
+                            }
+                        ],
+                        "Armament_bays":[
+                            {
+                                "Name": "MAIN BAY",
+                                "Type": "ENERGY BAY",
+                                "Spaces": 3
+                            },
+                            {
+                                "Name": "BOTTOM BAY",
+                                "Type": "TORPEDO BAY",
+                                "Spaces": 12
+                            },
+                            {
+                                "Name": "AUXILIAR CENTRAL BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 20
+                            },
+                            {
+                                "Name": "AUXILIAR BACK BAY",
+                                "Type": "DECOY BAY",
+                                "Spaces": 15
+                            },
+                            {
+                                "Name": "LAUNCH RIGHT BAY",
+                                "Type": "PROBE BAY",
+                                "Spaces": 10
+                            },
+                            {
+                                "Name": "LAUNCH LEFT BAY",
+                                "Type": "PROBE BAY",
+                                "Spaces": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "CRUISER":[
+
+        ],
+        "CAPITAL":[
+
+        ],
+        "CARRIER":[
+
+        ]
     }
 }
