@@ -138,15 +138,19 @@ public:
     friend class flight_plan;
 
     //Definition
-    UnitDesignation designation = UnitDesignation::UNKNOWN;
     UnitType type = UnitType::UNKNOWN;
     EntityClass entityClass = ShipClass::UNKNOWN;
+    std::string familyName, manufacturer, generation, information;
+    std::string variantName;
+
     
     double fuel_consumption = 10;
     double max_thrust_force = 100;
     f_vector max_rotation_force = {10, 100, 100};
 
     //Status
+    UnitDesignation designation = UnitDesignation::UNKNOWN;
+
     double fuel = 100;
     int comms_status = 1;
     int sensors_status = 1;

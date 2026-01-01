@@ -10,5 +10,7 @@
 #include <physic_engine.h>
 #include <basic_entities.h>
 #include <basic_ship.h>
+#include <set_manager.h>
 
 void load_scenario(std::string file_name, tactical_window_handler & tactical_window, physic_engine & engine);
+void load_set(std::string file_name);
