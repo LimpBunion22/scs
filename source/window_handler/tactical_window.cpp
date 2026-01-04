@@ -180,6 +180,14 @@ void tactical_window_handler::draw_map(){
     for (auto &pair: logger->paths){
         window_tactical.draw(pair.second);
     }  
+    // Planets trajectories
+    for (auto &line: engine->planetsTrajectoriesV){
+        window_tactical.draw(line);
+    } 
+    // Ships trajectories
+    for (auto &line: engine->shipTrajectoriesV){
+        window_tactical.draw(line);
+    } 
     // std::cout << "  [INFO]  [TW]  End map" << std::endl;
 }
 

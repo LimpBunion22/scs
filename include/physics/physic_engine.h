@@ -23,7 +23,10 @@ class physic_engine{
     
     private:
         std::vector<planet> planetsV;
+        std::vector<sf::VertexArray> planetsTrajectoriesV;
+
         std::vector<basic_ship> shipsV;
+        std::vector<sf::VertexArray> shipTrajectoriesV;
 
     public:
         physic_engine(sf::Clock* clock):master_clock(clock){planetsV.reserve(32);shipsV.reserve(128);};
@@ -32,6 +35,7 @@ class physic_engine{
         void emplace_ship(basic_ship &new_entity);
         void run_step();
 
+        void eval_trajectories(long int horizontS, int runStep);
         sf::VertexArray evaluate_current_trajectory(basic_ship * ship, int max_iterations);
 
     private:

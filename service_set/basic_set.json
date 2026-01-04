@@ -107,29 +107,29 @@
                             "Name": "LORICAS",
                             "Size": [200, 50, 50],
                             "Wheigth": 250000000,
-                            "MainInertia": [25000000000, 625000000000, 625000000000]
+                            "MainInertia": [100.0, 50.0, 50.0, 200.0, 50.0, 50.0, 200.0, 50.0, 50.0]
                         },
                         "Engines":[
                             {
                                 "Name": "MAIN TRHUSTERS",
-                                "Purpose": "MAIN THRUSTER",
+                                "Purpose": "THRUSTER",
                                 "Type": "CHEMICAL",
                                 "Fuel_capacity": 100,
-                                "Thrust_eficiency": 100,
+                                "Thrust_efficiency": 100,
                                 "Thrust": 100,
                                 "Rotationa_thrust": 10,
-                                "Generator_eficiency": 10,
+                                "Generator_efficiency": 10,
                                 "Generator_capacity":10
                             },
                             {
                                 "Name": "DEEP SPACE ENGINES",
-                                "Purpose": "DEEP SPACE ENGINE",
+                                "Purpose": "THRUSTER",
                                 "Type": "ION ENGINE",
                                 "Fuel_capacity": 100,
-                                "Thrust_eficiency": 100,
+                                "Thrust_efficiency": 100,
                                 "Thrust": 100,
                                 "Rotationa_thrust": 10,
-                                "Generator_eficiency": 10,
+                                "Generator_efficiency": 10,
                                 "Generator_capacity":10
                             },
                             {
@@ -137,10 +137,10 @@
                                 "Purpose": "GENERATOR",
                                 "Type": "NUCLEAR FISION",
                                 "Fuel_capacity": 100,
-                                "Thrust_eficiency": 100,
+                                "Thrust_efficiency": 100,
                                 "Thrust": 100,
                                 "Rotationa_thrust": 10,
-                                "Generator_eficiency": 10,
+                                "Generator_efficiency": 10,
                                 "Generator_capacity":10
                             }
                         ],
@@ -207,7 +207,7 @@
                             "Name": "VINICAR",
                             "Size": [600, 100, 50],
                             "Wheigth": 250000000,
-                            "MainInertia": [25000000000, 625000000000, 625000000000]
+                            "MainInertia": [100.0, 50.0, 50.0, 200.0, 50.0, 50.0, 200.0, 50.0, 50.0]
                         },
                         "Engines":[
                             {
@@ -215,10 +215,10 @@
                                 "Purpose": "MULTIROLE",
                                 "Type": "NUCLEAR FUSION",
                                 "Fuel_capacity": 100,
-                                "Thrust_eficiency": 100,
+                                "Thrust_efficiency": 100,
                                 "Thrust": 100,
                                 "Rotationa_thrust": 10,
-                                "Generator_eficiency": 10,
+                                "Generator_efficiency": 10,
                                 "Generator_capacity":10
                             }
                         ],

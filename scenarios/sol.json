@@ -31,24 +31,18 @@
 
     "ships":[
         {"name": "enterprise",
+        "Variation_name" : "VIGIA-3A",
         "position" : [5.79e7,0.0,0.0],
         "velocity" : [0.0,47.87,0.0],
         "direction" : [0.0,47.87,0.0],
-        "size" : [100.0, 50.0, 50.0],
-        "inertia_tensor" : [100.0, 50.0, 50.0, 200.0, 50.0, 50.0, 200.0, 50.0, 50.0],
-        "mass" : 1.98e30,
-        "designation" : "HOSTILE",
-        "entityClass" : "FRIGATE"
+        "designation" : "HOSTILE"
         },
         {"name": "Santa Maria",
+        "Variation_name" : "VELITE-3A",
         "position" : [-5.79e9,-5.79e9,0.0],
         "velocity" : [0.0,47.87,0.0],
         "direction" : [0.0,47.87,0.0],
-        "size" : [100.0, 50.0, 50.0],
-        "inertia_tensor" : [100.0, 50.0, 50.0, 200.0, 50.0, 50.0, 200.0, 50.0, 50.0],
-        "mass" : 1.98e30,
-        "designation" : "CONTROLLED",
-        "entityClass" : "CRUISER"
+        "designation" : "CONTROLLED"
         }
     ]
 }

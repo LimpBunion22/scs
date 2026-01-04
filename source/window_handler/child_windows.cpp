@@ -26,24 +26,27 @@ void ship_window::draw(){
     ImGui::EndChild();
 
     // Crear las pestañas (tabs) en la parte inferior
-    if (ImGui::BeginTabBar("Pestanas")) {
+    if (ImGui::BeginTabBar("Sheets")) {        
         if (ImGui::BeginTabItem("Status")) {
+            ImGui::BeginChild("LeftPane", ImVec2(350, 0), true);
+
             ImGui::BeginTable("Info", 2);
             ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
-            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 500.0f); 
+            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Designation:");
             ImGui::TableSetColumnIndex(1);
-            std::string designation = to_string((*shipV_ptr)[shipInd].designation);
+            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, to_ImguiColor(ship.designation));
+            std::string designation = to_string(ship.designation);
             ImGui::Text(designation.c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Type:");
             ImGui::TableSetColumnIndex(1);
-            std::string type = to_string((*shipV_ptr)[shipInd].type);
+            std::string type = to_string(ship.type);
             ImGui::Text(type.c_str());
 
             ImGui::TableNextRow();
@@ -52,123 +55,158 @@ void ship_window::draw(){
             ImGui::TableSetColumnIndex(1);
             std::string entityClass  = std::visit([](auto x) {
                 return to_string(x);
-            }, (*shipV_ptr)[shipInd].entityClass);
+            }, ship.entityClass);
             ImGui::Text(entityClass.c_str());
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Family:");
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text("VENATOR");
+            ImGui::Text(ship.familyName.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Variant:");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text(ship.variantName.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Manufacturer:");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text(ship.manufacturer.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("Generation:");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text(ship.generation.c_str());
+
+            ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text("");
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text("");
+
+            // ImGui::EndTable();
+
+            // ImGui::BeginTable("Status", 2);
+            // ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+            // ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 100.0f); 
+
+            // ImGui::TableNextRow();
+            // ImGui::TableSetColumnIndex(0);
+            // ImGui::Text("Fuel:");
+            // ImGui::TableSetColumnIndex(1);
+            // ImGui::Text(std::to_string(ship.fuel).c_str());
+
+            if(ship.designation == UnitDesignation::CONTROLLED){
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Comms status:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
+                ImGui::Text("ONLINE");
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Sensors status:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
+                ImGui::Text("ONLINE");
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Reactor status:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
+                ImGui::Text("ONLINE");
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Engine status:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
+                ImGui::Text("ONLINE");
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Weapons status:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
+                ImGui::Text("ONLINE");
+            }
+
+            ImGui::EndTable();
+            ImGui::EndChild();
+
+            ImGui::SameLine();
+
+            ImGui::BeginChild("RightPane", ImVec2(0, 0), true); // 0 = resto
+            ImGui::BeginTable("Info", 1);
+            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 500.0f); 
 
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
             ImGui::Text("Info:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TextWrapped("El Destructor Estelar clase Venator, también conocido como crucero de ataque de la República o Crucero Jedi, era una nave capital en forma de daga utilizada por la República Galáctica durante las Guerras Clon. Siendo la columna vertebral de la Armada de la República, el Venator era una nave capital versátil capaz de desempeñar los roles de una nave de guerra, capaz de combate nave a nave, así como el papel de transporte con su impresionante complemento de cazas estelares contra las fuerzas de la Confederación de Sistemas Independientes, en algunas de las batallas más conocidas de las Guerras Clon, incluidas las de Sullust, Christophsis y Coruscant.");
-
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
-            ImGui::Text("");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text("");
-
+            ImGui::TextWrapped(ship.information.c_str());
             ImGui::EndTable();
+            ImGui::EndChild();
 
-            ImGui::BeginTable("Status", 2);
-            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
-            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 100.0f); 
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Fuel:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::to_string(ship.fuel).c_str());
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Comms status:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
-            ImGui::Text("ONLINE");
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Sensors status:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
-            ImGui::Text("ONLINE");
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Reactor status:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
-            ImGui::Text("ONLINE");
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Engine status:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
-            ImGui::Text("ONLINE");
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Weapons status:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, IM_COL32(0, 150, 50, 55));
-            ImGui::Text("ONLINE");
-
-            ImGui::EndTable();
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Comms")) {
-            ImGui::Text("Contenido de la pestaña 2");
-            ImGui::EndTabItem();
-        }
-        if (ImGui::BeginTabItem("Trajectory")) {
-            ImGui::Text("Contenido de la pestaña 2");
-
-            ImGui::BeginTable("Status", 2);
-            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
-            ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 400.0f); 
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Position:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("X"+std::to_string(ship.entity_state.position[0])+" "+"Y"+std::to_string(ship.entity_state.position[1])+" "+"Z"+std::to_string(ship.entity_state.position[2])).c_str());
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Velocity:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("Vx"+std::to_string(ship.entity_state.velocity[0])+" "+"Vy"+std::to_string(ship.entity_state.velocity[1])+" "+"Vz"+std::to_string(ship.entity_state.velocity[2])).c_str());
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Orientation:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::string("Ox"+std::to_string(ship.entity_state.direction[0])+" "+"Oy"+std::to_string(ship.entity_state.direction[1])+" "+"Oz"+std::to_string(ship.entity_state.direction[2])).c_str());
-
-            ImGui::TableNextRow();
-            ImGui::TableSetColumnIndex(0);
-            ImGui::Text("Fuel:");
-            ImGui::TableSetColumnIndex(1);
-            ImGui::Text(std::to_string(ship.fuel).c_str());
-
-            ImGui::EndTable();
-
-            ImVec2 buttonSize = ImVec2(200, 20);
-            programed_erase = ImGui::Button("Show trajectory", buttonSize);
-            programed_erase = ImGui::Button("Calculate new trajectory", buttonSize);
 
             ImGui::EndTabItem();
         }
-        if (ImGui::BeginTabItem("Armament")) {
-            ImGui::Text("Contenido de la pestaña 2");
-            ImGui::EndTabItem();
+
+        if(ship.designation == UnitDesignation::CONTROLLED){
+            if (ImGui::BeginTabItem("Comms")) {
+                ImGui::Text("Contenido de la pestaña 2");
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Trajectory")) {
+                // ImGui::Text("Contenido de la pestaña 2");
+
+                ImGui::BeginTable("Status", 2);
+                ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 400.0f); 
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Position:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text(std::string("X"+std::to_string(ship.entity_state.position[0])+" "+"Y"+std::to_string(ship.entity_state.position[1])+" "+"Z"+std::to_string(ship.entity_state.position[2])).c_str());
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Velocity:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text(std::string("Vx"+std::to_string(ship.entity_state.velocity[0])+" "+"Vy"+std::to_string(ship.entity_state.velocity[1])+" "+"Vz"+std::to_string(ship.entity_state.velocity[2])).c_str());
+
+                ImGui::TableNextRow();
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("Orientation:");
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text(std::string("Ox"+std::to_string(ship.entity_state.direction[0])+" "+"Oy"+std::to_string(ship.entity_state.direction[1])+" "+"Oz"+std::to_string(ship.entity_state.direction[2])).c_str());
+
+                // ImGui::TableNextRow();
+                // ImGui::TableSetColumnIndex(0);
+                // ImGui::Text("Fuel:");
+                // ImGui::TableSetColumnIndex(1);
+                // ImGui::Text(std::to_string(ship.fuel).c_str());
+
+                ImGui::EndTable();
+
+                ImVec2 buttonSize = ImVec2(200, 20);
+                programed_erase = ImGui::Button("Show trajectory", buttonSize);
+                programed_erase = ImGui::Button("Calculate new trajectory", buttonSize);
+
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Armament")) {
+                ImGui::Text("Contenido de la pestaña 2");
+                ImGui::EndTabItem();
+            }
         }
         ImGui::EndTabBar();
     }

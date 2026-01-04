@@ -41,6 +41,10 @@ int main() {
     std::cout << "  [INFO]   Tactical window started" << std::endl;
     engine.step = 3600;
 
+    std::cout << "  [INFO]   Loading test set..." << std::endl;
+    load_set("../service_set/basic_set.json");
+    std::cout << "  [INFO]   Test set loaded" << std::endl;
+
     std::cout << "  [INFO]   Loading test scenario..." << std::endl;
     load_scenario("../scenarios/sol.json", tactical_window, engine);
     std::cout << "  [INFO]   Test scenario loaded" << std::endl;
@@ -195,8 +199,11 @@ int main() {
 
         tactical_window.draw_map();
         tactical_window.draw_hud();
-        for(int i = 0; i < 200; i++)
+        for(int i = 0; i < 1; i++)
             engine.run_step();
+
+        if((loopCnt & 63) == 0)
+            engine.eval_trajectories(3600*24*365*15,3600*24);
         loopCnt++;
     }
     return 0;

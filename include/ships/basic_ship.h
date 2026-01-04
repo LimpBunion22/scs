@@ -4,6 +4,12 @@
 #include <variant>
 #include <common.h>
 #include <basic_entities.h>
+#include <engines.h>
+#include <sensors.h>
+#include <cargoBays.h>
+#include <chassis.h>
+#include <imgui.h>
+#include <imgui-SFML.h>
 
 
 // Ship status
@@ -32,6 +38,16 @@ inline const void from_string(std::string t, UnitDesignation &r) {
     if(t.find("FRIENDLY")!= std::string::npos)       {r = UnitDesignation::FRIENDLY; return;}
     if(t.find("CONTROLLED")!= std::string::npos)     {r = UnitDesignation::CONTROLLED; return;}
     r = UnitDesignation::UNKNOWN;
+}
+inline ImU32 to_ImguiColor(UnitDesignation t) {
+    switch (t) {
+        case UnitDesignation::NEUTRAL:        return IM_COL32(50, 50, 50, 55);
+        case UnitDesignation::UNFRIENDLY:     return IM_COL32(80, 20, 20, 55);
+        case UnitDesignation::HOSTILE:        return IM_COL32(150, 0, 0, 55);
+        case UnitDesignation::FRIENDLY:       return IM_COL32(0, 120, 50, 55);
+        case UnitDesignation::CONTROLLED:     return IM_COL32(0, 170, 50, 55);
+        default:                              return IM_COL32(100, 100, 0, 55);
+    }
 }
 
 // Ship/platform
@@ -142,25 +158,16 @@ public:
     EntityClass entityClass = ShipClass::UNKNOWN;
     std::string familyName, manufacturer, generation, information;
     std::string variantName;
-
-    
-    double fuel_consumption = 10;
-    double max_thrust_force = 100;
-    f_vector max_rotation_force = {10, 100, 100};
+    chassis_base chassis;
+    std::vector<engines_base> enginesV;
+    std::vector<sensors_base> sensorsV;
+    std::vector<cargoBay_base> baysV;    
 
     //Status
     UnitDesignation designation = UnitDesignation::UNKNOWN;
-
-    double fuel = 100;
-    int comms_status = 1;
-    int sensors_status = 1;
-    int reactor_status = 1;
-    int engines_status = 1;
-    int weapons_status = 1;
     int flight_plan_status = INVALID;
 
     //Configurations
-    int rotation_consumption_mode = MAX_POWER;
     flight_plan * selected_fight_plan = nullptr;
 
     // Graphics
@@ -176,17 +183,19 @@ private:
 
 public:
     // basic_ship() = delete;
+    basic_ship() : e_base(){};
     // basic_ship(double mass, double size_r, basic_state entity_state):e_base(mass, size_r, entity_state){init_shape();};
     basic_ship(double mass, double size_r, basic_state entity_state, f_vector main_dimensions, f_vector inertia_tensor) : e_base(mass, size_r, entity_state, main_dimensions, inertia_tensor) { init_shape(); };
-    basic_ship(const basic_ship &rh);
-    basic_ship(basic_ship &&rh);
+    basic_ship(const basic_ship &rh) = default;
+    basic_ship(basic_ship &&rh) = default;
+    basic_ship& operator=(const basic_ship&) = default;
 
     // Graphics
     void draw(sf::RenderWindow &window, float currentZoom) override;
+    void init_shape();
 
 private:
     // Graphics
-    void init_shape();
     void update_shape(double currentZoom = 1.0);
 };
 
