@@ -15,7 +15,7 @@
 
 const float G = 6.6743e-11;
 using f_vector = std::vector<float>;
-using lamda_func = std::function<f_vector(float)>;
+// using lamda_func = std::function<f_vector(float)>;
 
 class basic_state{
 

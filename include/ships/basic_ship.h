@@ -133,18 +133,22 @@ inline const void from_string(std::string t, PlatformClass &r) {
 using EntityClass = std::variant<ShipClass, PlatformClass>;
 
 
-#define STEADY 1
-#define THRUST 2
-#define ROTATION 3
-
-#define INVALID -1
-#define DORMANT 0
-// #define STEADY 1
-#define EXECUTING 2
-#define DONE 3
-
-#define MAX_POWER 1
-#define MIN_CONSUMPTION 0
+// FlightPlan status
+enum class FlightPlanStatus {
+    EMPTY,
+    PLANNING,
+    EXECUTING,
+    STEADY
+};
+inline const char* to_string(FlightPlanStatus t) {
+    switch (t) {
+        case FlightPlanStatus::EMPTY:              return "EMPTY";
+        case FlightPlanStatus::PLANNING:            return "PLANNING";
+        case FlightPlanStatus::EXECUTING:           return "EXECUTING";
+        case FlightPlanStatus::STEADY:           return "STEADY";
+        default:                                return "EMPTY";
+    }
+}
 
 class flight_plan;
 
@@ -165,10 +169,11 @@ public:
 
     //Status
     UnitDesignation designation = UnitDesignation::UNKNOWN;
-    int flight_plan_status = INVALID;
+    // int flight_plan_status = INVALID;
 
     //Configurations
     flight_plan * selected_fight_plan = nullptr;
+    std::vector<flight_plan> flightPlansLibrary;
 
     // Graphics
     double fig_heigh = 20.0;
@@ -199,26 +204,34 @@ private:
     void update_shape(double currentZoom = 1.0);
 };
 
+enum class segmentType {LINEAL, ROTATIONAL};
+class flight_segment;
+
 class flight_plan
 {
 public:
     std::string designation;
-    std::string status = "EMPTY";
+    FlightPlanStatus status = FlightPlanStatus::EMPTY;
     double fuel_consumed = 0;
     double fuel_estimation = 0;
 
-    f_vector position_margin;
-    f_vector velocity_margin;
+    long int total_time = 0;
+    long int start_time;
+    long int end_time;
 
-private:
-    class flight_segment;
+    long int elap_time = 0;
+
     basic_ship *_owner = nullptr;
     std::vector<flight_segment> segments;
 
 public:
+    flight_plan() = default;
     flight_plan(basic_ship *owner, std::string name) : _owner(owner), designation(name) {};
-    flight_plan(const flight_plan &rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(rh.segments) {};
-    flight_plan(flight_plan &&rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(std::move(rh.segments)) {};
+    flight_plan(const flight_plan &rh) = default;
+    flight_plan(flight_plan &&rh) = default;
+    flight_plan& operator=(const flight_plan&) = default;
+    // flight_plan(const flight_plan &rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(rh.segments) {};
+    // flight_plan(flight_plan &&rh) : designation(rh.designation), status(rh.status), fuel_consumed(rh.fuel_consumed), fuel_estimation(rh.fuel_estimation), _owner(rh._owner), segments(std::move(rh.segments)) {};
 
     void emplace_thrust_segment(double start_time, double end_time, double engine_thrust, basic_state expected_entry_state, basic_state expected_output_state);
     void emplace_rotation_segment(double start_time, double end_time, basic_state expected_entry_state, basic_state expected_output_state);
@@ -228,6 +241,7 @@ public:
 
     void start_fligh_plan();
     int evaluate_flight_plan();
+};
     /*
     Quiero dejar guardad la trayectoria proyectada, pero con que precision? Si guardo por km, y tenemos billones... pero que pasa cuando nos acercamos a objetos pequenos?
     El plan de vuelo esta siempre activo? hay otro modo de vuelo? guardamos planes antiguos?
@@ -236,49 +250,43 @@ public:
     eso soluciona los objectos en las cortas distancias y la memoria en las largas. COlor con velocidad?
     */
 
+class flight_segment
+{
+public:
+    segmentType type;
+
+    long int total_time = 0;
+    long int start_time;
+    long int end_time;
+
+    long int elap_time = 0;
+
+    // int segment_type = STEADY;
+    double estimatedFuel;
+    f_vector rotation_thrust;
+    
+
 private:
-    class flight_segment
-    {
-    public:
+    flight_plan *_owner = nullptr;
 
-        basic_state expected_entry_state;
-        basic_state expected_output_state;
+    // lamda_func _expected_position_lambda;
+    // lamda_func _expected_velocity_lambda;
 
-        f_vector position_margin;
-        f_vector velocity_margin;
+public:
+    flight_segment(flight_plan *owner):_owner(owner){};
+    // flight_segment(const flight_segment &rh);
+    // flight_segment(flight_segment &&rh);
 
-        double start_time;
-        double end_time;
+    // void set_course_lambdas(lamda_func pos_lambda, lamda_func vel_lambda);
 
-        double elap_time = 0;
+    void start_segment();
+    int evaluate_segment();
 
-        int segment_type = STEADY;
-        double engine_thrust;
-        f_vector rotation_thrust;
-        
+    f_vector get_position_error();
+    f_vector get_velocity_error();
 
-    private:
-        flight_plan *_owner = nullptr;
-
-        lamda_func _expected_position_lambda;
-        lamda_func _expected_velocity_lambda;
-
-    public:
-        flight_segment(flight_plan *owner):_owner(owner){};
-        // flight_segment(const flight_segment &rh);
-        // flight_segment(flight_segment &&rh);
-
-        void set_course_lambdas(lamda_func pos_lambda, lamda_func vel_lambda);
-
-        void start_segment();
-        int evaluate_segment();
-
-        f_vector get_position_error();
-        f_vector get_velocity_error();
-
-    private:
-        bool check_boundaries();
-    };
+private:
+    bool check_boundaries();
 };
 
 #endif // BASIC_SHIP_H

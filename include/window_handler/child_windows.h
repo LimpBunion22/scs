@@ -6,6 +6,12 @@
 #include <SFML/Graphics.hpp>
 #include <basic_ship.h>
 
+// FlightPlan status
+enum class trajectoryWStatus {
+    STEADY,
+    PLANNING,
+    SHOW_LIST
+};
 
 class ship_window{
     public:
@@ -17,6 +23,8 @@ class ship_window{
         int window_heigh = 800;
 
         std::vector<std::string> log_vector;
+
+        trajectoryWStatus trajWS = trajectoryWStatus::STEADY;
 
     private:
         std::vector<basic_ship> *shipV_ptr;

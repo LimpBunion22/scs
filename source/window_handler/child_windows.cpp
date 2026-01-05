@@ -197,9 +197,161 @@ void ship_window::draw(){
 
                 ImGui::EndTable();
 
-                ImVec2 buttonSize = ImVec2(200, 20);
-                programed_erase = ImGui::Button("Show trajectory", buttonSize);
-                programed_erase = ImGui::Button("Calculate new trajectory", buttonSize);
+                ImVec2 buttonSize = ImVec2(80, 20);
+                switch (trajWS)
+                {
+                case trajectoryWStatus::SHOW_LIST:
+                    ImGui::BeginChild("LeftPane", ImVec2(350, 0), true);
+                    buttonSize = ImVec2(200, 20);
+                    if(ImGui::Button("CLOSE FLIGHT PLANS", buttonSize)) trajWS = trajectoryWStatus::STEADY;
+                    if(ImGui::Button("CREATE FLIGHT PLANS", buttonSize)){
+                        trajWS = trajectoryWStatus::PLANNING;
+                        ship.flightPlansLibrary.push_back(flight_plan());
+                    }
+                    ImGui::EndChild();
+
+                    ImGui::SameLine();
+                    ImGui::BeginChild("RightPane", ImVec2(0, 0), true); // 0 = resto
+                    ImGui::BeginTable("FlightPlans", 4);
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+                    buttonSize = ImVec2(150, 20);
+
+                    for(auto it = ship.flightPlansLibrary.begin(); it != ship.flightPlansLibrary.end(); ){
+                        flight_plan& plan = *it;
+                        ImGui::TableNextRow();
+                        ImGui::TableSetColumnIndex(0);
+                        ImGui::Text(plan.designation.c_str());
+                        ImGui::TableSetColumnIndex(1);
+                        ImGui::Text(to_string(plan.status));
+                        ImGui::TableSetColumnIndex(2);
+                        if(ImGui::Button("EXECUTE", buttonSize)&&(plan.status!=FlightPlanStatus::EMPTY)){
+                            if(ship.selected_fight_plan != nullptr) ship.selected_fight_plan->status = FlightPlanStatus::STEADY;
+                            ship.selected_fight_plan = &plan;
+                            ship.selected_fight_plan->status = FlightPlanStatus::EXECUTING;
+                        }
+                        if(ImGui::Button("STOP", buttonSize)&&(plan.status==FlightPlanStatus::EXECUTING)){
+                            ship.selected_fight_plan = nullptr;
+                            plan.status=FlightPlanStatus::STEADY;
+                        }
+                        if(ImGui::Button("CLEAR", buttonSize)&&(plan.status!=FlightPlanStatus::EXECUTING)){
+                            it = ship.flightPlansLibrary.erase(it);
+                        }else ++it;
+                    }
+                    ImGui::EndTable();
+                    ImGui::EndChild();
+                    
+
+                    break;
+
+                case trajectoryWStatus::PLANNING:
+                    ImGui::BeginChild("LeftPane", ImVec2(350, 0), true);
+                    buttonSize = ImVec2(200, 20);
+                    if(ImGui::Button("CANCEL FLIGHT PLAN", buttonSize)){
+                        trajWS = trajectoryWStatus::STEADY;
+                        ship.flightPlansLibrary.erase(ship.flightPlansLibrary.end());
+                    }
+                    if(ImGui::Button("SAVE FLIGHT PLAN", buttonSize)) trajWS = trajectoryWStatus::STEADY;
+                    ImGui::EndChild();
+
+                    ImGui::SameLine();
+                    ImGui::BeginChild("RightPane", ImVec2(0, 0), true); // 0 = resto
+
+                    ImGui::BeginTable("TimePlan", 2);
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableNextRow();
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Text("TOTAL TIME[s]:");
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::Text(std::to_string(ship.flightPlansLibrary.end()->total_time).c_str());
+                    ImGui::TableNextRow();
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Text("TOTAL FUEL[J]:");
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::Text(std::to_string(ship.flightPlansLibrary.end()->fuel_estimation).c_str());
+                    ImGui::EndTable();
+
+                    ImGui::BeginTable("TimePlan", 2);
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+                    int segCnt = 0;
+                    ImGui::TableNextRow();
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::Text("TIME[s]");
+                    ImGui::TableSetColumnIndex(2);
+                    ImGui::Text("FUEL[J]");
+                    for(auto it = ship.flightPlansLibrary.end()->segments.begin(); it != ship.flightPlansLibrary.end()->segments.end(); ){
+                        flight_segment& segment = *it;
+                        if(segment.type == segmentType::ROTATIONAL) continue;
+                        ImGui::TableNextRow();
+                        ImGui::TableSetColumnIndex(0);
+                        ImGui::Text("SEGMENT "+segCnt);
+                        ImGui::TableSetColumnIndex(1);
+                        ImGui::Text(std::to_string(segment.total_time).c_str());
+                        ImGui::TableSetColumnIndex(2);
+                        ImGui::Text(std::to_string(segment.estimatedFuel).c_str());
+                        ImGui::TableSetColumnIndex(3);
+                        if(ImGui::Button("ERASE", buttonSize)){
+                            it = ship.flightPlansLibrary.end()->segments.erase(it);
+                        }else ++it;
+
+                    }
+
+                    ImGui::EndTable();
+                    ImGui::Text("NEW SEGMENT");
+
+                    // Hay que ver como indicar la direccion, hay que meter el tiempo y debajo el porcentaje de cada thruster con su consumo el fuel restante
+
+                    ImGui::BeginTable("EnginesPlan", 4);
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 200.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+                    ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 150.0f); 
+                    buttonSize = ImVec2(150, 20);
+
+                    for(auto &engine:ship.enginesV){
+                        flight_plan& plan = *it;
+                        ImGui::TableNextRow();
+                        ImGui::TableSetColumnIndex(0);
+                        ImGui::Text(plan.designation.c_str());
+                        ImGui::TableSetColumnIndex(1);
+                        ImGui::Text(to_string(plan.status));
+                        ImGui::TableSetColumnIndex(2);
+                        if(ImGui::Button("EXECUTE", buttonSize)&&(plan.status!=FlightPlanStatus::EMPTY)){
+                            if(ship.selected_fight_plan != nullptr) ship.selected_fight_plan->status = FlightPlanStatus::STEADY;
+                            ship.selected_fight_plan = &plan;
+                            ship.selected_fight_plan->status = FlightPlanStatus::EXECUTING;
+                        }
+                        if(ImGui::Button("STOP", buttonSize)&&(plan.status==FlightPlanStatus::EXECUTING)){
+                            ship.selected_fight_plan = nullptr;
+                            plan.status=FlightPlanStatus::STEADY;
+                        }
+                        if(ImGui::Button("CLEAR", buttonSize)&&(plan.status!=FlightPlanStatus::EXECUTING)){
+                            it = ship.flightPlansLibrary.erase(it);
+                        }else ++it;
+                    }
+                    ImGui::EndTable();
+                    ImGui::EndChild();
+                    
+
+                    break;
+                
+                default:
+                    ImGui::BeginChild("LeftPane", ImVec2(350, 0), true);
+                    buttonSize = ImVec2(200, 20);
+                    if(ImGui::Button("SHOW FLIGHT PLANS", buttonSize)) trajWS = trajectoryWStatus::SHOW_LIST;
+                    if(ImGui::Button("CREATE FLIGHT PLANS", buttonSize)){
+                        trajWS = trajectoryWStatus::PLANNING;
+                        ship.flightPlansLibrary.push_back(flight_plan());
+                    }
+                    ImGui::EndChild();
+                    break;
+                }
 
                 ImGui::EndTabItem();
             }

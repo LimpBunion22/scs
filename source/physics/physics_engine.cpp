@@ -76,7 +76,7 @@ void physic_engine::run_ships(){
 
 void physic_engine::eval_trajectories(long int horizontS, int runStep){
 
-    if(pause == true && (planetsTrajectoriesV[0].getVertexCount() != 0)) return;
+    // if(pause == true && (planetsTrajectoriesV[0].getVertexCount() != 0)) return;
 
     std::vector<planet> planetsCopy;
     for(auto pln:planetsV) planetsCopy.push_back(pln);

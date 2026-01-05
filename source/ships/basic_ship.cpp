@@ -128,7 +128,7 @@ void flight_plan::emplace_thrust_segment(double start_time, double end_time, dou
 
     size_t last = segments.size();
     segments.emplace_back(this);
-    segments[last].segment_type = THRUST;
+    // segments[last].segment_type = THRUST;
     segments[last].start_time = start_time;
     segments[last].end_time = end_time;
     segments[last].expected_entry_state = expected_entry_state;
@@ -140,7 +140,7 @@ void flight_plan::emplace_rotation_segment(double start_time, double end_time, b
 {
     size_t last = segments.size();
     segments.emplace_back(this);
-    segments[last].segment_type = ROTATION;
+    // segments[last].segment_type = ROTATION;
     segments[last].start_time = start_time;
     segments[last].end_time = end_time;
     segments[last].expected_entry_state = expected_entry_state;
