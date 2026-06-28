@@ -7,6 +7,7 @@
 #include <variant>
 #include <vector>
 
+#include "gameplay/time_scale_policy.h"
 #include "presentation/tactical_snapshot.h"
 #include "rendering/tactical_map_renderer.h"
 #include "simulation/scenario.h"
@@ -66,6 +67,14 @@ scs::presentation::TacticalSnapshot make_tactical_fixture() {
         scs::domain::EntityId{1},
         "Contact detected for test.",
     });
+    snapshot.missile_tracks.push_back(scs::presentation::TacticalMissileTrack{
+        scs::domain::MissileId{3},
+        scs::domain::EntityId{1},
+        scs::domain::ContactId{7},
+        scs::domain::Vec2{40.0, 0.0},
+        scs::domain::Vec2{25.0, 0.0},
+        scs::domain::MissileStatus::InFlight,
+    });
     snapshot.predicted_trajectories.push_back(scs::presentation::TacticalTrajectory{
         scs::presentation::TacticalTrajectorySourceKind::FriendlyEntity,
         scs::domain::EntityId{1},
@@ -108,6 +117,65 @@ void renderer_shows_map_contacts_selection_and_events() {
             "Renderer did not include event log entries.");
     require(output.find('*') != std::string::npos,
             "Renderer did not mark the selected map object.");
+}
+
+void renderer_shows_reference_selection_missile_and_time_metrics() {
+    const auto snapshot = make_tactical_fixture();
+    const auto output = scs::rendering::render_tactical_map(
+        snapshot,
+        scs::rendering::TacticalMapView{scs::domain::Vec2{0.0, 0.0}, 100.0, 21, 11},
+        scs::rendering::TacticalSelection{
+            scs::rendering::TacticalSelectionKind::HostileContact,
+            scs::domain::EntityId{},
+            scs::domain::ContactId{7},
+        },
+        scs::gameplay::TimeScaleRecommendation{8.0, scs::gameplay::TimeScaleReason::RecentThreat});
+
+    require(output.find("kilometers_per_cell=100.0") != std::string::npos,
+            "Renderer did not include kilometers per cell.");
+    require(output.find("visible_span=(2100.0 x 1100.0) km") != std::string::npos,
+            "Renderer did not include visible span.");
+    require(output.find("Orientation: +x east, +y north") != std::string::npos,
+            "Renderer did not include map orientation.");
+    require(output.find("Time scale=8.0x reason=recent threat event") != std::string::npos,
+            "Renderer did not include the time-scale recommendation.");
+    require(output.find("Selected contact") != std::string::npos,
+            "Renderer did not include selected contact metrics.");
+    require(output.find("confidence=0.8 uncertainty=25.0 km age=2 ticks") != std::string::npos,
+            "Renderer did not include contact quality metrics.");
+    require(output.find("range=223.6 km bearing=63.4 deg") != std::string::npos,
+            "Renderer did not include range and bearing.");
+    require(output.find("closing_speed=9.8 km/s") != std::string::npos,
+            "Renderer did not include closing speed.");
+    require(output.find("closest_approach_time=18.2 s") != std::string::npos,
+            "Renderer did not include closest approach time.");
+    require(output.find("closest_approach_distance=100.0 km") != std::string::npos,
+            "Renderer did not include closest approach distance.");
+    require(output.find("M3 launcher=F1 target_contact=C7") != std::string::npos,
+            "Renderer did not list missile identity and targeting.");
+    require(output.find("speed=25.0 km/s status=in_flight") != std::string::npos,
+            "Renderer did not include missile speed and status.");
+}
+
+void renderer_shows_friendly_selection_metrics() {
+    const auto snapshot = make_tactical_fixture();
+    const auto output = scs::rendering::render_tactical_map(
+        snapshot,
+        scs::rendering::TacticalMapView{scs::domain::Vec2{0.0, 0.0}, 100.0, 21, 11},
+        scs::rendering::TacticalSelection{
+            scs::rendering::TacticalSelectionKind::FriendlyEntity,
+            scs::domain::EntityId{1},
+            scs::domain::ContactId{},
+        });
+
+    require(output.find("Selected friendly") != std::string::npos,
+            "Renderer did not include selected friendly metrics.");
+    require(output.find("position=(0.0, 0.0) km") != std::string::npos,
+            "Renderer did not include friendly position.");
+    require(output.find("velocity=(10.0, 0.0) km/s speed=10.0 km/s") != std::string::npos,
+            "Renderer did not include friendly velocity and speed.");
+    require(output.find("missiles=2 defenses=1") != std::string::npos,
+            "Renderer did not include friendly ammunition and defenses.");
 }
 
 void ui_controls_view_pause_time_scale_and_velocity_command() {
@@ -185,6 +253,8 @@ void ui_command_emission_changes_simulation_only_after_submission_and_tick() {
 int main() {
     const std::vector<std::pair<std::string, void (*)()>> tests{
         {"renderer_shows_map_contacts_selection_and_events", renderer_shows_map_contacts_selection_and_events},
+        {"renderer_shows_reference_selection_missile_and_time_metrics", renderer_shows_reference_selection_missile_and_time_metrics},
+        {"renderer_shows_friendly_selection_metrics", renderer_shows_friendly_selection_metrics},
         {"ui_controls_view_pause_time_scale_and_velocity_command", ui_controls_view_pause_time_scale_and_velocity_command},
         {"ui_command_emission_changes_simulation_only_after_submission_and_tick", ui_command_emission_changes_simulation_only_after_submission_and_tick},
     };

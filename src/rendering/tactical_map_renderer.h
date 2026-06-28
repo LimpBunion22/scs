@@ -1,10 +1,12 @@
 #pragma once
 
+#include <optional>
 #include <string>
 
 #include "domain/contact.h"
 #include "domain/entity.h"
 #include "domain/vector2.h"
+#include "gameplay/time_scale_policy.h"
 #include "presentation/tactical_snapshot.h"
 
 namespace scs::rendering {
@@ -31,6 +33,7 @@ struct TacticalMapView {
 [[nodiscard]] std::string render_tactical_map(
     const presentation::TacticalSnapshot& snapshot,
     TacticalMapView view,
-    TacticalSelection selection = TacticalSelection{});
+    TacticalSelection selection = TacticalSelection{},
+    std::optional<gameplay::TimeScaleRecommendation> time_scale = std::nullopt);
 
 } // namespace scs::rendering
