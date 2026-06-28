@@ -103,3 +103,11 @@ add_executable(scs_ui_command_map_tests
 target_link_libraries(scs_ui_command_map_tests PRIVATE scs_core scs_ui)
 
 add_test(NAME scs_ui_command_map_tests COMMAND scs_ui_command_map_tests)
+
+add_executable(scs_vertical_slice_replay_tests
+    tests/integration/vertical_slice_replay_tests.cpp
+)
+
+target_link_libraries(scs_vertical_slice_replay_tests PRIVATE scs_core)
+
+add_test(NAME scs_vertical_slice_replay_tests COMMAND scs_vertical_slice_replay_tests)
