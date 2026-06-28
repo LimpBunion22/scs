@@ -5,6 +5,7 @@ project(space_combat_strategy VERSION 0.1.0 LANGUAGES CXX)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(scs_core STATIC
+    src/gameplay/time_scale_policy.cpp
     src/presentation/prediction.cpp
     src/presentation/tactical_snapshot.cpp
     src/simulation/contact_tracker.cpp
@@ -49,6 +50,14 @@ add_executable(scs_contact_tests
 target_link_libraries(scs_contact_tests PRIVATE scs_core)
 
 add_test(NAME scs_contact_tests COMMAND scs_contact_tests)
+
+add_executable(scs_time_scale_policy_tests
+    tests/gameplay/time_scale_policy_tests.cpp
+)
+
+target_link_libraries(scs_time_scale_policy_tests PRIVATE scs_core)
+
+add_test(NAME scs_time_scale_policy_tests COMMAND scs_time_scale_policy_tests)
 
 add_executable(scs_presentation_tests
     tests/presentation/tactical_snapshot_tests.cpp
