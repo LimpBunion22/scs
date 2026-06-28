@@ -2,42 +2,18 @@
 
 ## Status
 
-Accepted for the next prototype round. The final non-console UI stack remains
-pending.
+Recommended, pending owner approval for implementation.
 
 ## Context
 
 The console UI proved the data flow: UI emits commands, rendering consumes
-presentation snapshots, and simulation advances through explicit ticks. It is
-also too limited for sustained tactical play because static markers do not show
-enough scale, motion, or engagement context.
+presentation snapshots, and simulation advances through explicit ticks. The
+enriched console pass now also exposes tactical reference metrics, missile
+tracks, engagement command emission, and a playable engagement demo scenario.
 
-The next work should improve tactical readability before adding a new UI stack.
-That keeps the prototype focused on command decisions instead of windowing,
-packaging, and visual polish.
-
-## Options
-
-| Option | Strength | Cost |
-| --- | --- | --- |
-| Improved console map | No dependency; fastest to test metrics and command flow. | Limited interaction and visual density. |
-| Terminal TUI | Better panels, keyboard interaction, and logs while staying lightweight. | Adds dependency and terminal behavior differences. |
-| Desktop UI with SFML/ImGui | Good fit for tactical map, overlays, and mouse input. | Requires dependency, rendering, input, and packaging decisions. |
-| Web UI | Strong layout and iteration speed. | Adds runtime/tooling complexity and integration boundary work. |
-
-## Decision
-
-For the next round, keep the standard-library console UI but add tactical
-reference metrics, missile/contact display, engagement commands, and a playable
-engagement demo scenario. After that round, choose between:
-
-- a terminal TUI if the main issue is panel layout and keyboard ergonomics;
-- a desktop UI if map interaction, overlays, and mouse selection become the
-  bottleneck.
-
-Do not add a UI dependency until the owner approves the next UI stack decision.
-The detailed selection process for the future UI can wait one more round.
-Graphical interaction work should begin only after the UI stack is selected.
+That is enough to evaluate the next UI stack. The remaining bottleneck is not
+data availability or command plumbing; it is spatial readability and direct map
+interaction.
 
 ## Decision Criteria
 
@@ -47,3 +23,54 @@ Graphical interaction work should begin only after the UI stack is selected.
 - Can automated time scaling remain visible and predictable?
 - Can replay and simulation tests stay independent from UI rendering?
 - Does the stack work on the expected development platforms without heavy setup?
+
+## Evaluation
+
+| Option | Fit against criteria | Cost and risk | Result |
+| --- | --- | --- | --- |
+| Improved console map | Preserves deterministic tests, existing command flow, event logs, and zero dependencies. Metrics are now visible but still text-heavy, and trajectories, uncertainty, and missile timing are not understandable at a glance. | Lowest cost, but another pass would mostly refine the current ceiling. | Keep as fallback and test surface, but do not use as the next primary UI. |
+| Terminal TUI | Improves panels, logs, keyboard workflows, and dense tabular inspection. It still inherits terminal grid limits for map scale, overlays, cursor selection, and trajectory readability. | Adds a dependency plus terminal portability and input-mode differences without solving the main map-interaction problem. | Defer unless the owner rejects a graphical dependency. |
+| Desktop SFML/ImGui | Best match for a 2D tactical command map with pan/zoom, overlays, uncertainty regions, missile tracks, mouse selection, inspectors, event log, and visible time controls. It can preserve the current C++ boundaries: UI emits commands, rendering consumes presentation data, and simulation ticks remain explicit. | Requires dependency, build, input, rendering, and packaging decisions. Tests should keep simulation/presentation independent and add focused UI smoke coverage. | Recommended next UI stack. |
+| Web UI | Strong layout tools and fast iteration for panels and inspectors. A browser canvas can handle the map, but command/simulation integration would need a new process or serialization boundary. | Highest tooling and runtime complexity for the current C++ prototype; packaging and deterministic integration tests become broader. | Defer until distribution or remote UI needs justify the boundary work. |
+
+## Decision
+
+Recommend the next non-console UI be a desktop C++ UI using SFML for the 2D
+window/input/rendering surface and ImGui for panels, inspectors, command
+controls, event logs, and time controls.
+
+The existing standard-library console UI must remain in place until the desktop
+replacement is implemented and covered by tests. The new UI must keep the
+existing boundaries:
+
+- UI emits `domain::Command` values and UI-only time-control state.
+- Rendering consumes `presentation::TacticalSnapshot` and display state.
+- Simulation advances only by explicit ticks outside the render frame loop.
+- Replay and simulation tests remain independent from UI rendering.
+
+This decision does not introduce the dependency by itself. The implementation
+task must record the dependency acquisition, version expectation, build changes,
+and smoke-test strategy before editing build tooling.
+
+## Owner Decisions Required Before Implementation
+
+- Approve desktop SFML/ImGui as the next UI stack, or choose the terminal TUI
+  fallback if avoiding graphical dependencies is more important than map
+  interaction.
+- Choose the object-selection model: nearest-object click priority, selectable
+  object types, selection cycling when objects overlap, and whether missiles are
+  selectable or inspector-only.
+- Choose the primary order workflow: command palette, inspector buttons, map
+  right-click actions, or a staged select-friendly/select-contact confirmation.
+- Choose the initial interaction set for the first desktop pass: pan/zoom,
+  hover inspection, selection, pause/resume, step/run, scale override, and
+  engage-contact command emission.
+- Confirm expected development platforms and acceptable dependency/bootstrap
+  approach.
+
+## Consequences
+
+The next UI work can validate the real tactical-map problem: spatial
+readability, selection, overlays, and command flow under uncertainty. The cost
+is accepting desktop UI dependency work, but that work is now tied to a proven
+presentation and command contract instead of speculative rendering.
