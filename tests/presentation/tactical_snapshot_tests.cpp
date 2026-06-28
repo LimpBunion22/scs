@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+#include "domain/command.h"
 #include "presentation/prediction.h"
 #include "presentation/tactical_snapshot.h"
 #include "simulation/simulation.h"
@@ -40,6 +41,8 @@ scs::simulation::Scenario make_presentation_scenario() {
         scs::domain::Vec2{0.0, 0.0},
         scs::domain::Vec2{2.0, 0.0},
         100.0,
+        1,
+        0,
     });
 
     scenario.entities.push_back(scs::domain::EntityState{
@@ -77,6 +80,27 @@ bool same_contacts(const std::vector<scs::domain::ContactSnapshot>& lhs,
     return true;
 }
 
+bool same_missiles(const std::vector<scs::domain::MissileSnapshot>& lhs,
+                   const std::vector<scs::domain::MissileSnapshot>& rhs) {
+    if (lhs.size() != rhs.size()) {
+        return false;
+    }
+
+    for (std::size_t i = 0; i < lhs.size(); ++i) {
+        if (lhs[i].id != rhs[i].id ||
+            lhs[i].launcher != rhs[i].launcher ||
+            lhs[i].target_entity != rhs[i].target_entity ||
+            lhs[i].target_contact != rhs[i].target_contact ||
+            !same_vec(lhs[i].position_km, rhs[i].position_km) ||
+            !same_vec(lhs[i].velocity_km_per_second, rhs[i].velocity_km_per_second) ||
+            lhs[i].status != rhs[i].status) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool same_snapshot(const scs::domain::WorldSnapshot& lhs, const scs::domain::WorldSnapshot& rhs) {
     if (lhs.tick != rhs.tick || !close(lhs.time_seconds, rhs.time_seconds)) {
         return false;
@@ -92,12 +116,14 @@ bool same_snapshot(const scs::domain::WorldSnapshot& lhs, const scs::domain::Wor
             lhs.entities[i].allegiance != rhs.entities[i].allegiance ||
             lhs.entities[i].name != rhs.entities[i].name ||
             !same_vec(lhs.entities[i].position_km, rhs.entities[i].position_km) ||
-            !same_vec(lhs.entities[i].velocity_km_per_second, rhs.entities[i].velocity_km_per_second)) {
+            !same_vec(lhs.entities[i].velocity_km_per_second, rhs.entities[i].velocity_km_per_second) ||
+            lhs.entities[i].missile_ammunition != rhs.entities[i].missile_ammunition ||
+            lhs.entities[i].defensive_response_charges != rhs.entities[i].defensive_response_charges) {
             return false;
         }
     }
 
-    return same_contacts(lhs.contacts, rhs.contacts);
+    return same_contacts(lhs.contacts, rhs.contacts) && same_missiles(lhs.missiles, rhs.missiles);
 }
 
 bool same_events(const std::vector<scs::domain::Event>& lhs,
@@ -161,6 +187,139 @@ void tactical_snapshot_separates_map_data() {
             "Contact prediction did not use inertial contact velocity.");
 }
 
+void hostile_contacts_are_limited_to_visible_friendly_observers() {
+    scs::domain::WorldSnapshot world;
+    world.tick = 5;
+    world.time_seconds = 5.0;
+    world.entities.push_back(scs::domain::EntitySnapshot{
+        scs::domain::EntityId{1},
+        scs::domain::EntityKind::CombatGroup,
+        scs::domain::Allegiance::Friendly,
+        "Blue Observer",
+        scs::domain::Vec2{0.0, 0.0},
+        scs::domain::Vec2{0.0, 0.0},
+        1,
+        0,
+    });
+    world.entities.push_back(scs::domain::EntitySnapshot{
+        scs::domain::EntityId{2},
+        scs::domain::EntityKind::CombatGroup,
+        scs::domain::Allegiance::Hostile,
+        "Hidden Red Observer",
+        scs::domain::Vec2{100.0, 0.0},
+        scs::domain::Vec2{0.0, 0.0},
+        0,
+        0,
+    });
+    world.contacts.push_back(scs::domain::ContactSnapshot{
+        scs::domain::ContactId{1},
+        scs::domain::EntityId{1},
+        scs::domain::Vec2{50.0, 0.0},
+        scs::domain::Vec2{1.0, 0.0},
+        5,
+        1.0,
+        scs::domain::ContactClassification::HostileCombatGroup,
+        1.0,
+    });
+    world.contacts.push_back(scs::domain::ContactSnapshot{
+        scs::domain::ContactId{2},
+        scs::domain::EntityId{2},
+        scs::domain::Vec2{75.0, 0.0},
+        scs::domain::Vec2{1.0, 0.0},
+        5,
+        1.0,
+        scs::domain::ContactClassification::HostileCombatGroup,
+        1.0,
+    });
+    world.contacts.push_back(scs::domain::ContactSnapshot{
+        scs::domain::ContactId{3},
+        scs::domain::EntityId{99},
+        scs::domain::Vec2{90.0, 0.0},
+        scs::domain::Vec2{1.0, 0.0},
+        5,
+        1.0,
+        scs::domain::ContactClassification::HostileCombatGroup,
+        1.0,
+    });
+
+    const auto tactical = scs::presentation::make_tactical_snapshot(
+        world,
+        {},
+        scs::presentation::TacticalSnapshotOptions{scs::presentation::PredictionConfig{1}});
+
+    require(tactical.friendly_entities.size() == 1, "Only friendly entities should be visible.");
+    require(tactical.hostile_contacts.size() == 1,
+            "Contacts owned by hidden or unknown observers should not be exposed.");
+    require(tactical.hostile_contacts.front().id == scs::domain::ContactId{1},
+            "Visible friendly-owned contact was not preserved.");
+    require(tactical.predicted_trajectories.size() == 2,
+            "Hidden contacts should not receive presentation trajectories.");
+}
+
+void missile_tracks_expose_friendly_launches_without_hidden_targets() {
+    scs::domain::WorldSnapshot world;
+    world.tick = 2;
+    world.time_seconds = 2.0;
+    world.entities.push_back(scs::domain::EntitySnapshot{
+        scs::domain::EntityId{1},
+        scs::domain::EntityKind::CombatGroup,
+        scs::domain::Allegiance::Friendly,
+        "Blue Shooter",
+        scs::domain::Vec2{0.0, 0.0},
+        scs::domain::Vec2{0.0, 0.0},
+        0,
+        0,
+    });
+    world.entities.push_back(scs::domain::EntitySnapshot{
+        scs::domain::EntityId{2},
+        scs::domain::EntityKind::CombatGroup,
+        scs::domain::Allegiance::Hostile,
+        "Hidden Red",
+        scs::domain::Vec2{400.0, 0.0},
+        scs::domain::Vec2{0.0, 0.0},
+        0,
+        0,
+    });
+    world.missiles.push_back(scs::domain::MissileSnapshot{
+        scs::domain::MissileId{7},
+        scs::domain::EntityId{1},
+        scs::domain::EntityId{2},
+        scs::domain::ContactId{4},
+        scs::domain::Vec2{100.0, 0.0},
+        scs::domain::Vec2{100.0, 0.0},
+        scs::domain::MissileStatus::InFlight,
+    });
+    world.missiles.push_back(scs::domain::MissileSnapshot{
+        scs::domain::MissileId{8},
+        scs::domain::EntityId{2},
+        scs::domain::EntityId{1},
+        scs::domain::ContactId{},
+        scs::domain::Vec2{300.0, 0.0},
+        scs::domain::Vec2{-100.0, 0.0},
+        scs::domain::MissileStatus::InFlight,
+    });
+
+    const auto tactical = scs::presentation::make_tactical_snapshot(
+        world,
+        {},
+        scs::presentation::TacticalSnapshotOptions{scs::presentation::PredictionConfig{0}});
+
+    require(tactical.friendly_entities.size() == 1,
+            "Hidden hostile entity should not be exposed to present missile data.");
+    require(tactical.missile_tracks.size() == 1,
+            "Only friendly-launched missile tracks should be exposed.");
+
+    const auto& track = tactical.missile_tracks.front();
+    require(track.id == scs::domain::MissileId{7}, "Missile track id changed.");
+    require(track.launcher == scs::domain::EntityId{1}, "Missile launcher id changed.");
+    require(track.target_contact == scs::domain::ContactId{4}, "Missile target contact id changed.");
+    require(same_vec(track.position_km, scs::domain::Vec2{100.0, 0.0}),
+            "Missile track position changed.");
+    require(same_vec(track.velocity_km_per_second, scs::domain::Vec2{100.0, 0.0}),
+            "Missile track velocity changed.");
+    require(track.status == scs::domain::MissileStatus::InFlight, "Missile track status changed.");
+}
+
 void prediction_covers_configured_tick_horizon() {
     const auto points = scs::presentation::predict_inertial_trajectory(
         10,
@@ -183,6 +342,10 @@ void prediction_covers_configured_tick_horizon() {
 
 void presentation_generation_does_not_mutate_simulation() {
     scs::simulation::Simulation simulation(make_presentation_scenario());
+    const auto target_contact = simulation.snapshot().contacts.front().id;
+    require(simulation.submit(
+                scs::domain::engage_contact_at(0, scs::domain::EntityId{1}, target_contact)),
+            "Valid contact engagement command was not accepted.");
     simulation.advance_one_tick();
 
     const auto snapshot_before = simulation.snapshot();
@@ -198,6 +361,8 @@ void presentation_generation_does_not_mutate_simulation() {
 
     require(!tactical.predicted_trajectories.empty(),
             "Presentation generation did not produce trajectories.");
+    require(tactical.missile_tracks.size() == snapshot_before.missiles.size(),
+            "Presentation generation did not expose the in-flight friendly missile.");
     require(same_snapshot(snapshot_before, snapshot_after),
             "Generating presentation data changed simulation snapshot state.");
     require(same_events(events_before, events_after),
@@ -209,6 +374,10 @@ void presentation_generation_does_not_mutate_simulation() {
 int main() {
     const std::vector<std::pair<std::string, void (*)()>> tests{
         {"tactical_snapshot_separates_map_data", tactical_snapshot_separates_map_data},
+        {"hostile_contacts_are_limited_to_visible_friendly_observers",
+         hostile_contacts_are_limited_to_visible_friendly_observers},
+        {"missile_tracks_expose_friendly_launches_without_hidden_targets",
+         missile_tracks_expose_friendly_launches_without_hidden_targets},
         {"prediction_covers_configured_tick_horizon", prediction_covers_configured_tick_horizon},
         {"presentation_generation_does_not_mutate_simulation", presentation_generation_does_not_mutate_simulation},
     };

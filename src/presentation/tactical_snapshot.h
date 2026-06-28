@@ -27,11 +27,21 @@ struct TacticalSnapshotOptions {
     PredictionConfig prediction;
 };
 
+struct TacticalMissileTrack {
+    domain::MissileId id;
+    domain::EntityId launcher;
+    domain::ContactId target_contact;
+    domain::Vec2 position_km;
+    domain::Vec2 velocity_km_per_second;
+    domain::MissileStatus status{domain::MissileStatus::InFlight};
+};
+
 struct TacticalSnapshot {
     domain::Tick tick{0};
     double time_seconds{0.0};
     std::vector<domain::EntitySnapshot> friendly_entities;
     std::vector<domain::ContactSnapshot> hostile_contacts;
+    std::vector<TacticalMissileTrack> missile_tracks;
     std::vector<domain::Event> events;
     std::vector<TacticalTrajectory> predicted_trajectories;
 };

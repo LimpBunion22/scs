@@ -48,6 +48,28 @@ TacticalTrajectory make_contact_trajectory(const domain::WorldSnapshot& world,
     };
 }
 
+bool has_visible_friendly_entity(const std::vector<domain::EntitySnapshot>& friendly_entities,
+                                 domain::EntityId id) {
+    for (const auto& entity : friendly_entities) {
+        if (entity.id == id) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+TacticalMissileTrack make_missile_track(const domain::MissileSnapshot& missile) {
+    return TacticalMissileTrack{
+        missile.id,
+        missile.launcher,
+        missile.target_contact,
+        missile.position_km,
+        missile.velocity_km_per_second,
+        missile.status,
+    };
+}
+
 } // namespace
 
 TacticalSnapshot make_tactical_snapshot(const domain::WorldSnapshot& world,
@@ -71,9 +93,21 @@ TacticalSnapshot make_tactical_snapshot(const domain::WorldSnapshot& world,
     }
 
     for (const auto& contact : world.contacts) {
+        if (!has_visible_friendly_entity(result.friendly_entities, contact.observer)) {
+            continue;
+        }
+
         result.hostile_contacts.push_back(contact);
         result.predicted_trajectories.push_back(
             make_contact_trajectory(world, contact, seconds_per_tick, options.prediction));
+    }
+
+    for (const auto& missile : world.missiles) {
+        if (!has_visible_friendly_entity(result.friendly_entities, missile.launcher)) {
+            continue;
+        }
+
+        result.missile_tracks.push_back(make_missile_track(missile));
     }
 
     return result;
