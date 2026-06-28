@@ -20,7 +20,12 @@ enum class EventType {
     CommandRejected,
     VelocityChanged,
     ContactDetected,
-    ContactUpdated
+    ContactUpdated,
+    MissileLaunched,
+    MissileThreat,
+    DefensiveResponse,
+    MissileHit,
+    MissileMissed
 };
 
 struct Event {

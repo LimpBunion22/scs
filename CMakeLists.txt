@@ -9,6 +9,7 @@ add_library(scs_core STATIC
     src/presentation/prediction.cpp
     src/presentation/tactical_snapshot.cpp
     src/simulation/contact_tracker.cpp
+    src/simulation/missile.cpp
     src/simulation/replay.cpp
     src/simulation/scenario.cpp
     src/simulation/simulation.cpp
@@ -50,6 +51,14 @@ add_executable(scs_contact_tests
 target_link_libraries(scs_contact_tests PRIVATE scs_core)
 
 add_test(NAME scs_contact_tests COMMAND scs_contact_tests)
+
+add_executable(scs_missile_tests
+    tests/simulation/missile_tests.cpp
+)
+
+target_link_libraries(scs_missile_tests PRIVATE scs_core)
+
+add_test(NAME scs_missile_tests COMMAND scs_missile_tests)
 
 add_executable(scs_time_scale_policy_tests
     tests/gameplay/time_scale_policy_tests.cpp

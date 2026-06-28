@@ -10,6 +10,7 @@
 #include "domain/snapshot.h"
 #include "domain/time.h"
 #include "simulation/contact_tracker.h"
+#include "simulation/missile.h"
 #include "simulation/scenario.h"
 
 namespace scs::simulation {
@@ -40,7 +41,9 @@ private:
     double fixed_step_seconds_{1.0};
     domain::Tick current_tick_{0};
     std::uint64_t next_command_sequence_{0};
+    domain::MissileId next_missile_id_{1};
     std::vector<domain::EntityState> entities_;
+    std::vector<MissileState> missiles_;
     std::vector<QueuedCommand> command_queue_;
     std::vector<domain::Event> events_;
     ContactTracker contact_tracker_;
@@ -51,6 +54,14 @@ private:
     void validate_initial_state() const;
     void apply_due_commands();
     void apply_command(const domain::Command& command);
+    void apply_engage_entity_command(const domain::EngageEntityCommand& command);
+    void apply_engage_contact_command(const domain::EngageContactCommand& command);
+    void try_launch_missile(domain::EntityState& launcher,
+                            const domain::EntityState& target,
+                            domain::ContactId target_contact);
+    [[nodiscard]] domain::EntityState* resolve_contact_target(const domain::EntityState& launcher,
+                                                              const domain::ContactSnapshot& contact);
+    void update_missiles();
     void update_contacts();
     void append_event(domain::EventSeverity severity,
                       domain::EventType type,

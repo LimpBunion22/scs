@@ -26,6 +26,8 @@ struct EntityState {
     Vec2 position_km;
     Vec2 velocity_km_per_second;
     double sensor_range_km{0.0};
+    int missile_ammunition{0};
+    int defensive_response_charges{0};
 };
 
 } // namespace scs::domain
