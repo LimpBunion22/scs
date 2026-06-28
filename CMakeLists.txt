@@ -1,45 +1,40 @@
-# Establecer la versión mínima de CMake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
-# Nombre del proyecto
-project(SPACE_COMBAT_SIMULATOR)
+project(space_combat_strategy VERSION 0.1.0 LANGUAGES CXX)
 
-# Establecer el estándar de C++
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs" FORCE)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_library(scs_core STATIC
+    src/simulation/replay.cpp
+    src/simulation/scenario.cpp
+    src/simulation/simulation.cpp
+)
 
+target_include_directories(scs_core
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
-find_package(nlohmann_json REQUIRED)
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-# add_subdirectory(utils/imgui)
-add_subdirectory(utils/imgui-sfml)
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/utils/imgui)
-set(IMGUI_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/utils/imgui)
+target_compile_features(scs_core PUBLIC cxx_std_17)
 
-# Incluir todas las subcarpetas de 'include'
-include_directories(include)
-include_directories(include/astral_bodies)
-include_directories(include/general)
-include_directories(include/window_handler)
-include_directories(include/physics)
-include_directories(include/ships)
+if(MSVC)
+    target_compile_options(scs_core PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(scs_core PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
-#files to include
-file (GLOB_RECURSE HEADER_FILES "include/*.h"
-    "include/astral_bodies/*.h"
-    "include/general/*.h"
-    "include/window_handler/*.h"
-    "include/physics/*.h"
-    "include/ships/*.h")
+add_executable(scs_demo
+    src/app/main.cpp
+)
 
-# Añadir todos los archivos fuente (recursivamente)
-file(GLOB_RECURSE SOURCES "source/*.cpp")
+target_link_libraries(scs_demo PRIVATE scs_core)
 
-# Añadir el ejecutable
-add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCES})
+enable_testing()
 
-# Enlazar las bibliotecas de SFML
-target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML sfml-graphics sfml-window sfml-system nlohmann_json::nlohmann_json)
+add_executable(scs_core_tests
+    tests/simulation/deterministic_replay_tests.cpp
+)
 
+target_link_libraries(scs_core_tests PRIVATE scs_core)
+
+add_test(NAME scs_core_tests COMMAND scs_core_tests)

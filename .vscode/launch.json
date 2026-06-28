@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(gdb) Launch",
+      "name": "Launch scs_demo",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/SPACE_COMBAT_SIMULATOR",  // Ajusta el nombre del ejecutable
+      "program": "${workspaceFolder}/build/scs_demo",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/build",
+      "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
@@ -19,7 +19,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "build",  // Asegúrate de compilar el proyecto antes de depurar
+      "preLaunchTask": "build",
       "miDebuggerPath": "/usr/bin/gdb",
       "logging": {
         "moduleLoad": false,
@@ -27,9 +27,6 @@
         "trace": false
       },
       "internalConsoleOptions": "openOnSessionStart",
-      "osx": {
-        "MIMode": "lldb"
-      },
       "linux": {
         "MIMode": "gdb"
       },
