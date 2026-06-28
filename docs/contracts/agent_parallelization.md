@@ -45,6 +45,24 @@ For the playable tactical-map round:
 - graphical interaction and object-selection model implementation must wait
   until `UIEVAL-001` selects the next UI stack.
 
+## Desktop refinement boundaries
+
+After the first desktop SFML/Dear ImGui implementation:
+
+- run `DESKTOPSMOKE-001` first, because it may reveal blockers or owner
+  decisions before further UI work;
+- `DESKTOPTIME-001` should have one integration owner because it touches
+  `src/app/desktop_main.cpp` and the main desktop panel controls;
+- after smoke, `DESKTOPPANEL-001` and `DESKTOPRENDER-001` can run in parallel
+  if panel work stays in `src/ui/*` and renderer work stays in
+  `src/rendering/*`;
+- do not run `DESKTOPORDER-001` in parallel with `DESKTOPPANEL-001`, because
+  both edit `src/ui/imgui_tactical_panels.*`;
+- run `DESKTOPREG-001` after the command and time-control contracts it intends
+  to cover have landed;
+- only one active task should edit `docs/contracts/desktop_ui.md` at a time, or
+  the later task must rebase and preserve prior contract updates.
+
 ## Integration rule
 
 If a task needs to change a contract file owned by another active task, stop and report the pending decision instead of guessing.

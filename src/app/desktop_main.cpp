@@ -12,6 +12,7 @@
 #include "simulation/scenario.h"
 #include "simulation/simulation.h"
 #include "ui/desktop_interaction.h"
+#include "ui/desktop_time_controls.h"
 #include "ui/imgui_tactical_panels.h"
 #include "ui/tactical_command_ui.h"
 
@@ -76,6 +77,9 @@ int main() {
     scs::simulation::Simulation simulation(scenario);
 
     scs::ui::TacticalUiState ui_state;
+    ui_state.tactical_pause = true;
+    scs::ui::DesktopTimeController time_controller{
+        scs::ui::DesktopTimeControllerConfig{simulation.fixed_step_seconds(), 8}};
     scs::ui::DesktopInteractionState desktop_state;
     desktop_state.selection = scs::rendering::TacticalSelection{
         scs::rendering::TacticalSelectionKind::FriendlyEntity,
@@ -183,13 +187,15 @@ int main() {
             }
         }
 
-        ImGui::SFML::Update(window, delta_clock.restart());
+        const sf::Time frame_delta = delta_clock.restart();
+        ImGui::SFML::Update(window, frame_delta);
 
         const auto panel_result = scs::ui::draw_imgui_tactical_panels(
             ui_state,
             desktop_state,
             tactical,
             time_scale,
+            time_controller,
             scenario.name,
             scs::ui::ImguiPanelLayout{
                 static_cast<float>(projection.viewport.width),
@@ -209,6 +215,12 @@ int main() {
         }
         if (panel_result.advance_ticks > 0) {
             simulation.advance(panel_result.advance_ticks);
+        }
+        const auto continuous_ticks = time_controller.request_ticks(
+            frame_delta.asSeconds(),
+            time_scale);
+        if (continuous_ticks > 0) {
+            simulation.advance(continuous_ticks);
         }
         if (panel_result.quit) {
             window.close();

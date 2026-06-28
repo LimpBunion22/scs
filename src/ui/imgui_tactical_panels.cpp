@@ -1,211 +1,110 @@
 #include "ui/imgui_tactical_panels.h"
 
-#include <algorithm>
 #include <string>
 
 #include <imgui.h>
 
+#include "ui/desktop_order_model.h"
+#include "ui/desktop_panel_model.h"
+
 namespace scs::ui {
 namespace {
 
-constexpr std::size_t kEventLogLimit = 10;
-
-const char* severity_label(domain::EventSeverity severity) {
-    switch (severity) {
-    case domain::EventSeverity::Info:
-        return "info";
-    case domain::EventSeverity::Advisory:
-        return "advisory";
-    case domain::EventSeverity::Threat:
-        return "threat";
-    case domain::EventSeverity::Critical:
-        return "critical";
+void draw_metric_table(const char* table_id,
+                       const std::vector<DesktopPanelMetric>& metrics) {
+    if (metrics.empty()) {
+        ImGui::TextUnformatted("None");
+        return;
     }
-    return "unknown";
+
+    if (!ImGui::BeginTable(table_id, 2, ImGuiTableFlags_SizingFixedFit)) {
+        return;
+    }
+
+    ImGui::TableSetupColumn("Label", ImGuiTableColumnFlags_WidthFixed, 110.0F);
+    ImGui::TableSetupColumn("Value", ImGuiTableColumnFlags_WidthStretch);
+
+    for (const auto& metric : metrics) {
+        ImGui::TableNextRow();
+        ImGui::TableSetColumnIndex(0);
+        ImGui::TextUnformatted(metric.label.c_str());
+        ImGui::TableSetColumnIndex(1);
+        ImGui::TextWrapped("%s", metric.value.c_str());
+    }
+
+    ImGui::EndTable();
 }
 
-const char* event_type_label(domain::EventType type) {
-    switch (type) {
-    case domain::EventType::ScenarioLoaded:
-        return "scenario_loaded";
-    case domain::EventType::CommandAccepted:
-        return "command_accepted";
-    case domain::EventType::CommandRejected:
-        return "command_rejected";
-    case domain::EventType::VelocityChanged:
-        return "velocity_changed";
-    case domain::EventType::ContactDetected:
-        return "contact_detected";
-    case domain::EventType::ContactUpdated:
-        return "contact_updated";
-    case domain::EventType::MissileLaunched:
-        return "missile_launched";
-    case domain::EventType::MissileThreat:
-        return "missile_threat";
-    case domain::EventType::DefensiveResponse:
-        return "defensive_response";
-    case domain::EventType::MissileHit:
-        return "missile_hit";
-    case domain::EventType::MissileMissed:
-        return "missile_missed";
-    }
-    return "unknown";
-}
-
-const char* missile_status_label(domain::MissileStatus status) {
-    switch (status) {
-    case domain::MissileStatus::InFlight:
-        return "in_flight";
-    case domain::MissileStatus::Hit:
-        return "hit";
-    case domain::MissileStatus::Miss:
-        return "miss";
-    case domain::MissileStatus::Defeated:
-        return "defeated";
-    }
-    return "unknown";
-}
-
-const domain::EntitySnapshot* find_friendly(const presentation::TacticalSnapshot& snapshot,
-                                            domain::EntityId id) {
-    for (const auto& entity : snapshot.friendly_entities) {
-        if (entity.id == id) {
-            return &entity;
-        }
-    }
-    return nullptr;
-}
-
-const domain::ContactSnapshot* find_contact(const presentation::TacticalSnapshot& snapshot,
-                                            domain::ContactId id) {
-    for (const auto& contact : snapshot.hostile_contacts) {
-        if (contact.id == id) {
-            return &contact;
-        }
-    }
-    return nullptr;
-}
-
-const presentation::TacticalMissileTrack* find_missile(
-    const presentation::TacticalSnapshot& snapshot,
-    domain::MissileId id) {
-    for (const auto& missile : snapshot.missile_tracks) {
-        if (missile.id == id) {
-            return &missile;
-        }
-    }
-    return nullptr;
-}
-
-void draw_selection(const presentation::TacticalSnapshot& snapshot,
-                    const DesktopInteractionState& desktop_state) {
+void draw_selection(const DesktopPanelSelectionModel& selection) {
     ImGui::SeparatorText("Selection");
-    if (desktop_state.selection.kind == rendering::TacticalSelectionKind::FriendlyEntity) {
-        const auto* entity = find_friendly(snapshot, desktop_state.selection.entity);
-        if (entity == nullptr) {
-            ImGui::TextUnformatted("Friendly unavailable");
-            return;
-        }
-
-        ImGui::Text("F%u %s", entity->id.value, entity->name.c_str());
-        ImGui::Text("Position %.1f, %.1f km", entity->position_km.x, entity->position_km.y);
-        ImGui::Text("Velocity %.1f, %.1f km/s",
-                    entity->velocity_km_per_second.x,
-                    entity->velocity_km_per_second.y);
-        ImGui::Text("Missiles %d  Defenses %d",
-                    entity->missile_ammunition,
-                    entity->defensive_response_charges);
-        return;
-    }
-
-    if (desktop_state.selection.kind == rendering::TacticalSelectionKind::HostileContact) {
-        const auto* contact = find_contact(snapshot, desktop_state.selection.contact);
-        if (contact == nullptr) {
-            ImGui::TextUnformatted("Contact unavailable");
-            return;
-        }
-
-        ImGui::Text("C%u observed by F%u", contact->id.value, contact->observer.value);
-        ImGui::Text("Estimate %.1f, %.1f km",
-                    contact->estimated_position_km.x,
-                    contact->estimated_position_km.y);
-        ImGui::Text("Velocity %.1f, %.1f km/s",
-                    contact->estimated_velocity_km_per_second.x,
-                    contact->estimated_velocity_km_per_second.y);
-        ImGui::Text("Confidence %.2f  Uncertainty %.1f km",
-                    contact->confidence,
-                    contact->uncertainty_radius_km);
-        return;
-    }
-
-    ImGui::TextUnformatted("None");
+    ImGui::TextWrapped("%s", selection.heading.c_str());
+    draw_metric_table("selection_metrics", selection.metrics);
 }
 
-void draw_hover(const presentation::TacticalSnapshot& snapshot,
-                const DesktopInteractionState& desktop_state) {
+void draw_hover(const DesktopPanelModel& model) {
     ImGui::SeparatorText("Hover");
-    if (desktop_state.hover.kind == DesktopMapObjectKind::FriendlyEntity) {
-        const auto* entity = find_friendly(snapshot, desktop_state.hover.entity);
-        ImGui::Text("F%u %s",
-                    desktop_state.hover.entity.value,
-                    entity == nullptr ? "" : entity->name.c_str());
-        return;
-    }
-    if (desktop_state.hover.kind == DesktopMapObjectKind::HostileContact) {
-        ImGui::Text("C%u", desktop_state.hover.contact.value);
-        return;
-    }
-    if (desktop_state.hover.kind == DesktopMapObjectKind::MissileTrack) {
-        const auto* missile = find_missile(snapshot, desktop_state.hover.missile);
-        ImGui::Text("M%u %s",
-                    desktop_state.hover.missile.value,
-                    missile == nullptr ? "" : missile_status_label(missile->status));
-        return;
-    }
-    ImGui::TextUnformatted("None");
+    ImGui::TextWrapped("%s", model.hover_summary.c_str());
 }
 
-void draw_events(const presentation::TacticalSnapshot& snapshot) {
+void draw_staged_engagement(const DesktopPanelModel& model) {
+    ImGui::SeparatorText("Engagement");
+
+    std::vector<DesktopPanelMetric> staged_metrics;
+    staged_metrics.reserve(model.staged_statuses.size());
+    for (const auto& status : model.staged_statuses) {
+        staged_metrics.push_back({status.label, status.value + " (" + status.status + ")"});
+    }
+    draw_metric_table("staged_metrics", staged_metrics);
+}
+
+void draw_maneuver_order(const DesktopVelocityOrderModel& model,
+                         DesktopInteractionState& desktop_state) {
+    ImGui::SeparatorText("Maneuver");
+    ImGui::TextWrapped("Target %s",
+                       model.target_label.empty() ? "none" : model.target_label.c_str());
+    ImGui::TextWrapped("%s", model.feedback.c_str());
+    ImGui::InputDouble("VX (km/s)", &desktop_state.staged_velocity_x_km_per_second, 1.0, 10.0);
+    ImGui::InputDouble("VY (km/s)", &desktop_state.staged_velocity_y_km_per_second, 1.0, 10.0);
+}
+
+void draw_missiles(const DesktopPanelModel& model) {
+    ImGui::SeparatorText("Missiles");
+    if (model.missiles.empty()) {
+        ImGui::TextUnformatted("None");
+        return;
+    }
+
+    for (std::size_t index = 0; index < model.missiles.size(); ++index) {
+        const auto& missile = model.missiles[index];
+        ImGui::PushID(static_cast<int>(index));
+        ImGui::TextUnformatted(missile.heading.c_str());
+        draw_metric_table("missile_metrics", missile.metrics);
+        ImGui::PopID();
+    }
+}
+
+void draw_events(const DesktopPanelModel& model) {
     ImGui::SeparatorText("Events");
-    if (snapshot.events.empty()) {
-        ImGui::TextUnformatted("none");
+    if (model.event_lines.empty()) {
+        ImGui::TextUnformatted("None");
         return;
     }
 
-    const std::size_t first =
-        snapshot.events.size() > kEventLogLimit ? snapshot.events.size() - kEventLogLimit : 0;
-    for (std::size_t i = first; i < snapshot.events.size(); ++i) {
-        const auto& event = snapshot.events[i];
-        ImGui::TextWrapped("[%llu] %s %s subject=%u - %s",
-                           static_cast<unsigned long long>(event.tick),
-                           severity_label(event.severity),
-                           event_type_label(event.type),
-                           event.subject.value,
-                           event.message.c_str());
+    for (const auto& line : model.event_lines) {
+        ImGui::TextWrapped("%s", line.c_str());
     }
 }
 
-void draw_command_log(const TacticalUiState& ui_state) {
+void draw_command_log(const DesktopPanelModel& model) {
     ImGui::SeparatorText("Command Log");
-    if (ui_state.command_log.empty()) {
-        ImGui::TextUnformatted("none");
+    if (model.command_log_lines.empty()) {
+        ImGui::TextUnformatted("None");
         return;
     }
 
-    for (const auto& entry : ui_state.command_log) {
+    for (const auto& entry : model.command_log_lines) {
         ImGui::TextWrapped("%s", entry.c_str());
     }
-}
-
-void draw_staged_engagement(const DesktopInteractionState& desktop_state) {
-    ImGui::Text("Launcher: %s",
-                domain::is_valid(desktop_state.staged_launcher)
-                    ? ("F" + std::to_string(desktop_state.staged_launcher.value)).c_str()
-                    : "none");
-    ImGui::Text("Target: %s",
-                domain::is_valid(desktop_state.staged_target)
-                    ? ("C" + std::to_string(desktop_state.staged_target.value)).c_str()
-                    : "none");
 }
 
 } // namespace
@@ -215,6 +114,7 @@ DesktopCommandResult draw_imgui_tactical_panels(
     DesktopInteractionState& desktop_state,
     const presentation::TacticalSnapshot& snapshot,
     const gameplay::TimeScaleRecommendation& time_scale,
+    DesktopTimeController& time_controller,
     std::string_view scenario_name,
     ImguiPanelLayout layout) {
     DesktopCommandResult result;
@@ -225,34 +125,34 @@ DesktopCommandResult draw_imgui_tactical_panels(
                              ImGuiWindowFlags_NoCollapse;
     ImGui::Begin("Tactical Command", nullptr, flags);
 
+    const DesktopPanelModel model =
+        make_desktop_panel_model(ui_state, desktop_state, snapshot, time_scale);
     const std::string scenario{scenario_name};
     ImGui::TextWrapped("%s", scenario.c_str());
     ImGui::Text("Tick %llu  Time %.1fs",
                 static_cast<unsigned long long>(snapshot.tick),
                 snapshot.time_seconds);
-    ImGui::Text("Scale %.1fx  %s",
-                time_scale.scale,
-                gameplay::time_scale_reason_label(time_scale.reason));
+    ImGui::TextWrapped("Scale %s  %s",
+                       model.time_scale_label.c_str(),
+                       model.time_scale_reason.c_str());
 
     ImGui::SeparatorText("Time");
-    if (ImGui::Button(ui_state.tactical_pause ? "Resume" : "Pause")) {
-        ui_state.tactical_pause = !ui_state.tactical_pause;
-        result.feedback = ui_state.tactical_pause ? "Tactical pause enabled."
-                                                  : "Tactical pause cleared.";
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Step")) {
-        result.advance_ticks = 1;
-        result.feedback = "Simulation step requested.";
+    ImGui::Text("Mode %s", desktop_run_mode_label(time_controller.mode()));
+    if (ImGui::Button("Pause")) {
+        time_controller.pause();
+        ui_state.tactical_pause = true;
+        result.feedback = "Tactical pause enabled.";
     }
     ImGui::SameLine();
     if (ImGui::Button("Run")) {
-        if (ui_state.tactical_pause) {
-            result.feedback = "Simulation is paused; resume or step explicitly.";
-        } else {
-            result.advance_ticks = 1;
-            result.feedback = "Simulation run tick requested.";
-        }
+        time_controller.run();
+        ui_state.tactical_pause = false;
+        result.feedback = "Continuous run enabled.";
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Step")) {
+        time_controller.request_step();
+        result.feedback = "Simulation step requested.";
     }
 
     if (ImGui::Button("Auto Scale")) {
@@ -275,17 +175,24 @@ DesktopCommandResult draw_imgui_tactical_panels(
         result.feedback = "Manual time scale override set.";
     }
 
-    draw_selection(snapshot, desktop_state);
-    draw_hover(snapshot, desktop_state);
+    draw_selection(model.selection);
+    draw_hover(model);
 
-    ImGui::SeparatorText("Engagement");
-    draw_staged_engagement(desktop_state);
+    const DesktopVelocityOrderModel velocity_order =
+        make_desktop_velocity_order_model(desktop_state, snapshot);
+    draw_maneuver_order(velocity_order, desktop_state);
+    if (ImGui::Button("Set Velocity")) {
+        result = emit_desktop_velocity_command(desktop_state, snapshot);
+    }
+
+    draw_staged_engagement(model);
     if (ImGui::Button("Engage Contact")) {
         result = emit_staged_desktop_engage_contact(desktop_state, snapshot);
     }
 
-    draw_events(snapshot);
-    draw_command_log(ui_state);
+    draw_missiles(model);
+    draw_events(model);
+    draw_command_log(model);
 
     if (ImGui::Button("Quit")) {
         result.quit = true;

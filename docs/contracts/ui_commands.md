@@ -34,6 +34,15 @@ emits `domain::Command` values; it does not mutate simulation entities directly.
 | `engage contact <id>` | Emits `EngageContactCommand` for the selected friendly entity and visible hostile contact at the current snapshot tick. |
 | `quit` | Requests app shutdown. |
 
+The desktop ImGui panels must preserve the same command semantics:
+
+- `Set Velocity` emits `SetVelocityCommand` at the current snapshot tick.
+- The target is the currently selected visible friendly entity, or the staged
+  visible friendly entity when the current inspector selection is not a
+  friendly.
+- Desktop maneuver emission is rejected when no visible friendly entity is
+  selected or staged.
+
 ## Invariants
 
 - Command emission is data-only. The app decides whether to submit emitted
@@ -46,3 +55,5 @@ emits `domain::Command` values; it does not mutate simulation entities directly.
   control flow.
 - Engagement command validation beyond visible selected friendly and visible
   contact remains the simulation's responsibility.
+- Velocity command validation beyond visible selected or staged friendly remains
+  the simulation's responsibility.

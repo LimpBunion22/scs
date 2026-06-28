@@ -35,9 +35,11 @@ add_executable(scs_demo
 )
 
 add_library(scs_ui STATIC
+    src/ui/desktop_panel_model.cpp
     src/rendering/tactical_map_projection.cpp
     src/rendering/tactical_map_renderer.cpp
     src/ui/desktop_interaction.cpp
+    src/ui/desktop_time_controls.cpp
     src/ui/tactical_command_ui.cpp
 )
 
@@ -168,6 +170,46 @@ add_executable(scs_desktop_interaction_tests
 target_link_libraries(scs_desktop_interaction_tests PRIVATE scs_core scs_ui)
 
 add_test(NAME scs_desktop_interaction_tests COMMAND scs_desktop_interaction_tests)
+
+add_executable(scs_desktop_time_control_tests
+    tests/integration/desktop_time_control_tests.cpp
+)
+
+target_link_libraries(scs_desktop_time_control_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_desktop_time_control_tests COMMAND scs_desktop_time_control_tests)
+
+add_executable(scs_desktop_panel_model_tests
+    tests/integration/desktop_panel_model_tests.cpp
+)
+
+target_link_libraries(scs_desktop_panel_model_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_desktop_panel_model_tests COMMAND scs_desktop_panel_model_tests)
+
+add_executable(scs_desktop_render_model_tests
+    tests/integration/desktop_render_model_tests.cpp
+)
+
+target_link_libraries(scs_desktop_render_model_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_desktop_render_model_tests COMMAND scs_desktop_render_model_tests)
+
+add_executable(scs_desktop_order_tests
+    tests/integration/desktop_order_tests.cpp
+)
+
+target_link_libraries(scs_desktop_order_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_desktop_order_tests COMMAND scs_desktop_order_tests)
+
+add_executable(scs_desktop_command_flow_tests
+    tests/integration/desktop_command_flow_tests.cpp
+)
+
+target_link_libraries(scs_desktop_command_flow_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_desktop_command_flow_tests COMMAND scs_desktop_command_flow_tests)
 
 add_executable(scs_vertical_slice_replay_tests
     tests/integration/vertical_slice_replay_tests.cpp

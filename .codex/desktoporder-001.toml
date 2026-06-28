@@ -1,0 +1,61 @@
+task_id = "DESKTOPORDER-001"
+task_name = "DESKTOPORDER-001 - Desktop maneuver command emission"
+agent_type = "worker"
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+status = "completed"
+agent_id = "019f1057-ef08-7f20-a6b0-5535c01b72ed"
+agent_nickname = "Hypatia"
+completion_artifact = "subagent completion report"
+blocked_by = []
+launch_order = 5
+notes = [
+  "Do not run in parallel with DESKTOPPANEL-001 because both edit imgui_tactical_panels.",
+  "Uses existing SetVelocityCommand only; no new command type.",
+  "Keep visual checks bounded; ask the owner for subjective UI judgment instead of spending long on visual inspection.",
+]
+
+prompt = '''
+You are working in /home/vitiate/Desktop/Hetairoi/scs.
+
+Read first:
+- AGENTS.md
+- docs/contracts/agent_task_contracts.md
+- docs/contracts/agent_parallelization.md
+- docs/decisions/0001_vertical_slice_sequence.md
+
+Your assigned task is:
+DESKTOPORDER-001
+
+Follow the exact task contract from docs/contracts/agent_task_contracts.md.
+
+Before editing:
+1. Confirm the relevant files and allowed files from the contract.
+2. Inspect only the required context, relevant source files, and related tests.
+3. Do not modify files outside the allowed list unless the task becomes impossible without doing so; if that happens, stop and report the pending decision.
+
+Implementation rules:
+- Preserve deterministic simulation behavior.
+- Do not add UI, rendering, dependencies, or speculative systems unless the contract explicitly allows it.
+- Keep changes small and scoped.
+- Add or update tests required by the acceptance criteria.
+- Update only the docs required by the deliverables.
+
+Verification:
+- Run the relevant build and tests.
+- At minimum, run:
+  cmake -S . -B build
+  cmake --build build
+  ctest --test-dir build --output-on-failure
+- For subjective visual/interface validation, do not spend long on exhaustive scripted inspection. Build and smoke-check enough to confirm the app still opens if the contract requires it, then record a concise owner-review checklist or screenshot request.
+
+Return the completion report in the AGENTS.md format:
+Completed:
+Files changed:
+Tests added or updated:
+Tests executed:
+Assumptions:
+Pending decisions:
+Risks:
+Suggested next task:
+'''

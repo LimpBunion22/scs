@@ -953,3 +953,373 @@ Out of scope:
 - Multiplayer.
 - 3D.
 - Campaign UI.
+
+---
+
+## Desktop UI validation and refinement round
+
+The first desktop implementation now provides the gated build, pure projection
+and hit testing, SFML map rendering, ImGui panels, staged engage command
+emission, and desktop app wiring. The next round should validate the window in
+real use and tighten the command-map experience before expanding mechanics.
+
+Recommended sequence:
+
+1. `DESKTOPSMOKE-001` — manual desktop smoke and issue triage.
+2. `DESKTOPTIME-001` — desktop run-mode controller.
+3. `DESKTOPPANEL-001` — ImGui tactical metrics and missile/status panels.
+4. `DESKTOPRENDER-001` — SFML map readability overlays.
+5. `DESKTOPORDER-001` — desktop maneuver command emission.
+6. `DESKTOPREG-001` — desktop command-flow regression.
+
+## DESKTOPSMOKE-001 — Manual desktop smoke and issue triage
+
+Task:
+DESKTOPSMOKE-001 — Manual desktop smoke and issue triage
+
+Objective:
+Run the desktop executable against the playable engagement scenario, verify the
+first desktop workflows, and record concrete issues before additional UI work.
+
+Relevant files:
+- `src/app/desktop_main.cpp`
+- `src/rendering/sfml_tactical_map_renderer.*`
+- `src/ui/imgui_tactical_panels.*`
+- `src/ui/desktop_interaction.*`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `docs/contracts/desktop_smoke_checklist.md`
+- `docs/contracts/desktop_ui.md`
+- `docs/decisions/*`, only if a new owner decision is discovered
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/desktop_ui.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/time_scale_policy.md`
+
+Invariants:
+- This is a validation task, not a feature task.
+- Do not change build tooling or gameplay behavior.
+- Do not remove or replace the console demo.
+- Report defects with exact reproduction steps instead of speculative fixes.
+
+Acceptance criteria:
+- Desktop build is configured with `SCS_BUILD_DESKTOP_UI=ON` and `scs_desktop`
+  builds.
+- Smoke run verifies startup, resize, pan, zoom, hover, selection, overlap
+  cycling, pause/resume, step/run, manual scale, engage-contact emission, event
+  log, and command log.
+- Findings are recorded as pass/fail checklist items with reproduction steps
+  for failures.
+- Any required owner decision is listed explicitly.
+
+Deliverables:
+- `docs/contracts/desktop_smoke_checklist.md`.
+- Completion report.
+
+Out of scope:
+- Implementing fixes.
+- Visual redesign.
+- New controls.
+- Packaging.
+
+## DESKTOPTIME-001 — Desktop run-mode controller
+
+Task:
+DESKTOPTIME-001 — Desktop run-mode controller
+
+Objective:
+Replace the one-click desktop `Run` action with an app-owned run controller
+that can continuously request whole fixed ticks from explicit elapsed time and
+the current time-scale recommendation.
+
+Relevant files:
+- `src/app/desktop_main.cpp`
+- `src/ui/imgui_tactical_panels.*`
+- `src/ui/tactical_command_ui.*`
+- `src/gameplay/time_scale_policy.*`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `src/ui/desktop_time_controls.*`
+- `src/ui/imgui_tactical_panels.*`
+- `src/app/desktop_main.cpp`
+- `tests/integration/desktop_time_control_tests.cpp`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`, only to add the new test target
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/desktop_ui.md`
+- `docs/contracts/time_scale_policy.md`
+- `docs/mechanics/time_scale.md`
+
+Invariants:
+- Simulation still advances only by explicit whole ticks requested by app/UI
+  control flow.
+- The pure controller must be deterministic for the same elapsed-time sequence,
+  time-scale recommendations, and player inputs.
+- Tactical pause prevents continuous advancement.
+- Step works while paused.
+- No simulation or gameplay rule changes.
+
+Acceptance criteria:
+- Controller exposes run/pause/step state without SFML or ImGui dependencies.
+- Tests cover paused state, single step, run mode accumulation, time-scale
+  multiplier effect, fractional carry, and maximum catch-up clamp.
+- Desktop panel exposes clear Pause/Run/Step state and feedback.
+- Desktop app uses the controller rather than directly advancing from button
+  clicks or rendering code.
+- Existing tests continue to pass.
+
+Deliverables:
+- Pure run controller.
+- Tests.
+- Desktop panel/app integration.
+- Updated desktop UI contract.
+- Completion report.
+
+Out of scope:
+- Replay format changes.
+- Changing `gameplay::recommend_time_scale`.
+- Background simulation threads.
+- Real-time multiplayer.
+
+## DESKTOPPANEL-001 — ImGui tactical metrics and missile/status panels
+
+Task:
+DESKTOPPANEL-001 — ImGui tactical metrics and missile/status panels
+
+Objective:
+Bring the key tactical metrics from the console renderer into the desktop ImGui
+panels so the player can inspect contacts, missile tracks, and engagement state
+without reading the ASCII fallback.
+
+Relevant files:
+- `src/ui/imgui_tactical_panels.*`
+- `src/rendering/tactical_map_renderer.*`
+- `src/presentation/tactical_snapshot.*`
+- `docs/contracts/tactical_display_metrics.md`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `src/ui/desktop_panel_model.*`
+- `src/ui/imgui_tactical_panels.*`
+- `tests/integration/desktop_panel_model_tests.cpp`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`, only to add the new test target
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+- `docs/contracts/desktop_ui.md`
+
+Invariants:
+- Panel data is derived only from `presentation::TacticalSnapshot`, desktop UI
+  state, and time-scale recommendation.
+- Do not query simulation internals.
+- Do not reveal hidden hostile entity state.
+- Keep metric calculations deterministic and testable outside ImGui.
+
+Acceptance criteria:
+- A pure panel model exposes friendly speed/ammunition/defense metrics, contact
+  confidence/uncertainty/age/range/bearing/closing/closest approach metrics,
+  missile identity/launcher/target contact/position/velocity/speed/status, and
+  staged launcher/target status.
+- Tests verify representative panel model values and unknown/omitted values
+  when observer or target data is unavailable.
+- ImGui panel renders the model and keeps text within the fixed side panel at
+  the default desktop size.
+- Existing console renderer tests continue to pass.
+
+Deliverables:
+- Pure panel model.
+- ImGui panel update.
+- Tests.
+- Updated desktop UI contract.
+- Completion report.
+
+Out of scope:
+- New simulation fields.
+- New command types.
+- Right-click context menus.
+- Styling pass beyond readability.
+
+## DESKTOPRENDER-001 — SFML map readability overlays
+
+Task:
+DESKTOPRENDER-001 — SFML map readability overlays
+
+Objective:
+Improve the SFML tactical map readability with scale-aware grid behavior,
+reference overlays, selected/hover emphasis, and off-screen context while
+preserving presentation-only rendering.
+
+Relevant files:
+- `src/rendering/sfml_tactical_map_renderer.*`
+- `src/rendering/tactical_map_projection.*`
+- `src/presentation/tactical_snapshot.*`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `src/rendering/sfml_tactical_map_renderer.*`
+- `src/rendering/tactical_map_projection.*`
+- `src/rendering/tactical_map_overlay.*`
+- `tests/integration/desktop_render_model_tests.cpp`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`, only to add the new test target
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+- `docs/contracts/desktop_ui.md`
+
+Invariants:
+- SFML rendering consumes presentation snapshots and display state only.
+- No simulation queries or mutation.
+- No new asset dependency unless explicitly approved.
+- Missing or hidden data must remain absent, not inferred.
+
+Acceptance criteria:
+- A pure overlay model computes grid spacing, visible world bounds, scale bar
+  length, marker radius, uncertainty display radius, and off-screen edge hints.
+- Tests cover overlay behavior across at least three zoom levels.
+- Renderer uses the overlay model for grid/reference drawing and keeps selected
+  and hovered objects visually distinct.
+- Missile tracks and contact uncertainty remain visible at the default scenario
+  zoom.
+- Existing default and desktop builds still pass.
+
+Deliverables:
+- Overlay model.
+- SFML renderer update.
+- Tests where headless-safe.
+- Updated desktop UI contract.
+- Completion report.
+
+Out of scope:
+- New fonts or image assets.
+- 3D rendering.
+- Animation effects.
+- Changing tactical snapshot fields.
+
+## DESKTOPORDER-001 — Desktop maneuver command emission
+
+Task:
+DESKTOPORDER-001 — Desktop maneuver command emission
+
+Objective:
+Expose the existing `SetVelocityCommand` through the desktop ImGui panels so
+the player can issue a simple maneuver order without using the console UI.
+
+Relevant files:
+- `src/ui/desktop_interaction.*`
+- `src/ui/imgui_tactical_panels.*`
+- `src/domain/command.h`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `src/ui/desktop_interaction.*`
+- `src/ui/desktop_order_model.*`
+- `src/ui/imgui_tactical_panels.*`
+- `tests/integration/desktop_order_tests.cpp`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`, only to add the new test target
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/desktop_ui.md`
+- `docs/contracts/simulation_core.md`
+
+Invariants:
+- UI emits command data only.
+- Simulation validates command applicability.
+- Do not add a new command type.
+- Do not directly mutate entity position or velocity from UI code.
+- The order must target a visible friendly entity.
+
+Acceptance criteria:
+- Desktop order model emits `SetVelocityCommand` for the selected or staged
+  visible friendly entity at the current tactical snapshot tick.
+- UI rejects maneuver emission when no visible friendly entity is selected or
+  staged.
+- Tests cover successful emission, missing friendly rejection, stale/hidden
+  friendly rejection, and command payload values.
+- ImGui panel exposes numeric velocity inputs with clear feedback.
+- Existing console velocity command behavior remains unchanged.
+
+Deliverables:
+- Desktop maneuver order model.
+- ImGui panel integration.
+- Tests.
+- Updated UI/desktop command contracts.
+- Completion report.
+
+Out of scope:
+- Path planning.
+- Formation controls.
+- Acceleration limits.
+- Autopilot or doctrine.
+
+## DESKTOPREG-001 — Desktop command-flow regression
+
+Task:
+DESKTOPREG-001 — Desktop command-flow regression
+
+Objective:
+Add a non-graphical integration regression that exercises the desktop command
+flow against the playable scenario from selection through command submission,
+simulation advancement, events, and replay consistency.
+
+Relevant files:
+- `src/ui/desktop_interaction.*`
+- `src/ui/desktop_time_controls.*`, if it exists
+- `src/simulation/scenario.*`
+- `src/simulation/simulation.*`
+- `tests/integration/*`
+- `docs/contracts/desktop_ui.md`
+
+Allowed files:
+- `tests/integration/desktop_command_flow_tests.cpp`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/desktop_ui.md`
+- `docs/contracts/simulation_core.md`
+- `docs/contracts/engagement_commands.md`
+- `docs/contracts/replay.md`
+
+Invariants:
+- Test must not open an SFML window.
+- Test must not depend on wall-clock time, filesystem order, or rendering frame
+  rate.
+- Use explicit scenario, command stream, and tick advancement.
+- Do not change simulation behavior to satisfy UI tests.
+
+Acceptance criteria:
+- Test builds a tactical snapshot, selects/stages launcher and target through
+  desktop interaction helpers, emits engage contact, submits it to simulation,
+  advances explicit ticks, and verifies launch/threat/resolution events.
+- Test covers desktop maneuver emission if `DESKTOPORDER-001` has landed.
+- Test verifies the same scripted desktop command flow replays to identical
+  final snapshot and event stream.
+- Existing replay and desktop interaction tests continue to pass.
+
+Deliverables:
+- Integration regression.
+- Updated desktop UI contract if new test guarantees are recorded.
+- Completion report.
+
+Out of scope:
+- Save-file serialization.
+- GUI automation.
+- Pixel-level rendering assertions.

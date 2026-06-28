@@ -54,6 +54,8 @@ struct DesktopInteractionState {
     DesktopMapObject hover;
     domain::EntityId staged_launcher;
     domain::ContactId staged_target;
+    double staged_velocity_x_km_per_second{0.0};
+    double staged_velocity_y_km_per_second{0.0};
     rendering::ScreenPoint last_click_screen;
     std::vector<DesktopMapObject> cycle_candidates;
     std::size_t cycle_index{0};
