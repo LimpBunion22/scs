@@ -18,7 +18,9 @@ enum class EventType {
     ScenarioLoaded,
     CommandAccepted,
     CommandRejected,
-    VelocityChanged
+    VelocityChanged,
+    ContactDetected,
+    ContactUpdated
 };
 
 struct Event {

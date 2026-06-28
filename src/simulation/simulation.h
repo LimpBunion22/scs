@@ -9,6 +9,7 @@
 #include "domain/event.h"
 #include "domain/snapshot.h"
 #include "domain/time.h"
+#include "simulation/contact_tracker.h"
 #include "simulation/scenario.h"
 
 namespace scs::simulation {
@@ -42,6 +43,7 @@ private:
     std::vector<domain::EntityState> entities_;
     std::vector<QueuedCommand> command_queue_;
     std::vector<domain::Event> events_;
+    ContactTracker contact_tracker_;
 
     [[nodiscard]] domain::EntityState* find_entity(domain::EntityId id);
     [[nodiscard]] const domain::EntityState* find_entity(domain::EntityId id) const;
@@ -49,6 +51,7 @@ private:
     void validate_initial_state() const;
     void apply_due_commands();
     void apply_command(const domain::Command& command);
+    void update_contacts();
     void append_event(domain::EventSeverity severity,
                       domain::EventType type,
                       domain::EntityId subject,

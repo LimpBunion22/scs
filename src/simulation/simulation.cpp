@@ -19,6 +19,12 @@ std::string entity_message(const char* text, domain::EntityId id) {
     return stream.str();
 }
 
+std::string contact_message(const char* text, domain::ContactId id, domain::EntityId observer) {
+    std::ostringstream stream;
+    stream << text << " " << id.value << " observed by entity " << observer.value;
+    return stream.str();
+}
+
 } // namespace
 
 Simulation::Simulation(Scenario scenario)
@@ -36,6 +42,7 @@ Simulation::Simulation(Scenario scenario)
                  domain::EventType::ScenarioLoaded,
                  domain::EntityId{},
                  "Scenario loaded: " + scenario_name_);
+    update_contacts();
 }
 
 bool Simulation::submit(domain::Command command) {
@@ -85,6 +92,7 @@ void Simulation::advance_one_tick() {
     }
 
     ++current_tick_;
+    update_contacts();
 }
 
 domain::WorldSnapshot Simulation::snapshot() const {
@@ -103,6 +111,7 @@ domain::WorldSnapshot Simulation::snapshot() const {
             entity.velocity_km_per_second,
         });
     }
+    result.contacts = contact_tracker_.snapshots();
 
     return result;
 }
@@ -193,6 +202,18 @@ void Simulation::apply_command(const domain::Command& command) {
             }
         },
         command.payload);
+}
+
+void Simulation::update_contacts() {
+    for (const auto& contact_event : contact_tracker_.update(current_tick_, fixed_step_seconds_, entities_)) {
+        append_event(contact_event.severity,
+                     contact_event.type,
+                     contact_event.observer,
+                     contact_message(contact_event.type == domain::EventType::ContactDetected ? "Detected contact"
+                                                                                               : "Updated contact",
+                                     contact_event.contact,
+                                     contact_event.observer));
+    }
 }
 
 void Simulation::append_event(domain::EventSeverity severity,

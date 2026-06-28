@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "domain/contact.h"
 #include "domain/entity.h"
 #include "domain/time.h"
 
@@ -21,6 +22,7 @@ struct WorldSnapshot {
     Tick tick{0};
     double time_seconds{0.0};
     std::vector<EntitySnapshot> entities;
+    std::vector<ContactSnapshot> contacts;
 };
 
 } // namespace scs::domain
