@@ -32,7 +32,27 @@ add_executable(scs_demo
     src/app/main.cpp
 )
 
-target_link_libraries(scs_demo PRIVATE scs_core)
+add_library(scs_ui STATIC
+    src/rendering/tactical_map_renderer.cpp
+    src/ui/tactical_command_ui.cpp
+)
+
+target_include_directories(scs_ui
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_compile_features(scs_ui PUBLIC cxx_std_17)
+
+target_link_libraries(scs_ui PUBLIC scs_core)
+
+if(MSVC)
+    target_compile_options(scs_ui PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(scs_ui PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+target_link_libraries(scs_demo PRIVATE scs_core scs_ui)
 
 enable_testing()
 
@@ -75,3 +95,11 @@ add_executable(scs_presentation_tests
 target_link_libraries(scs_presentation_tests PRIVATE scs_core)
 
 add_test(NAME scs_presentation_tests COMMAND scs_presentation_tests)
+
+add_executable(scs_ui_command_map_tests
+    tests/integration/ui_command_map_tests.cpp
+)
+
+target_link_libraries(scs_ui_command_map_tests PRIVATE scs_core scs_ui)
+
+add_test(NAME scs_ui_command_map_tests COMMAND scs_ui_command_map_tests)
