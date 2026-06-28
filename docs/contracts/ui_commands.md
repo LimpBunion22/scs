@@ -31,6 +31,7 @@ emits `domain::Command` values; it does not mutate simulation entities directly.
 | `run [ticks]` | Requests explicit tick advancement while not paused. |
 | `step [ticks]` | Requests explicit tick advancement even while paused. |
 | `velocity <vx> <vy>` | Emits `SetVelocityCommand` for the selected friendly entity at the current snapshot tick. |
+| `engage contact <id>` | Emits `EngageContactCommand` for the selected friendly entity and visible hostile contact at the current snapshot tick. |
 | `quit` | Requests app shutdown. |
 
 ## Invariants
@@ -43,3 +44,5 @@ emits `domain::Command` values; it does not mutate simulation entities directly.
   `gameplay::recommend_time_scale`.
 - Simulation advancement remains explicit tick advancement requested by app/UI
   control flow.
+- Engagement command validation beyond visible selected friendly and visible
+  contact remains the simulation's responsibility.

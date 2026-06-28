@@ -217,6 +217,58 @@ void ui_controls_view_pause_time_scale_and_velocity_command() {
     require(close(payload->velocity_km_per_second.y, -0.5), "Velocity command y component changed.");
 }
 
+void ui_emits_engage_contact_for_selected_friendly() {
+    const auto snapshot = make_tactical_fixture();
+    scs::ui::TacticalUiState state;
+    state.selection = scs::rendering::TacticalSelection{
+        scs::rendering::TacticalSelectionKind::FriendlyEntity,
+        scs::domain::EntityId{1},
+        scs::domain::ContactId{},
+    };
+
+    require(scs::ui::tactical_command_help().find("engage contact <id>") != std::string::npos,
+            "Help text did not include engage contact command.");
+
+    const auto result = scs::ui::handle_tactical_input(state, snapshot, "engage contact 7");
+
+    require(result.command.has_value(), "Engage contact command was not emitted.");
+    require(result.command->execute_on == snapshot.tick, "Engage contact command used the wrong tick.");
+    const auto* payload = std::get_if<scs::domain::EngageContactCommand>(&result.command->payload);
+    require(payload != nullptr, "Engage contact emitted the wrong command payload.");
+    require(payload->launcher == scs::domain::EntityId{1},
+            "Engage contact command used the wrong launcher.");
+    require(payload->target == scs::domain::ContactId{7},
+            "Engage contact command targeted the wrong contact.");
+}
+
+void ui_rejects_engage_contact_without_selected_friendly() {
+    const auto snapshot = make_tactical_fixture();
+    scs::ui::TacticalUiState state;
+
+    const auto result = scs::ui::handle_tactical_input(state, snapshot, "engage contact 7");
+
+    require(!result.command.has_value(),
+            "Engage contact should not emit without a selected friendly entity.");
+    require(result.feedback.find("Select a visible friendly entity") != std::string::npos,
+            "Engage contact did not explain the missing friendly selection.");
+}
+
+void ui_rejects_engage_contact_for_hidden_contact() {
+    const auto snapshot = make_tactical_fixture();
+    scs::ui::TacticalUiState state;
+    state.selection = scs::rendering::TacticalSelection{
+        scs::rendering::TacticalSelectionKind::FriendlyEntity,
+        scs::domain::EntityId{1},
+        scs::domain::ContactId{},
+    };
+
+    const auto result = scs::ui::handle_tactical_input(state, snapshot, "engage contact 99");
+
+    require(!result.command.has_value(), "Engage contact should not emit for a hidden contact.");
+    require(result.feedback.find("Hostile contact is not visible") != std::string::npos,
+            "Engage contact did not explain hidden contact rejection.");
+}
+
 void ui_command_emission_changes_simulation_only_after_submission_and_tick() {
     scs::simulation::Simulation simulation(scs::simulation::make_default_vertical_slice_scenario());
     scs::ui::TacticalUiState state;
@@ -256,6 +308,9 @@ int main() {
         {"renderer_shows_reference_selection_missile_and_time_metrics", renderer_shows_reference_selection_missile_and_time_metrics},
         {"renderer_shows_friendly_selection_metrics", renderer_shows_friendly_selection_metrics},
         {"ui_controls_view_pause_time_scale_and_velocity_command", ui_controls_view_pause_time_scale_and_velocity_command},
+        {"ui_emits_engage_contact_for_selected_friendly", ui_emits_engage_contact_for_selected_friendly},
+        {"ui_rejects_engage_contact_without_selected_friendly", ui_rejects_engage_contact_without_selected_friendly},
+        {"ui_rejects_engage_contact_for_hidden_contact", ui_rejects_engage_contact_for_hidden_contact},
         {"ui_command_emission_changes_simulation_only_after_submission_and_tick", ui_command_emission_changes_simulation_only_after_submission_and_tick},
     };
 

@@ -51,7 +51,8 @@ bool read_optional_ticks(std::istringstream& stream, domain::Tick& ticks) {
 std::string tactical_command_help() {
     return "Commands: pan <east_cells> <north_cells>, zoom <in|out|km_per_cell>, "
            "select friendly <id>, select contact <id>, select none, pause, resume, "
-           "scale <auto|multiplier>, run [ticks], step [ticks], velocity <vx> <vy>, quit.";
+           "scale <auto|multiplier>, run [ticks], step [ticks], velocity <vx> <vy>, "
+           "engage contact <id>, quit.";
 }
 
 gameplay::PlayerTimeScaleInput make_time_scale_input(const TacticalUiState& state) {
@@ -234,6 +235,30 @@ TacticalInputResult handle_tactical_input(TacticalUiState& state,
                                                  state.selection.entity,
                                                  domain::Vec2{velocity_x, velocity_y});
         return finish(state, result, "Velocity command emitted.");
+    }
+
+    if (verb == "engage") {
+        std::string kind;
+        std::uint32_t id_value = 0;
+        if (!(stream >> kind >> id_value) || kind != "contact") {
+            return finish(state, TacticalInputResult{}, "Engage requires contact and id.");
+        }
+
+        if (state.selection.kind != rendering::TacticalSelectionKind::FriendlyEntity ||
+            !has_friendly_entity(snapshot, state.selection.entity)) {
+            return finish(state,
+                          TacticalInputResult{},
+                          "Select a visible friendly entity before issuing engage contact.");
+        }
+
+        const domain::ContactId target{id_value};
+        if (!has_hostile_contact(snapshot, target)) {
+            return finish(state, TacticalInputResult{}, "Hostile contact is not visible.");
+        }
+
+        TacticalInputResult result;
+        result.command = domain::engage_contact_at(snapshot.tick, state.selection.entity, target);
+        return finish(state, result, "Engage contact command emitted.");
     }
 
     return finish(state, TacticalInputResult{}, "Unknown command.");
