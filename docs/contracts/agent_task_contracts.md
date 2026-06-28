@@ -687,3 +687,269 @@ Out of scope:
 - Renderer rewrite.
 - Packaging work.
 - Graphical interaction or selection-model implementation.
+
+---
+
+## Desktop UI migration round
+
+The accepted next UI stack is optional desktop SFML/Dear ImGui. The console
+demo remains the fallback and regression surface until the desktop path is
+playable and tested.
+
+Recommended sequence:
+
+1. `UIDESKTOP-001` — gated desktop dependency and target.
+2. `UIDESKTOP-002` — pure desktop map interaction.
+3. `UIDESKTOP-003` — SFML tactical map renderer.
+4. `UIDESKTOP-004` — Dear ImGui panels and command emission.
+5. `UIDESKTOP-005` — desktop app integration and smoke.
+
+## UIDESKTOP-001 — Gated desktop dependency and target
+
+Task:
+UIDESKTOP-001 — Gated desktop dependency and target
+
+Objective:
+Add the optional SFML/Dear ImGui build path without changing the default build
+or replacing the console demo.
+
+Relevant files:
+- `CMakeLists.txt`
+- `src/app/main.cpp`
+- `docs/decisions/0003_ui_evolution_options.md`
+
+Allowed files:
+- `CMakeLists.txt`
+- `cmake/*`
+- `src/app/desktop_main.cpp`
+- `docs/decisions/0003_ui_evolution_options.md`
+- `docs/contracts/desktop_ui.md`
+
+Required context:
+- `AGENTS.md`
+- `docs/decisions/0002_ui_stack.md`
+- `docs/decisions/0003_ui_evolution_options.md`
+
+Invariants:
+- Default build remains dependency-free.
+- `scs_core` and default `scs_ui` do not include SFML or ImGui headers.
+- Console `scs_demo` remains unchanged.
+- Do not upgrade to SFML 3.
+
+Acceptance criteria:
+- Default build and all existing tests still pass.
+- `-DSCS_BUILD_DESKTOP_UI=ON` configures.
+- `scs_desktop` builds.
+- Dependency pins and enable command are documented in `docs/contracts/desktop_ui.md`.
+
+Deliverables:
+- Build changes.
+- Minimal desktop executable.
+- Desktop UI contract update.
+- Completion report.
+
+Out of scope:
+- Tactical rendering.
+- Command panels.
+- Packaging.
+- Replacing console UI.
+
+## UIDESKTOP-002 — Pure desktop map interaction
+
+Task:
+UIDESKTOP-002 — Pure desktop map interaction
+
+Objective:
+Implement testable map projection, hit testing, hover, nearest-object selection,
+overlap cycling, and staged engagement state without SFML or ImGui dependencies.
+
+Relevant files:
+- `src/rendering/tactical_map_renderer.*`
+- `src/ui/tactical_command_ui.*`
+- `src/presentation/tactical_snapshot.*`
+
+Allowed files:
+- `src/ui/desktop_interaction.*`
+- `src/rendering/tactical_map_projection.*`
+- `tests/integration/*`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`, only to add tests
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/tactical_display_metrics.md`
+
+Invariants:
+- Consume only `presentation::TacticalSnapshot` plus UI/display state.
+- Do not query simulation.
+- Do not expose hidden hostile entities.
+- Missiles are hover/inspector-only, not selectable.
+- No new command types.
+
+Acceptance criteria:
+- Tests cover world/screen projection, pan, zoom around cursor, nearest
+  friendly/contact selection, overlap cycling, hidden-data absence, missile
+  hover-only behavior, and staged engage command emission.
+
+Deliverables:
+- Pure interaction code.
+- Tests.
+- Contract update.
+- Completion report.
+
+Out of scope:
+- SFML drawing.
+- ImGui widgets.
+- New simulation commands.
+
+## UIDESKTOP-003 — SFML tactical map renderer
+
+Task:
+UIDESKTOP-003 — SFML tactical map renderer
+
+Objective:
+Draw the tactical snapshot with SFML: grid/reference space, friendly groups,
+hostile contacts, uncertainty circles, predicted trajectories, missile tracks,
+selection, and hover emphasis.
+
+Relevant files:
+- `src/rendering/tactical_map_renderer.*`
+- `src/presentation/tactical_snapshot.*`
+
+Allowed files:
+- `src/rendering/sfml_tactical_map_renderer.*`
+- `src/rendering/tactical_map_projection.*`
+- `tests/integration/*`
+- `docs/contracts/desktop_ui.md`
+- `CMakeLists.txt`
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+- `docs/contracts/desktop_ui.md`
+
+Invariants:
+- Rendering consumes presentation data only.
+- No simulation mutation.
+- No ImGui panel logic.
+- No gameplay rules in rendering.
+
+Acceptance criteria:
+- Desktop build renders map primitives.
+- Projection matches UIDESKTOP-002 tests.
+- Uncertainty and missile tracks use player-facing snapshot fields only.
+- Existing console renderer tests still pass.
+
+Deliverables:
+- SFML renderer.
+- Focused projection/render smoke tests where headless-safe.
+- Completion report.
+
+Out of scope:
+- Panel layout.
+- Command emission.
+- Visual polish beyond readability.
+
+## UIDESKTOP-004 — Dear ImGui panels and command emission
+
+Task:
+UIDESKTOP-004 — Dear ImGui panels and command emission
+
+Objective:
+Add ImGui panels for selection inspector, hover inspector, event log, command
+log, pause/resume, step/run, scale override, and staged engage.
+
+Relevant files:
+- `src/ui/tactical_command_ui.*`
+- `src/domain/command.h`
+- `src/gameplay/time_scale_policy.*`
+
+Allowed files:
+- `src/ui/imgui_tactical_panels.*`
+- `src/ui/desktop_interaction.*`
+- `tests/integration/*`
+- `docs/contracts/desktop_ui.md`
+- `docs/contracts/ui_commands.md`
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/time_scale_policy.md`
+- `docs/contracts/engagement_commands.md`
+
+Invariants:
+- UI emits `domain::Command` values only.
+- Simulation validates commands.
+- No new domain command type.
+- Tactical pause and manual scale remain app/player state.
+
+Acceptance criteria:
+- Tests cover staged engage command emission and invalid staged engagement.
+- Existing tests cover pause/resume, manual scale, and step/run behavior.
+- No UI path directly mutates simulation.
+
+Deliverables:
+- ImGui panel code.
+- Pure command-emission tests.
+- Contract updates.
+- Completion report.
+
+Out of scope:
+- Right-click command menus.
+- Command palette.
+- Selectable missiles.
+
+## UIDESKTOP-005 — Desktop app integration and smoke
+
+Task:
+UIDESKTOP-005 — Desktop app integration and smoke
+
+Objective:
+Wire the desktop executable into the playable engagement scenario while keeping
+simulation advancement fixed-tick and independent of render frame rate.
+
+Relevant files:
+- `src/app/main.cpp`
+- `src/app/desktop_main.cpp`
+- `src/simulation/scenario.*`
+
+Allowed files:
+- `src/app/desktop_main.cpp`
+- `docs/contracts/desktop_ui.md`
+- `docs/mechanics/scenario.md`
+- `CMakeLists.txt`, only if target wiring needs adjustment
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/simulation_core.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/time_scale_policy.md`
+- `docs/contracts/desktop_ui.md`
+
+Invariants:
+- Render frame time never changes simulation state directly.
+- Simulation advances only through explicit fixed ticks.
+- Console demo remains available.
+- Replay determinism remains covered by existing tests.
+
+Acceptance criteria:
+- Desktop app starts in the playable engagement scenario.
+- User can pan, zoom, hover, select friendly/contact, pause/resume, step/run,
+  see time-scale reason, see event log, and issue engage contact.
+- All existing tests pass.
+- Manual smoke notes are recorded in the completion report.
+
+Deliverables:
+- Integrated desktop app.
+- Smoke notes.
+- Completion report.
+
+Out of scope:
+- Packaging.
+- Save/load.
+- Multiplayer.
+- 3D.
+- Campaign UI.

@@ -2,7 +2,7 @@
 
 ## Status
 
-Recommended, pending owner approval for implementation.
+Accepted for implementation.
 
 ## Context
 
@@ -40,8 +40,9 @@ window/input/rendering surface and ImGui for panels, inspectors, command
 controls, event logs, and time controls.
 
 The existing standard-library console UI must remain in place until the desktop
-replacement is implemented and covered by tests. The new UI must keep the
-existing boundaries:
+replacement is implemented and covered by tests. The desktop path is gated by
+`SCS_BUILD_DESKTOP_UI` so default builds and core tests do not require graphical
+dependencies. The new UI must keep the existing boundaries:
 
 - UI emits `domain::Command` values and UI-only time-control state.
 - Rendering consumes `presentation::TacticalSnapshot` and display state.
@@ -52,21 +53,27 @@ This decision does not introduce the dependency by itself. The implementation
 task must record the dependency acquisition, version expectation, build changes,
 and smoke-test strategy before editing build tooling.
 
-## Owner Decisions Required Before Implementation
+The initial desktop dependency pins are:
 
-- Approve desktop SFML/ImGui as the next UI stack, or choose the terminal TUI
-  fallback if avoiding graphical dependencies is more important than map
-  interaction.
-- Choose the object-selection model: nearest-object click priority, selectable
-  object types, selection cycling when objects overlap, and whether missiles are
-  selectable or inspector-only.
-- Choose the primary order workflow: command palette, inspector buttons, map
-  right-click actions, or a staged select-friendly/select-contact confirmation.
-- Choose the initial interaction set for the first desktop pass: pan/zoom,
-  hover inspection, selection, pause/resume, step/run, scale override, and
-  engage-contact command emission.
-- Confirm expected development platforms and acceptable dependency/bootstrap
-  approach.
+- installed SFML 2.6.x, with local development currently probing as 2.6.1;
+- Dear ImGui v1.91.1;
+- ImGui-SFML v2.6.1.
+
+Do not upgrade to SFML 3 in this pass; ImGui-SFML 3.x requires SFML 3 and is a
+separate migration decision.
+
+## Initial Implementation Defaults
+
+- Dependency bootstrap is an optional gated target using installed SFML and
+  fetched or vendored Dear ImGui/ImGui-SFML.
+- Selection uses nearest visible friendly/contact click priority with repeated
+  click cycling for overlaps.
+- Missiles are hover/inspector objects only in the first pass, not selectable
+  command targets.
+- Engagement uses staged selection: select a visible friendly launcher, select a
+  visible hostile contact, then press an ImGui engagement button.
+- Initial controls are pan, zoom, hover, selection, pause/resume, step/run,
+  scale override, event log, command log, and engage-contact command emission.
 
 ## Consequences
 
