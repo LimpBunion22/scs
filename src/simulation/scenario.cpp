@@ -31,4 +31,37 @@ Scenario make_default_vertical_slice_scenario() {
     return scenario;
 }
 
+Scenario make_playable_engagement_demo_scenario() {
+    Scenario scenario;
+    scenario.name = "playable_engagement_demo";
+    scenario.seed = 0x5c5c0002;
+    scenario.fixed_step_seconds = 1.0;
+
+    scenario.entities.push_back(domain::EntityState{
+        domain::EntityId{1},
+        domain::EntityKind::CombatGroup,
+        domain::Allegiance::Friendly,
+        "Blue Engagement Group",
+        domain::Vec2{0.0, 0.0},
+        domain::Vec2{0.0, 0.0},
+        500.0,
+        1,
+        0,
+    });
+
+    scenario.entities.push_back(domain::EntityState{
+        domain::EntityId{2},
+        domain::EntityKind::CombatGroup,
+        domain::Allegiance::Hostile,
+        "Red Picket Group",
+        domain::Vec2{350.0, 0.0},
+        domain::Vec2{0.0, 0.0},
+        0.0,
+        0,
+        1,
+    });
+
+    return scenario;
+}
+
 } // namespace scs::simulation

@@ -1,7 +1,7 @@
-# Core Scenario
+# Scenarios
 
-The default vertical-slice scenario is the deterministic baseline for simulation, replay,
-sensor, contact, missile, and presentation work.
+Scenario factories are deterministic C++ setup code. There is no file loading or
+procedural generation in the current slice.
 
 ## Units
 
@@ -10,9 +10,9 @@ sensor, contact, missile, and presentation work.
 - Sensor range: kilometers.
 - Time: fixed simulation ticks, with the default scenario using one second per tick.
 
-## Baseline
+## Regression Baseline
 
-The scenario is named `vertical_slice_core` and uses seed `0x5c5c0001`.
+The regression baseline is named `vertical_slice_core` and uses seed `0x5c5c0001`.
 It contains exactly two combat groups:
 
 | ID | Name | Allegiance | Position km | Velocity km/s | Sensor range km |
@@ -20,8 +20,19 @@ It contains exactly two combat groups:
 | 1 | Blue Command Group | Friendly | `(-1000000, 0)` | `(18, 0)` | `750000` |
 | 2 | Red Command Group | Hostile | `(1000000, 150000)` | `(-16, -0.25)` | `650000` |
 
-## Intent
+This baseline preserves large-distance inertial movement without implicit contact
+or engagement pressure.
 
-The groups begin far apart and move on deterministic inertial tracks. The opening
-distance keeps sensors, uncertain contacts, and missile engagement as later mechanics
-rather than implicit behavior in the core scenario setup.
+## Playable Engagement Demo
+
+The playable console demo is named `playable_engagement_demo` and uses seed
+`0x5c5c0002`. It contains exactly two combat groups:
+
+| ID | Name | Allegiance | Position km | Velocity km/s | Sensor range km | Missiles | Defensive charges |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Blue Engagement Group | Friendly | `(0, 0)` | `(0, 0)` | `500` | `1` | `0` |
+| 2 | Red Picket Group | Hostile | `(350, 0)` | `(0, 0)` | `0` | `0` | `1` |
+
+Blue observes Red immediately as contact `C1`. In `scs_demo`, the player can run
+`engage contact 1` and then advance time to exercise missile launch, threat,
+defensive response, defeated-missile events, and time-scale recommendations.

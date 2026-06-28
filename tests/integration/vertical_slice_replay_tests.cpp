@@ -174,37 +174,8 @@ void require_same_events(const std::vector<scs::domain::Event>& lhs,
 }
 
 scs::simulation::ReplayInput make_vertical_slice_replay_input() {
-    scs::simulation::Scenario scenario;
-    scenario.name = "vertical_slice_replay_regression";
-    scenario.seed = 0x5c5c3001;
-    scenario.fixed_step_seconds = 1.0;
-
-    scenario.entities.push_back(scs::domain::EntityState{
-        scs::domain::EntityId{1},
-        scs::domain::EntityKind::CombatGroup,
-        scs::domain::Allegiance::Friendly,
-        "Blue Command Group",
-        scs::domain::Vec2{0.0, 0.0},
-        scs::domain::Vec2{0.0, 0.0},
-        500.0,
-        1,
-        0,
-    });
-
-    scenario.entities.push_back(scs::domain::EntityState{
-        scs::domain::EntityId{2},
-        scs::domain::EntityKind::CombatGroup,
-        scs::domain::Allegiance::Hostile,
-        "Red Command Group",
-        scs::domain::Vec2{350.0, 0.0},
-        scs::domain::Vec2{0.0, 0.0},
-        0.0,
-        0,
-        1,
-    });
-
     return scs::simulation::ReplayInput{
-        scenario,
+        scs::simulation::make_playable_engagement_demo_scenario(),
         {
             scs::domain::engage_contact_at(0, scs::domain::EntityId{1}, scs::domain::ContactId{1}),
         },
@@ -245,7 +216,8 @@ bool has_event(const std::vector<scs::domain::Event>& events,
 
 void replay_regression_reproduces_final_snapshot_and_events() {
     const auto input = make_vertical_slice_replay_input();
-    require(input.scenario.seed == 0x5c5c3001, "Replay regression seed changed.");
+    require(input.scenario.name == "playable_engagement_demo", "Replay regression scenario changed.");
+    require(input.scenario.seed == 0x5c5c0002, "Replay regression seed changed.");
     require(input.commands.size() == 1, "Replay regression command stream changed.");
     require(input.ticks_to_run == 4, "Replay regression tick count changed.");
 

@@ -16,5 +16,6 @@ struct Scenario {
 };
 
 Scenario make_default_vertical_slice_scenario();
+Scenario make_playable_engagement_demo_scenario();
 
 } // namespace scs::simulation

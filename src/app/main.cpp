@@ -25,12 +25,12 @@ void render_command_log(const scs::ui::TacticalUiState& state) {
 } // namespace
 
 int main() {
-    auto scenario = scs::simulation::make_default_vertical_slice_scenario();
+    auto scenario = scs::simulation::make_playable_engagement_demo_scenario();
     scs::simulation::Simulation simulation(scenario);
     scs::ui::TacticalUiState ui_state;
     ui_state.view = scs::rendering::TacticalMapView{
-        scs::domain::Vec2{0.0, 0.0},
-        100'000.0,
+        scs::domain::Vec2{175.0, 0.0},
+        25.0,
         61,
         21,
     };

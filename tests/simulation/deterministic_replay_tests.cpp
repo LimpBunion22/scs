@@ -47,6 +47,11 @@ const scs::domain::EntityState& scenario_entity_by_id(const scs::simulation::Sce
     throw std::runtime_error("Missing entity in scenario.");
 }
 
+const scs::domain::ContactSnapshot& only_contact(const scs::domain::WorldSnapshot& snapshot) {
+    require(snapshot.contacts.size() == 1, "Expected exactly one contact in snapshot.");
+    return snapshot.contacts.front();
+}
+
 bool same_snapshot(const scs::domain::WorldSnapshot& lhs, const scs::domain::WorldSnapshot& rhs) {
     if (lhs.tick != rhs.tick || !close(lhs.time_seconds, rhs.time_seconds)) {
         return false;
@@ -129,6 +134,71 @@ void vertical_slice_scenario_initial_state_is_stable() {
             "Red initial velocity changed.");
     require(close(red.sensor_range_km, 650'000.0),
             "Red sensor range changed.");
+}
+
+void playable_engagement_demo_initial_state_is_visible_and_armed() {
+    const auto scenario = scs::simulation::make_playable_engagement_demo_scenario();
+
+    require(scenario.name == "playable_engagement_demo",
+            "Playable engagement demo scenario name changed.");
+    require(scenario.seed == 0x5c5c0002,
+            "Playable engagement demo scenario seed changed.");
+    require(close(scenario.fixed_step_seconds, 1.0),
+            "Playable engagement demo fixed step changed.");
+    require(scenario.entities.size() == 2,
+            "Playable engagement demo should contain exactly two combat groups.");
+
+    const auto& blue = scenario_entity_by_id(scenario, scs::domain::EntityId{1});
+    require(blue.kind == scs::domain::EntityKind::CombatGroup,
+            "Demo Blue entity kind changed.");
+    require(blue.allegiance == scs::domain::Allegiance::Friendly,
+            "Demo Blue entity allegiance changed.");
+    require(blue.name == "Blue Engagement Group",
+            "Demo Blue entity name changed.");
+    require(same_vec(blue.position_km, scs::domain::Vec2{0.0, 0.0}),
+            "Demo Blue initial position changed.");
+    require(same_vec(blue.velocity_km_per_second, scs::domain::Vec2{0.0, 0.0}),
+            "Demo Blue initial velocity changed.");
+    require(close(blue.sensor_range_km, 500.0),
+            "Demo Blue sensor range changed.");
+    require(blue.missile_ammunition == 1,
+            "Demo Blue missile ammunition changed.");
+    require(blue.defensive_response_charges == 0,
+            "Demo Blue defensive charges changed.");
+
+    const auto& red = scenario_entity_by_id(scenario, scs::domain::EntityId{2});
+    require(red.kind == scs::domain::EntityKind::CombatGroup,
+            "Demo Red entity kind changed.");
+    require(red.allegiance == scs::domain::Allegiance::Hostile,
+            "Demo Red entity allegiance changed.");
+    require(red.name == "Red Picket Group",
+            "Demo Red entity name changed.");
+    require(same_vec(red.position_km, scs::domain::Vec2{350.0, 0.0}),
+            "Demo Red initial position changed.");
+    require(same_vec(red.velocity_km_per_second, scs::domain::Vec2{0.0, 0.0}),
+            "Demo Red initial velocity changed.");
+    require(close(red.sensor_range_km, 0.0),
+            "Demo Red sensor range changed.");
+    require(red.missile_ammunition == 0,
+            "Demo Red missile ammunition changed.");
+    require(red.defensive_response_charges == 1,
+            "Demo Red defensive charges changed.");
+
+    scs::simulation::Simulation simulation(scenario);
+    const auto snapshot = simulation.snapshot();
+    const auto& contact = only_contact(snapshot);
+    require(contact.id == scs::domain::ContactId{1}, "Demo contact id changed.");
+    require(contact.observer == scs::domain::EntityId{1}, "Demo contact observer changed.");
+    require(same_vec(contact.estimated_position_km, scs::domain::Vec2{350.0, 0.0}),
+            "Demo contact estimated position changed.");
+    require(same_vec(contact.estimated_velocity_km_per_second, scs::domain::Vec2{0.0, 0.0}),
+            "Demo contact estimated velocity changed.");
+    require(contact.last_observed_tick == 0, "Demo contact observation tick changed.");
+    require(close(contact.confidence, 1.0), "Demo contact confidence changed.");
+    require(contact.classification == scs::domain::ContactClassification::HostileCombatGroup,
+            "Demo contact classification changed.");
+    require(close(contact.uncertainty_radius_km, 0.0),
+            "Demo contact uncertainty changed.");
 }
 
 void vertical_slice_scenario_fixed_tick_positions_are_stable() {
@@ -220,6 +290,8 @@ void invalid_commands_are_rejected() {
 int main() {
     const std::vector<std::pair<std::string, void (*)()>> tests{
         {"vertical_slice_scenario_initial_state_is_stable", vertical_slice_scenario_initial_state_is_stable},
+        {"playable_engagement_demo_initial_state_is_visible_and_armed",
+         playable_engagement_demo_initial_state_is_visible_and_armed},
         {"vertical_slice_scenario_fixed_tick_positions_are_stable", vertical_slice_scenario_fixed_tick_positions_are_stable},
         {"fixed_step_is_independent_of_batching", fixed_step_is_independent_of_batching},
         {"replay_reproduces_snapshot_and_events", replay_reproduces_snapshot_and_events},
