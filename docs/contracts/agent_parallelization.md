@@ -30,6 +30,21 @@ After the missile loop exists:
 
 - one agent on `REPLAY-001`.
 
+## Next-round boundaries
+
+For the playable tactical-map round:
+
+- run `PRESENT-002` before `DISPLAY-001`, because display metrics depend on
+  player-facing contacts and missile tracks;
+- `UI-002` can run in parallel with `DISPLAY-001` if it does not change
+  presentation or rendering contracts;
+- `SCENARIO-002` can run in parallel with `DISPLAY-001` after `PRESENT-002`
+  lands, but only one task should edit `src/app/main.cpp`;
+- `UIEVAL-001` should wait for completion reports from the implementation
+  tasks and should not introduce dependencies;
+- graphical interaction and object-selection model implementation must wait
+  until `UIEVAL-001` selects the next UI stack.
+
 ## Integration rule
 
 If a task needs to change a contract file owned by another active task, stop and report the pending decision instead of guessing.

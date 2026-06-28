@@ -383,3 +383,307 @@ Out of scope:
 - Save-file format.
 - Binary replay serialization.
 - Cross-platform floating-point guarantees.
+
+---
+
+## Next round — playable tactical map
+
+The first round produced a deterministic core and a minimal console map. The
+next round should make the prototype readable and playable before choosing a
+new UI stack.
+
+Recommended sequence:
+
+1. `PRESENT-002` — player tactical view and missile tracks.
+2. `DISPLAY-001` — tactical metrics and map references.
+3. `UI-002` — engagement command emission.
+4. `SCENARIO-002` — playable engagement demo scenario.
+5. `UIEVAL-001` — UI stack decision after the enriched console pass.
+
+Owner decisions recorded:
+
+- `scs_demo` should start in the new playable engagement scenario once
+  `SCENARIO-002` lands.
+- The new UI selection process can wait one more round.
+- Graphical interaction work should start only after the next UI stack is
+  selected.
+
+Owner decisions still pending:
+
+- whether the next non-console UI should be terminal TUI, desktop SFML/ImGui,
+  or web;
+- after UI stack selection, what object-selection model the graphical UI should
+  use.
+
+## PRESENT-002 — Player tactical view and missile tracks
+
+Task:
+PRESENT-002 — Player tactical view and missile tracks
+
+Objective:
+Make tactical presentation explicitly player-facing by filtering contacts to
+friendly-owned tracks and exposing missile tracks without leaking hidden hostile
+entity state.
+
+Relevant files:
+- `src/domain/snapshot.h`
+- `src/presentation/tactical_snapshot.*`
+- `tests/presentation/tactical_snapshot_tests.cpp`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+
+Allowed files:
+- `src/presentation/tactical_snapshot.*`
+- `tests/presentation/*`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+- `CMakeLists.txt`, only if a new presentation test target is needed
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/simulation_core.md`
+- `docs/contracts/contact_snapshot.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+
+Invariants:
+- Presentation must not mutate simulation.
+- Presentation must not depend on UI or rendering.
+- Tactical snapshots must remain read-only copies or pure derived data.
+- Hostile entity truth must not be exposed through player-facing presentation.
+- No simulation behavior changes.
+
+Acceptance criteria:
+- `hostile_contacts` contains only contacts whose observer is a visible friendly entity.
+- Tactical presentation exposes missile tracks needed by the display contract.
+- Friendly-launched missiles can show launcher ID, target contact ID when known, position, velocity, and status.
+- Presentation does not expose hidden hostile entity snapshots to satisfy missile display.
+- Tests cover contact filtering, missile track exposure, and no mutation of simulation state.
+- `docs/contracts/tactical_snapshot.md` is updated to describe the new fields and visibility rule.
+
+Deliverables:
+- Implementation.
+- Tests.
+- Updated tactical snapshot contract.
+- Completion report.
+
+Out of scope:
+- New missile mechanics.
+- Rendering changes.
+- UI command changes.
+- Damage model.
+
+## DISPLAY-001 — Tactical metrics and map references
+
+Task:
+DISPLAY-001 — Tactical metrics and map references
+
+Objective:
+Upgrade the tactical map display from static markers to an information display
+with reference frame, scale, selected-object metrics, contact quality, and
+missile status.
+
+Relevant files:
+- `src/rendering/tactical_map_renderer.*`
+- `src/presentation/tactical_snapshot.*`
+- `src/gameplay/time_scale_policy.*`
+- `tests/integration/ui_command_map_tests.cpp`
+- `docs/contracts/tactical_display_metrics.md`
+
+Allowed files:
+- `src/rendering/*`
+- `tests/integration/*`
+- `docs/contracts/tactical_display_metrics.md`
+- `CMakeLists.txt`, only if a new rendering test target is needed
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/tactical_snapshot.md`
+- `docs/contracts/tactical_display_metrics.md`
+- `docs/contracts/time_scale_policy.md`
+
+Invariants:
+- Rendering consumes presentation snapshots and UI display state only.
+- Rendering must not query simulation internals.
+- Rendering must not emit commands or advance simulation.
+- Metrics must be deterministic pure derivations from display inputs.
+- Missing reference data must be shown as unknown or omitted, not guessed.
+
+Acceptance criteria:
+- Map header shows tick, elapsed time, map center, kilometers per cell, visible span, and orientation.
+- Friendly selection shows position, velocity, speed, ammunition, and defensive charges.
+- Contact selection shows estimated position, estimated velocity, confidence, uncertainty, age, range, bearing, closing speed, and closest approach relative to its observer when available.
+- Missile tracks are listed when present, with ID, launcher, target contact when available, position, velocity, speed, and status.
+- Event log still shows severity, tick, type, subject, and message.
+- Tests assert representative metric labels and values in rendered output.
+
+Deliverables:
+- Implementation.
+- Tests.
+- Completion report.
+
+Out of scope:
+- Graphical UI dependency.
+- Mouse input.
+- New presentation fields except those delivered by `PRESENT-002`.
+- New simulation mechanics.
+
+## UI-002 — Engagement command emission
+
+Task:
+UI-002 — Engagement command emission
+
+Objective:
+Allow the player to issue the existing contact engagement command through the
+tactical UI without direct ship control.
+
+Relevant files:
+- `src/ui/tactical_command_ui.*`
+- `src/domain/command.h`
+- `tests/integration/ui_command_map_tests.cpp`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/engagement_commands.md`
+
+Allowed files:
+- `src/ui/*`
+- `tests/integration/*`
+- `docs/contracts/ui_commands.md`
+- `CMakeLists.txt`, only if a new UI test target is needed
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/ui_commands.md`
+- `docs/contracts/engagement_commands.md`
+- `docs/contracts/tactical_snapshot.md`
+
+Invariants:
+- UI emits command data only.
+- UI does not mutate simulation entities or missiles.
+- Simulation remains responsible for validating launcher, contact ownership, target state, and ammunition.
+- No new simulation command type unless explicitly approved.
+
+Acceptance criteria:
+- `engage contact <id>` emits `EngageContactCommand` for the currently selected friendly entity.
+- The command is rejected by UI feedback if no visible friendly entity is selected.
+- The command is rejected by UI feedback if the contact ID is not visible in the tactical snapshot.
+- Help text and `docs/contracts/ui_commands.md` include the new command.
+- Integration tests cover successful command emission and both UI rejection paths.
+
+Deliverables:
+- Implementation.
+- Tests.
+- Updated UI command contract.
+- Completion report.
+
+Out of scope:
+- Salvos.
+- Engagement doctrine.
+- Targeting hidden entity IDs from UI.
+- Simulation launch behavior changes.
+
+## SCENARIO-002 — Playable engagement demo scenario
+
+Task:
+SCENARIO-002 — Playable engagement demo scenario
+
+Objective:
+Add a dedicated demo scenario that starts with enough information and ammunition
+to exercise contact inspection, engagement, missile approach, defensive response,
+events, and time-scale recommendations through `scs_demo`.
+
+Relevant files:
+- `src/simulation/scenario.*`
+- `src/app/main.cpp`
+- `tests/simulation/deterministic_replay_tests.cpp`
+- `tests/integration/vertical_slice_replay_tests.cpp`
+- `docs/mechanics/scenario.md`
+
+Allowed files:
+- `src/simulation/scenario.*`
+- `src/app/main.cpp`
+- `tests/simulation/*`
+- `tests/integration/*`
+- `docs/mechanics/scenario.md`
+- `CMakeLists.txt`, only if a new scenario test target is needed
+
+Required context:
+- `AGENTS.md`
+- `docs/contracts/simulation_core.md`
+- `docs/contracts/contact_snapshot.md`
+- `docs/contracts/engagement_commands.md`
+- `docs/mechanics/scenario.md`
+
+Invariants:
+- Preserve the existing regression scenario unless the owner explicitly approves replacing it.
+- The demo scenario must be deterministic.
+- No scenario file loading or procedural generation.
+- No new gameplay systems.
+
+Acceptance criteria:
+- A new scenario factory creates a playable two-group engagement setup.
+- The demo scenario includes a visible friendly group, a visible hostile contact, at least one friendly missile, and at least one hostile defensive response charge.
+- `scs_demo` starts in the playable scenario by default.
+- Tests verify initial contact visibility, ammunition/defense values, and replay determinism.
+- Mechanics docs distinguish the regression scenario from the playable demo scenario.
+
+Deliverables:
+- Implementation.
+- Tests.
+- Updated scenario mechanics doc.
+- Completion report.
+
+Out of scope:
+- Scenario selection menu.
+- JSON scenario loading.
+- Additional factions or groups.
+- Economy, campaign, or procedural content.
+
+## UIEVAL-001 — UI stack decision after enriched console
+
+Task:
+UIEVAL-001 — UI stack decision after enriched console
+
+Objective:
+Evaluate the next UI stack only after the console map includes tactical metrics,
+missile display, and engagement command flow. Record the follow-up selection
+model questions for the chosen UI direction, but do not implement graphical
+interaction in this task.
+
+Relevant files:
+- `docs/decisions/0002_ui_stack.md`
+- `docs/decisions/0003_ui_evolution_options.md`
+- `docs/contracts/tactical_display_metrics.md`
+
+Allowed files:
+- `docs/decisions/*`
+- `docs/contracts/tactical_display_metrics.md`
+
+Required context:
+- `AGENTS.md`
+- `docs/decisions/0002_ui_stack.md`
+- `docs/decisions/0003_ui_evolution_options.md`
+- completion reports for `PRESENT-002`, `DISPLAY-001`, `UI-002`, and `SCENARIO-002`
+
+Invariants:
+- This is a decision task, not an implementation task.
+- Do not introduce a dependency.
+- Do not change build tooling.
+- Do not remove the console UI until a replacement is implemented and tested.
+
+Acceptance criteria:
+- Compare improved console, terminal TUI, desktop SFML/ImGui, and web UI against the decision criteria in `0003_ui_evolution_options.md`.
+- Recommend one next UI stack or recommend staying console for one more pass.
+- List owner decisions required before UI implementation, including the
+  object-selection model.
+- Update `0003_ui_evolution_options.md` status and decision text.
+
+Deliverables:
+- Updated ADR.
+- Short completion report.
+
+Out of scope:
+- UI implementation.
+- Dependency installation.
+- Renderer rewrite.
+- Packaging work.
+- Graphical interaction or selection-model implementation.
