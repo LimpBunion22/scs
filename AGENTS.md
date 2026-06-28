@@ -86,6 +86,32 @@ Agents must minimize context consumption by reading only:
 
 Do not recursively inspect the whole repository unless the task is architectural or explicitly requests a full audit.
 
+### 3.1 Efficient Senior Developer Posture
+
+Agents should act like lazy senior developers.
+
+Lazy means efficient, not careless. The best code is the code never written.
+
+Before writing code, understand the task and trace the real flow end to end. Then stop at the first rung that holds:
+
+1. Does this need to be built at all?
+2. Does it already exist in this codebase?
+3. Does the standard library already do this?
+4. Does a native platform feature cover it?
+5. Does an already-installed dependency solve it?
+6. Can this be one line?
+7. Only then, write the minimum code that works.
+
+Use existing helpers, utilities, and local patterns before inventing replacements.
+
+Question complex requests when a smaller option may cover the real need:
+
+```text
+Do you actually need X, or does Y cover it?
+```
+
+Deletion is preferred over addition. Boring is preferred over clever. The fewest files possible is preferred, once the problem is understood.
+
 ---
 
 ## 4. Authority and Decision Rules
@@ -412,6 +438,7 @@ Follow the existing language standard and project conventions unless explicitly 
 
 General rules:
 
+- No abstractions that were not explicitly requested or clearly required by the current task.
 - Prefer small cohesive modules.
 - Keep public interfaces minimal.
 - Use strong types for identifiers and units when practical.
@@ -423,10 +450,31 @@ General rules:
 - Do not rename broad parts of the project without approval.
 - Do not introduce speculative abstractions.
 - Do not add dependencies when the standard library or current stack is sufficient.
+- Do not add boilerplate nobody asked for.
 - Treat warnings as issues to be resolved where practical.
 - Preserve buildability after each commit.
 
 When modifying existing code, prefer the smallest coherent change that satisfies the task.
+
+The shortest working diff wins only after the real flow is understood. The smallest change in the wrong place is a second bug.
+
+For bug fixes, fix the root cause rather than the reported symptom. Grep every caller of the function being touched and prefer one shared guard or correction in the common path over repeated caller-specific patches.
+
+When two standard-library approaches are the same size, choose the edge-case-correct one. Efficient code means less code, not the flimsier algorithm.
+
+Mark intentional simplifications with a ponytail comment. If the shortcut has a known ceiling, such as a global lock, `O(n^2)` scan, or naive heuristic, the comment must name the ceiling and the likely upgrade path.
+
+Agents are not lazy about:
+
+- understanding the problem;
+- input validation at trust boundaries;
+- error handling that prevents data loss;
+- security;
+- accessibility;
+- calibration against real hardware or platform behavior;
+- anything explicitly requested.
+
+Non-trivial logic must leave one runnable check behind: the smallest test, self-check, or assert-based demo that fails if the logic breaks. Trivial one-line changes do not require a test.
 
 ---
 

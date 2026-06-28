@@ -37,6 +37,16 @@ const scs::domain::EntitySnapshot& entity_by_id(const scs::domain::WorldSnapshot
     throw std::runtime_error("Missing entity in snapshot.");
 }
 
+const scs::domain::EntityState& scenario_entity_by_id(const scs::simulation::Scenario& scenario,
+                                                      scs::domain::EntityId id) {
+    for (const auto& entity : scenario.entities) {
+        if (entity.id == id) {
+            return entity;
+        }
+    }
+    throw std::runtime_error("Missing entity in scenario.");
+}
+
 bool same_snapshot(const scs::domain::WorldSnapshot& lhs, const scs::domain::WorldSnapshot& rhs) {
     if (lhs.tick != rhs.tick || !close(lhs.time_seconds, rhs.time_seconds)) {
         return false;
@@ -78,6 +88,67 @@ bool same_events(const std::vector<scs::domain::Event>& lhs,
     }
 
     return true;
+}
+
+void vertical_slice_scenario_initial_state_is_stable() {
+    const auto scenario = scs::simulation::make_default_vertical_slice_scenario();
+
+    require(scenario.name == "vertical_slice_core",
+            "Default vertical-slice scenario name changed.");
+    require(scenario.seed == 0x5c5c0001,
+            "Default vertical-slice scenario seed changed.");
+    require(close(scenario.fixed_step_seconds, 1.0),
+            "Default vertical-slice scenario fixed step changed.");
+    require(scenario.entities.size() == 2,
+            "Default vertical-slice scenario should contain exactly two combat groups.");
+
+    const auto& blue = scenario_entity_by_id(scenario, scs::domain::EntityId{1});
+    require(blue.kind == scs::domain::EntityKind::CombatGroup,
+            "Blue entity kind changed.");
+    require(blue.allegiance == scs::domain::Allegiance::Friendly,
+            "Blue entity allegiance changed.");
+    require(blue.name == "Blue Command Group",
+            "Blue entity name changed.");
+    require(same_vec(blue.position_km, scs::domain::Vec2{-1'000'000.0, 0.0}),
+            "Blue initial position changed.");
+    require(same_vec(blue.velocity_km_per_second, scs::domain::Vec2{18.0, 0.0}),
+            "Blue initial velocity changed.");
+    require(close(blue.sensor_range_km, 750'000.0),
+            "Blue sensor range changed.");
+
+    const auto& red = scenario_entity_by_id(scenario, scs::domain::EntityId{2});
+    require(red.kind == scs::domain::EntityKind::CombatGroup,
+            "Red entity kind changed.");
+    require(red.allegiance == scs::domain::Allegiance::Hostile,
+            "Red entity allegiance changed.");
+    require(red.name == "Red Command Group",
+            "Red entity name changed.");
+    require(same_vec(red.position_km, scs::domain::Vec2{1'000'000.0, 150'000.0}),
+            "Red initial position changed.");
+    require(same_vec(red.velocity_km_per_second, scs::domain::Vec2{-16.0, -0.25}),
+            "Red initial velocity changed.");
+    require(close(red.sensor_range_km, 650'000.0),
+            "Red sensor range changed.");
+}
+
+void vertical_slice_scenario_fixed_tick_positions_are_stable() {
+    scs::simulation::Simulation simulation(scs::simulation::make_default_vertical_slice_scenario());
+
+    simulation.advance(120);
+
+    const auto snapshot = simulation.snapshot();
+    require(snapshot.tick == 120,
+            "Snapshot tick after fixed advance changed.");
+    require(close(snapshot.time_seconds, 120.0),
+            "Snapshot time after fixed advance changed.");
+
+    const auto& blue = entity_by_id(snapshot, scs::domain::EntityId{1});
+    require(same_vec(blue.position_km, scs::domain::Vec2{-997'840.0, 0.0}),
+            "Blue fixed-tick position after 120 seconds changed.");
+
+    const auto& red = entity_by_id(snapshot, scs::domain::EntityId{2});
+    require(same_vec(red.position_km, scs::domain::Vec2{998'080.0, 149'970.0}),
+            "Red fixed-tick position after 120 seconds changed.");
 }
 
 void fixed_step_is_independent_of_batching() {
@@ -148,6 +219,8 @@ void invalid_commands_are_rejected() {
 
 int main() {
     const std::vector<std::pair<std::string, void (*)()>> tests{
+        {"vertical_slice_scenario_initial_state_is_stable", vertical_slice_scenario_initial_state_is_stable},
+        {"vertical_slice_scenario_fixed_tick_positions_are_stable", vertical_slice_scenario_fixed_tick_positions_are_stable},
         {"fixed_step_is_independent_of_batching", fixed_step_is_independent_of_batching},
         {"replay_reproduces_snapshot_and_events", replay_reproduces_snapshot_and_events},
         {"same_tick_commands_keep_submission_order", same_tick_commands_keep_submission_order},
